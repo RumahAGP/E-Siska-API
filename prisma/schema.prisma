@@ -1,0 +1,222 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  OPERATOR
+  TEACHER
+  STUDENT
+}
+
+enum AttendanceStatus {
+  HADIR
+  SAKIT
+  IZIN
+  ALFA
+}
+
+enum BillStatus {
+  LUNAS
+  BELUM_LUNAS
+}
+
+model User {
+  id              String    @id @default(cuid())
+  username        String    @unique
+  email           String?   @unique
+  password        String
+  role            Role
+  is_first_login  Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  studentProfile  Student?
+  teacherProfile  Teacher?
+}
+
+model Student {
+  id          String  @id @default(cuid())
+  userId      String  @unique
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name        String
+  nis         String  @unique
+  nisn        String? @unique
+  address     String?
+  phone       String?
+
+  classId     String?
+  class       Class?     @relation(fields: [classId], references: [id], onUpdate: SetNull, onDelete: SetNull)
+
+  attendances Attendance[]
+  grades      Grade[]
+  bills       Bill[]
+  reports     Report[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Teacher {
+  id        String  @id @default(cuid())
+  userId    String  @unique
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name      String
+  nip       String  @unique
+  address   String?
+  phone     String?
+
+  homeroomClass Class? @relation("HomeroomTeacher")
+
+  schedules Schedule[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Class {
+  id      String    @id @default(cuid())
+  name    String
+  year    Int
+
+  homeroomTeacherId String?   @unique
+  homeroomTeacher   Teacher?  @relation("HomeroomTeacher", fields: [homeroomTeacherId], references: [id])
+
+  students  Student[]
+  schedules Schedule[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Subject {
+  id          String      @id @default(cuid())
+  name        String      @unique
+  description String?
+
+  schedules   Schedule[]
+  grades      Grade[]
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Schedule {
+  id        String    @id @default(cuid())
+  dayOfWeek Int
+  startTime String
+  endTime   String
+
+  classId   String
+  class     Class     @relation(fields: [classId], references: [id])
+
+  subjectId String
+  subject   Subject   @relation(fields: [subjectId], references: [id])
+
+  teacherId String
+  teacher   Teacher   @relation(fields: [teacherId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Attendance {
+  id        String            @id @default(cuid())
+  date      DateTime          @db.Date
+  status    AttendanceStatus
+  notes     String?
+
+  studentId String
+  student   Student           @relation(fields: [studentId], references: [id])
+
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@unique([studentId, date])
+}
+
+model Grade {
+  id        String    @id @default(cuid())
+  component String
+  score     Float
+
+  studentId String
+  student   Student   @relation(fields: [studentId], references: [id])
+
+  subjectId String
+  subject   Subject   @relation(fields: [subjectId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Announcement {
+  id        String    @id @default(cuid())
+  title     String
+  content   String
+  author    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model AcademicCalendar {
+    id          String      @id @default(cuid())
+    title       String
+    description String?
+    startDate   DateTime    @db.Date
+    endDate     DateTime?   @db.Date
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
+}
+
+model PaymentType {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  
+  bills       Bill[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Bill {
+  id          String      @id @default(cuid())
+  amount      Float
+  dueDate     DateTime    @db.Date
+  status      BillStatus  @default(BELUM_LUNAS)
+  
+  studentId   String
+  student     Student     @relation(fields: [studentId], references: [id])
+
+  paymentTypeId String
+  paymentType PaymentType @relation(fields: [paymentTypeId], references: [id])
+
+  paidAt      DateTime?
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Report {
+  id              String   @id @default(cuid())
+  semester        Int
+  academicYear    String
+  
+  finalGrades     Json
+  pdfUrl          String?
+  
+  studentId       String
+  student         Student  @relation(fields: [studentId], references: [id])
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
