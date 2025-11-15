@@ -10,6 +10,7 @@ import TingkatanRouter from "./routers/tingkatan.router";
 import KelasRouter from "./routers/kelas.router";
 import RuanganRouter from "./routers/ruangan.router";
 import MapelRouter from "./routers/mapel.router";
+import SkemaRouter from "./routers/skema.router";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -64,6 +65,10 @@ private route(): void {
     // 6. Daftarkan MapelRouter
     const mapelRouter: MapelRouter = new MapelRouter();
     this.app.use("/mapel", mapelRouter.getRouter());
+
+    // 7. Daftarkan SkemaRouter
+    const skemaRouter: SkemaRouter = new SkemaRouter();
+    this.app.use("/skema", skemaRouter.getRouter());
   }
 
   private errorHandler(): void {
