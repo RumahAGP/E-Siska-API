@@ -14,6 +14,7 @@ import SkemaRouter from "./routers/skema.router";
 import TahunAjaranRouter from "./routers/tahunAjaran.router";
 import PenempatanRouter from "./routers/penempatan.router";
 import PenugasanRouter from "./routers/penugasan.router";
+import JadwalRouter from "./routers/jadwal.router";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -84,6 +85,10 @@ private route(): void {
     // 10. Daftarkan PenugasanRouter
     const penugasanRouter: PenugasanRouter = new PenugasanRouter();
     this.app.use("/penugasan-guru", penugasanRouter.getRouter());
+
+    // 11. Daftarkan JadwalRouter
+    const jadwalRouter: JadwalRouter = new JadwalRouter();
+    this.app.use("/jadwal", jadwalRouter.getRouter());
   }
 
   private errorHandler(): void {
