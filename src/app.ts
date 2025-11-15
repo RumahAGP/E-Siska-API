@@ -5,6 +5,7 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import AuthRouter from "./routers/auth.router";
 import logger from "./utils/logger";
 import SiswaRouter from "./routers/siswa.router";
+import GuruRouter from "./routers/guru.router";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -37,9 +38,13 @@ private route(): void {
     const authRouter: AuthRouter = new AuthRouter();
     this.app.use("/auth", authRouter.getRouter());
 
-    // 2. Daftarkan SiswaRouter
+    // Mendaftarkan SiswaRouter
     const siswaRouter: SiswaRouter = new SiswaRouter();
     this.app.use("/siswa", siswaRouter.getRouter());
+
+    // 2. Daftarkan GuruRouter
+    const guruRouter: GuruRouter = new GuruRouter();
+    this.app.use("/guru", guruRouter.getRouter());
   }
 
   private errorHandler(): void {
