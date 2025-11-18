@@ -1,14 +1,15 @@
 import App from "../src/app";
 import request from "supertest";
 import { prisma } from "../src/config/prisma";
-import { Guru, MataPelajaran, NilaiKomponen, Siswa } from "../src/generated/prisma";
+import { Guru, NilaiKomponen, Siswa } from "../src/generated/prisma";
 
 const appTest = new App().app;
 
 describe("POST /nilai - Input Nilai Siswa", () => {
   const ADMIN_ID_DUMMY = "dummy-admin-id-nilai";
   let guruTest: Guru;
-  let mapelTest: MataPelajaran;
+  // [PERBAIKAN 1]: Ubah tipe ke 'any' agar bisa mengakses properti hasil include (SkemaPenilaian)
+  let mapelTest: any; 
   let komponenInput: NilaiKomponen;
   let komponenReadOnly: NilaiKomponen;
   let siswaTest: Siswa;
@@ -46,9 +47,11 @@ describe("POST /nilai - Input Nilai Siswa", () => {
       include: { SkemaPenilaian: { include: { Komponen: true } } }
     });
 
-    const komponen = mapelTest.SkemaPenilaian![0].Komponen;
-    komponenInput = komponen.find(k => k.tipe === "INPUT")!;
-    komponenReadOnly = komponen.find(k => k.tipe === "READ_ONLY")!;
+    // [PERBAIKAN 2]: Tambahkan optional chaining (?.) dan tipe eksplisit (k: any)
+    const komponen = mapelTest.SkemaPenilaian?.[0]?.Komponen;
+    
+    komponenInput = komponen?.find((k: any) => k.tipe === "INPUT");
+    komponenReadOnly = komponen?.find((k: any) => k.tipe === "READ_ONLY");
 
     // 4. Setup Kelas & Penugasan
     const tingkatan = await prisma.tingkatanKelas.create({ data: { namaTingkat: "Tingkat Nilai", adminId: ADMIN_ID_DUMMY } });
