@@ -1,15 +1,18 @@
 import { Router } from 'express';
 import AbsensiController from '../controllers/absensi.controller';
+import AbsensiDetailController from '../controllers/absensiDetail.controller'; // 1. Impor controller baru
 import { createSesiValidation } from '../middleware/validation/absensi.validation';
-// import { authMiddleware } from '../middleware/auth.middleware';
+import { inputAbsensiValidation } from '../middleware/validation/absensiDetail.validation'; // 2. Impor validator baru
 
 class AbsensiRouter {
   private route: Router;
   private absensiController: AbsensiController;
+  private absensiDetailController: AbsensiDetailController; // 3. Property baru
 
   constructor() {
     this.route = Router();
     this.absensiController = new AbsensiController();
+    this.absensiDetailController = new AbsensiDetailController(); // 4. Init controller baru
     this.initializeRoute();
   }
 
@@ -17,12 +20,16 @@ class AbsensiRouter {
     // 1. Buat Sesi Pertemuan
     this.route.post(
       '/sesi',
-      // authMiddleware, // (Nanti)
       createSesiValidation,
       this.absensiController.createSesi
     );
 
-    // (Nanti kita tambahkan route untuk input detail kehadiran di sini)
+    // 2. Input Detail Absensi (BARU)
+    this.route.post(
+      '/sesi/:sesiId/detail',
+      inputAbsensiValidation,
+      this.absensiDetailController.inputAbsensi
+    );
   }
 
   public getRouter(): Router {
