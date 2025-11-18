@@ -21,7 +21,7 @@ describe("PUT /rapor/siswa/:siswaId - Manajemen Data Rapor", () => {
     waliKelas = await prisma.guru.create({ data: { nama: "Wali Kelas 10A", nip: "G-WALI", user: { create: { username: "wali.kelas", passwordHash: "hash", role: "GURU" } } } });
     guruBiasa = await prisma.guru.create({ data: { nama: "Guru Biasa", nip: "G-BIASA", user: { create: { username: "guru.biasa", passwordHash: "hash", role: "GURU" } } } });
 
-    // 3. Setup Tingkatan, Kelas, TA
+    // 3. Setup Tingkatan, Kelas (Assign Wali Kelas), TA
     const tingkatan = await prisma.tingkatanKelas.create({ data: { namaTingkat: "Tingkat Rapor", adminId: ADMIN_ID_DUMMY } });
     kelasTest = await prisma.kelas.create({ 
         data: { 

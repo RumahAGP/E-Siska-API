@@ -23,7 +23,7 @@ export const upsertRaporRepo = async (data: InputRaporData) => {
     update: {
       catatanWaliKelas: data.catatanWaliKelas,
       dataKokurikuler: data.dataKokurikuler,
-      // Pastikan data relasi tetap sinkron jika update
+      // Pastikan relasi tetap konsisten
       kelasId: data.kelasId,
       waliKelasId: data.waliKelasId,
     },
@@ -35,7 +35,6 @@ export const upsertRaporRepo = async (data: InputRaporData) => {
       catatanWaliKelas: data.catatanWaliKelas,
       dataKokurikuler: data.dataKokurikuler,
       isFinalisasi: false,
-      finalGrades: {}, // JSON kosong awal
     },
   });
 };

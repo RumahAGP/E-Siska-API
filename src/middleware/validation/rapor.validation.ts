@@ -15,7 +15,7 @@ const validationHandler = (req: Request, res: Response, next: NextFunction) => {
 
 export const inputRaporValidation = [
   param("siswaId").isUUID().withMessage("Format siswaId tidak valid"),
-  body("guruId").isUUID().withMessage("Format guruId tidak valid"), // Nanti diambil dari token
+  body("guruId").isUUID().withMessage("Format guruId tidak valid"),
   body("tahunAjaranId").isUUID().withMessage("Format tahunAjaranId tidak valid"),
   body("catatan").optional().isString(),
   body("kokurikuler").optional().isString(),

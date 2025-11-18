@@ -34,10 +34,14 @@ export const inputDataRaporService = async (input: InputRaporService) => {
     throw new AppError("Anda bukan Wali Kelas dari siswa ini.", 403);
   }
 
-  // 3. Cek Status Finalisasi (Opsional, tapi disarankan)
-  // Jika rapor sudah difinalisasi, seharusnya tidak bisa diedit lagi kecuali didefinalisasi.
+  // 3. Cek Status Finalisasi (Data tidak boleh diubah jika sudah final)
   const existingRapor = await prisma.rapor.findUnique({
-      where: { siswaId_tahunAjaranId: { siswaId: input.siswaId, tahunAjaranId: input.tahunAjaranId } }
+      where: { 
+          siswaId_tahunAjaranId: { 
+              siswaId: input.siswaId, 
+              tahunAjaranId: input.tahunAjaranId 
+          } 
+      }
   });
   
   if (existingRapor?.isFinalisasi) {
