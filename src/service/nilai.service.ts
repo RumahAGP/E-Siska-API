@@ -3,6 +3,7 @@ import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
 import { NilaiKomponenType } from "../generated/prisma";
+import { calculateGradesService } from "./kalkulasi.service";
 
 interface InputNilaiServiceInput {
   guruId: string;
@@ -49,7 +50,7 @@ export const inputNilaiService = async (input: InputNilaiServiceInput) => {
     );
   }
 
-  // 3. Simpan ke Database
+  // 3. Simpan ke Database (INPUT values)
   const result = await upsertNilaiRepo(
     input.guruId,
     input.mapelId,
@@ -57,8 +58,13 @@ export const inputNilaiService = async (input: InputNilaiServiceInput) => {
     input.data
   );
 
-  // TODO (Next Step): Panggil fungsi "Hitung Ulang Formula" (Kalkulasi Nilai Akhir otomatis)
-  // await calculateFormulaService(input.mapelId, input.data.map(d => d.siswaId));
+  // 4. [BARU] Picu Kalkulasi Formula Otomatis
+  // Kita ambil daftar siswaId yang nilainya baru saja berubah
+  const affectedSiswaIds = input.data.map((d) => d.siswaId);
+  
+  // Jalankan kalkulasi (bisa dibuat async tanpa await jika ingin response cepat, 
+  // tapi pakai await lebih aman untuk konsistensi data saat tes)
+  await calculateGradesService(input.mapelId, affectedSiswaIds);
 
   return result;
 };
