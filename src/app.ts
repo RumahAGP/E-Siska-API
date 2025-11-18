@@ -21,6 +21,7 @@ import AbsensiRouter from "./routers/absensi.router";
 import NilaiRouter from "./routers/nilai.router";
 import EkskulRouter from "./routers/ekskul.router";
 import CapaianRouter from "./routers/capaian.router";
+import RaporRouter from "./routers/rapor.router";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -120,6 +121,10 @@ private route(): void {
     // 17. Daftarkan CapaianRouter
     const capaianRouter: CapaianRouter = new CapaianRouter();
     this.app.use("/capaian", capaianRouter.getRouter());
+
+    // 18. Daftarkan RaporRouter
+    const raporRouter: RaporRouter = new RaporRouter();
+    this.app.use("/rapor", raporRouter.getRouter());
   }
 
   private errorHandler(): void {
