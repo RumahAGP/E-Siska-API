@@ -114,3 +114,5 @@ The column `username` does not exist in the current database. {"code":"P2022","m
 2025-11-18 21:39:38 [ERROR]: POST /guru: undefined [{"type":"field","value":"123","msg":"Password default minimal 6 karakter","path":"passwordDefault","location":"body"}]
 2025-11-20 11:20:02 [ERROR]: POST /auth/signin: Username dan password dibutuhkan {"code":400,"message":"Username dan password dibutuhkan","isSuccess":false}
 2025-11-20 11:20:02 [ERROR]: POST /auth/signin: Username dan password dibutuhkan {"code":400,"message":"Username dan password dibutuhkan","isSuccess":false}
+2025-11-20 12:24:08 [ERROR]: POST /auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-11-20 12:26:15 [ERROR]: POST /auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
