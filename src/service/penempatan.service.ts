@@ -17,8 +17,6 @@ export const createPenempatanService = async (
 ) => {
   logger.info(`Mencoba menempatkan siswa ${data.siswaId} ke kelas ${data.kelasId}`);
 
-  // --- Logika Bisnis 1: Cek dependensi ---
-  // (Kita bisa tambahkan pengecekan apakah Siswa, Kelas, dan TA ada)
   const [siswa, kelas, tahunAjaran] = await Promise.all([
     prisma.siswa.findUnique({ where: { id: data.siswaId } }),
     prisma.kelas.findUnique({ where: { id: data.kelasId } }),
@@ -29,7 +27,6 @@ export const createPenempatanService = async (
   if (!kelas) throw new AppError("Kelas tidak ditemukan", 404);
   if (!tahunAjaran) throw new AppError("Tahun Ajaran tidak ditemukan", 404);
 
-  // --- Logika Bisnis 2: Cek Aturan Unik ---
   const existingPenempatan = await findPenempatanBySiswaAndTahun(
     data.siswaId,
     data.tahunAjaranId,
@@ -38,12 +35,119 @@ export const createPenempatanService = async (
   if (existingPenempatan) {
     throw new AppError(
       `Siswa ini sudah ditempatkan di kelas lain pada tahun ajaran ${tahunAjaran.nama}`,
-      409, // 409 Conflict
+      409,
     );
   }
 
-  // --- Panggil Repository ---
   const newPenempatan = await createPenempatanRepo(data);
 
   return newPenempatan;
+};
+
+/**
+ * Get all penempatan with filters
+ */
+export const getAllPenempatanService = async (filters?: {
+  tahunAjaranId?: string;
+  kelasId?: string;
+  siswaId?: string;
+}) => {
+  logger.info('Fetching all penempatan');
+
+  const penempatan = await prisma.penempatanSiswa.findMany({
+    where: {
+      ...(filters?.tahunAjaranId && { tahunAjaranId: filters.tahunAjaranId }),
+      ...(filters?.kelasId && { kelasId: filters.kelasId }),
+      ...(filters?.siswaId && { siswaId: filters.siswaId }),
+    },
+    include: {
+      siswa: true,
+      kelas: {
+        include: {
+          tingkatan: true,
+        },
+      },
+      tahunAjaran: true,
+    },
+    orderBy: {
+      siswa: {
+        nama: 'asc',
+      },
+    },
+  });
+
+  return penempatan;
+};
+
+/**
+ * Get penempatan by ID
+ */
+export const getPenempatanByIdService = async (id: string) => {
+  logger.info(`Fetching penempatan: ${id}`);
+
+  const penempatan = await prisma.penempatanSiswa.findUnique({
+    where: { id },
+    include: {
+      siswa: true,
+      kelas: {
+        include: {
+          tingkatan: true,
+        },
+      },
+      tahunAjaran: true,
+    },
+  });
+
+  if (!penempatan) {
+    throw new AppError("Penempatan tidak ditemukan", 404);
+  }
+
+  return penempatan;
+};
+
+/**
+ * Update penempatan
+ */
+export const updatePenempatanService = async (id: string, data: Partial<CreatePenempatanServiceInput>) => {
+  logger.info(`Updating penempatan: ${id}`);
+
+  const penempatan = await prisma.penempatanSiswa.findUnique({
+    where: { id },
+  });
+
+  if (!penempatan) {
+    throw new AppError("Penempatan tidak ditemukan", 404);
+  }
+
+  const updated = await prisma.penempatanSiswa.update({
+    where: { id },
+    data: {
+      ...(data.siswaId && { siswaId: data.siswaId }),
+      ...(data.kelasId && { kelasId: data.kelasId }),
+      ...(data.tahunAjaranId && { tahunAjaranId: data.tahunAjaranId }),
+    },
+  });
+
+  return updated;
+};
+
+/**
+ * Delete penempatan
+ */
+export const deletePenempatanService = async (id: string) => {
+  logger.info(`Deleting penempatan: ${id}`);
+
+  const penempatan = await prisma.penempatanSiswa.findUnique({
+    where: { id },
+  });
+
+  if (!penempatan) {
+    throw new AppError("Penempatan tidak ditemukan", 404);
+  }
+
+  await prisma.penempatanSiswa.delete({
+    where: { id },
+  });
+
+  return { message: "Penempatan berhasil dihapus" };
 };

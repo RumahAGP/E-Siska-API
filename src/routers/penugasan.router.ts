@@ -22,6 +22,39 @@ class PenugasanRouter {
       createPenugasanValidation,
       this.penugasanController.create
     );
+
+    // List all penugasan - Admin only (with optional filters)
+    this.route.get(
+      '/',
+      authMiddleware,
+      adminGuard,
+      this.penugasanController.getAll
+    );
+
+    // Get penugasan by ID - Admin only
+    this.route.get(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.penugasanController.getById
+    );
+
+    // Update penugasan - Admin only
+    this.route.put(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      createPenugasanValidation,
+      this.penugasanController.update
+    );
+
+    // Delete penugasan - Admin only
+    this.route.delete(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.penugasanController.delete
+    );
   }
 
   public getRouter(): Router {

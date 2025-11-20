@@ -17,8 +17,6 @@ interface CreateJadwalServiceInput {
 export const createJadwalService = async (data: CreateJadwalServiceInput) => {
   logger.info(`Mencoba membuat jadwal baru...`);
 
-  // --- Logika Bisnis 1: Cek Penugasan Guru ---
-  // Pastikan guru ini memang ditugaskan mengajar mapel ini di kelas ini
   const penugasan = await prisma.penugasanGuru.findUnique({
     where: {
       guruId_mapelId_kelasId: {
@@ -36,7 +34,6 @@ export const createJadwalService = async (data: CreateJadwalServiceInput) => {
     );
   }
 
-  // --- Logika Bisnis 2: Cek dependensi lain (TA & Ruangan) ---
   const [tahunAjaran, ruangan] = await Promise.all([
     prisma.tahunAjaran.findUnique({ where: { id: data.tahunAjaranId } }),
     prisma.ruangan.findUnique({ where: { id: data.ruanganId } }),
@@ -45,13 +42,123 @@ export const createJadwalService = async (data: CreateJadwalServiceInput) => {
   if (!tahunAjaran) throw new AppError("Tahun Ajaran tidak ditemukan", 404);
   if (!ruangan) throw new AppError("Ruangan tidak ditemukan", 404);
 
-  // TODO: Logika Bisnis 3 (Advanced)
-  // Cek konflik jadwal (apakah guru/ruangan/kelas sudah dipakai di jam itu)
-  // Ini kompleks karena 'waktuMulai' dan 'waktuSelesai' adalah string.
-  // Untuk V1, kita skip dulu.
-
-  // --- Panggil Repository ---
   const newJadwal = await createJadwalRepo(data);
 
   return newJadwal;
+};
+
+/**
+ * Get all jadwal with filters
+ */
+export const getAllJadwalService = async (filters?: {
+  tahunAjaranId?: string;
+  kelasId?: string;
+  guruId?: string;
+}) => {
+  logger.info('Fetching all jadwal');
+
+  const jadwal = await prisma.jadwal.findMany({
+    where: {
+      ...(filters?.tahunAjaranId && { tahunAjaranId: filters.tahunAjaranId }),
+      ...(filters?.kelasId && { kelasId: filters.kelasId }),
+      ...(filters?.guruId && { guruId: filters.guruId }),
+    },
+    include: {
+      mapel: true,
+      guru: true,
+      kelas: {
+        include: {
+          tingkatan: true,
+        },
+      },
+      ruangan: true,
+      tahunAjaran: true,
+    },
+    orderBy: [
+      { hari: 'asc' },
+      { waktuMulai: 'asc' },
+    ],
+  });
+
+  return jadwal;
+};
+
+/**
+ * Get jadwal by ID
+ */
+export const getJadwalByIdService = async (id: string) => {
+  logger.info(`Fetching jadwal: ${id}`);
+
+  const jadwal = await prisma.jadwal.findUnique({
+    where: { id },
+    include: {
+      mapel: true,
+      guru: true,
+      kelas: {
+        include: {
+          tingkatan: true,
+        },
+      },
+      ruangan: true,
+      tahunAjaran: true,
+    },
+  });
+
+  if (!jadwal) {
+    throw new AppError("Jadwal tidak ditemukan", 404);
+  }
+
+  return jadwal;
+};
+
+/**
+ * Update jadwal
+ */
+export const updateJadwalService = async (id: string, data: Partial<CreateJadwalServiceInput>) => {
+  logger.info(`Updating jadwal: ${id}`);
+
+  const jadwal = await prisma.jadwal.findUnique({
+    where: { id },
+  });
+
+  if (!jadwal) {
+    throw new AppError("Jadwal tidak ditemukan", 404);
+  }
+
+  const updated = await prisma.jadwal.update({
+    where: { id },
+    data: {
+      ...(data.tahunAjaranId && { tahunAjaranId: data.tahunAjaranId }),
+      ...(data.kelasId && { kelasId: data.kelasId }),
+      ...(data.mapelId && { mapelId: data.mapelId }),
+      ...(data.guruId && { guruId: data.guruId }),
+      ...(data.ruanganId && { ruanganId: data.ruanganId }),
+      ...(data.hari && { hari: data.hari }),
+      ...(data.waktuMulai && { waktuMulai: data.waktuMulai }),
+      ...(data.waktuSelesai && { waktuSelesai: data.waktuSelesai }),
+    },
+  });
+
+  return updated;
+};
+
+/**
+ * Delete jadwal
+ */
+export const deleteJadwalService = async (id: string) => {
+  logger.info(`Deleting jadwal: ${id}`);
+
+  const jadwal = await prisma.jadwal.findUnique({
+    where: { id },
+  });
+
+  if (!jadwal) {
+    throw new AppError("Jadwal tidak ditemukan", 404);
+  }
+
+  await prisma.jadwal.delete({
+    where: { id },
+  });
+
+  return { message: "Jadwal berhasil dihapus" };
 };

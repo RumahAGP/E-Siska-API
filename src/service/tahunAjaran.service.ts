@@ -4,15 +4,19 @@ import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 
 interface CreateTahunAjaranInput {
-  tahunMulai: number;
-  tahunAkhir: number;
-  semester: number;
+  nama: string;
 }
 
 export const createTahunAjaranService = async (data: CreateTahunAjaranInput) => {
-  logger.info(`Creating tahun ajaran: ${data.tahunMulai}/${data.tahunAkhir}`);
+  logger.info(`Creating tahun ajaran: ${data.nama}`);
 
-  const newTahunAjaran = await createTahunAjaranRepo(data);
+  // TODO: Get adminId from authenticated user
+  const ADMIN_ID_DUMMY = (await prisma.admin.findFirst())?.id || "dummy-admin-id";
+
+  const newTahunAjaran = await createTahunAjaranRepo({
+    nama: data.nama,
+    adminId: ADMIN_ID_DUMMY,
+  });
 
   return newTahunAjaran;
 };
@@ -24,10 +28,9 @@ export const getAllTahunAjaranService = async () => {
   logger.info('Fetching all tahun ajaran');
 
   const tahunAjaran = await prisma.tahunAjaran.findMany({
-    orderBy: [
-      { tahunMulai: 'desc' },
-      { semester: 'desc' },
-    ],
+    orderBy: {
+      nama: 'desc',
+    },
   });
 
   return tahunAjaran;
@@ -67,9 +70,7 @@ export const updateTahunAjaranService = async (id: string, data: Partial<CreateT
   const updated = await prisma.tahunAjaran.update({
     where: { id },
     data: {
-      ...(data.tahunMulai && { tahunMulai: data.tahunMulai }),
-      ...(data.tahunAkhir && { tahunAkhir: data.tahunAkhir }),
-      ...(data.semester && { semester: data.semester }),
+      ...(data.nama && { nama: data.nama }),
     },
   });
 
@@ -92,13 +93,13 @@ export const activateTahunAjaranService = async (id: string) => {
 
   // Deactivate all first
   await prisma.tahunAjaran.updateMany({
-    data: { isActive: false },
+    data: { isAktif: false },
   });
 
   // Activate the selected one
   const activated = await prisma.tahunAjaran.update({
     where: { id },
-    data: { isActive: true },
+    data: { isAktif: true },
   });
 
   return activated;
@@ -119,7 +120,7 @@ export const deleteTahunAjaranService = async (id: string) => {
   }
 
   // Check if active
-  if (tahunAjaran.isActive) {
+  if (tahunAjaran.isAktif) {
     throw new AppError("Tidak dapat menghapus tahun ajaran yang sedang aktif", 400);
   }
 

@@ -24,6 +24,9 @@ import CapaianRouter from "./routers/capaian.router";
 import RaporRouter from "./routers/rapor.router";
 import SiswaViewRouter from "./routers/siswa-view.router";
 import WaliKelasRouter from "./routers/wali-kelas.router";
+import GuruViewRouter from "./routers/guru-view.router";
+import SekolahRouter from "./routers/sekolah.router";
+import BackupRouter from "./routers/backup.router";
 
 const PORT: string = process.env.PORT || "8181";
 
@@ -113,6 +116,15 @@ class App {
 
     const waliKelasRouter: WaliKelasRouter = new WaliKelasRouter();
     this.app.use("/wali-kelas", waliKelasRouter.getRouter());
+
+    const guruViewRouter: GuruViewRouter = new GuruViewRouter();
+    this.app.use("/guru-view", guruViewRouter.getRouter());
+
+    const sekolahRouter: SekolahRouter = new SekolahRouter();
+    this.app.use("/sekolah", sekolahRouter.getRouter());
+
+    const backupRouter: BackupRouter = new BackupRouter();
+    this.app.use("/backup", backupRouter.getRouter());
   }
 
   private errorHandler(): void {

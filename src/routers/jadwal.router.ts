@@ -22,6 +22,39 @@ class JadwalRouter {
       createJadwalValidation,
       this.jadwalController.create
     );
+
+    // List all jadwal - Admin only (with optional filters)
+    this.route.get(
+      '/',
+      authMiddleware,
+      adminGuard,
+      this.jadwalController.getAll
+    );
+
+    // Get jadwal by ID - Admin only
+    this.route.get(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.jadwalController.getById
+    );
+
+    // Update jadwal - Admin only
+    this.route.put(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      createJadwalValidation,
+      this.jadwalController.update
+    );
+
+    // Delete jadwal - Admin only
+    this.route.delete(
+      '/:id',
+      authMiddleware,
+      adminGuard,
+      this.jadwalController.delete
+    );
   }
 
   public getRouter(): Router {

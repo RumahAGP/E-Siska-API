@@ -12,13 +12,9 @@ import logger from "../utils/logger";
 class TahunAjaranController {
   public async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const { tahunMulai, tahunAkhir, semester } = req.body;
+      const { nama } = req.body;
 
-      const result = await createTahunAjaranService({
-        tahunMulai,
-        tahunAkhir,
-        semester,
-      });
+      const result = await createTahunAjaranService({ nama });
 
       res.status(201).send({
         success: true,
@@ -72,9 +68,9 @@ class TahunAjaranController {
   public async update(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const { tahunMulai, tahunAkhir, semester } = req.body;
+      const { nama } = req.body;
 
-      const result = await updateTahunAjaranService(id, { tahunMulai, tahunAkhir, semester });
+      const result = await updateTahunAjaranService(id, { nama });
 
       res.status(200).send({
         success: true,
