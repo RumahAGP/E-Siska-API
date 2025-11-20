@@ -38,3 +38,54 @@
 2025-11-20 11:20:02 [INFO]: POST /auth/signin
 2025-11-20 11:20:02 [INFO]: Password default dibuat untuk NIS: 123456789
 2025-11-20 11:20:02 [INFO]: Password di-hash untuk user guru baru: guru.test
+2025-11-20 12:43:27 [INFO]: POST /auth/signin
+2025-11-20 12:44:53 [INFO]: POST /siswa
+2025-11-20 12:45:01 [INFO]: POST /siswa
+2025-11-20 12:45:29 [INFO]: POST /siswa
+2025-11-20 12:46:04 [INFO]: POST /siswa
+2025-11-20 12:46:20 [INFO]: POST /tingkatan
+2025-11-20 12:49:18 [INFO]: POST /tingkatan
+2025-11-20 12:49:25 [INFO]: POST /tingkatan
+2025-11-20 12:49:29 [INFO]: POST /auth/signin
+2025-11-20 12:49:35 [INFO]: POST /auth/signin
+2025-11-20 12:49:50 [INFO]: POST /tingkatan
+2025-11-20 12:49:54 [INFO]: POST /tingkatan
+2025-11-20 13:20:27 [INFO]: POST /auth/signin
+2025-11-20 13:20:43 [INFO]: POST /tingkatan
+2025-11-20 13:20:44 [INFO]: Mencoba membuat tingkatan kelas: Kelas 10
+2025-11-20 13:22:02 [INFO]: POST /tingkatan
+2025-11-20 13:22:05 [INFO]: Mencoba membuat tingkatan kelas: Kelas 10
+2025-11-20 15:42:12 [INFO]: POST /auth/signin
+2025-11-20 15:42:49 [INFO]: POST /tingkatan
+2025-11-20 15:42:50 [INFO]: Mencoba membuat tingkatan kelas: Kelas 10
+2025-11-20 15:43:18 [INFO]: POST /auth/signin
+2025-11-20 15:43:52 [INFO]: POST /auth/signin
+2025-11-20 15:44:10 [INFO]: POST /tingkatan
+2025-11-20 15:44:22 [INFO]: POST /tingkatan
+2025-11-20 15:44:24 [INFO]: Mencoba membuat tingkatan kelas: Kelas 10
+2025-11-20 15:45:06 [INFO]: GET /
+2025-11-20 15:45:08 [INFO]: GET /favicon.ico
+2025-11-20 15:45:12 [INFO]: POST /tingkatan
+2025-11-20 15:45:13 [INFO]: Mencoba membuat tingkatan kelas: Kelas 10
+2025-11-20 15:48:36 [INFO]: POST /tingkatan
+2025-11-20 15:48:39 [INFO]: Mencoba membuat tingkatan kelas: Kelas 10
+2025-11-20 15:48:43 [INFO]: POST /tingkatan
+2025-11-20 15:48:44 [INFO]: Mencoba membuat tingkatan kelas: Kelas 10
+2025-11-20 15:48:51 [INFO]: POST /auth/signin
+2025-11-20 15:49:10 [INFO]: POST /tingkatan
+2025-11-20 15:49:11 [INFO]: Mencoba membuat tingkatan kelas: Kelas 10
+2025-11-20 15:49:31 [INFO]: POST /ruangan
+2025-11-20 15:49:32 [INFO]: Mencoba membuat ruangan: R-101
+2025-11-20 15:52:29 [INFO]: POST /ruangan
+2025-11-20 15:52:30 [INFO]: Mencoba membuat ruangan: R-101
+2025-11-20 15:53:42 [INFO]: POST /auth/signin
+2025-11-20 15:54:12 [INFO]: POST /tingkatan
+2025-11-20 15:54:14 [INFO]: Mencoba membuat tingkatan kelas: Kelas 10
+2025-11-20 15:55:50 [INFO]: POST /ruangan
+2025-11-20 15:56:02 [INFO]: POST /ruangan
+2025-11-20 15:56:08 [INFO]: POST /auth/signin
+2025-11-20 15:58:06 [INFO]: POST /auth/signin
+2025-11-20 15:58:21 [INFO]: POST /tingkatan
+2025-11-20 15:58:22 [INFO]: Mencoba membuat tingkatan kelas: Kelas 10
+2025-11-20 16:00:55 [INFO]: POST /tingkatan
+2025-11-20 16:00:58 [INFO]: Mencoba membuat tingkatan kelas: Kelas 10

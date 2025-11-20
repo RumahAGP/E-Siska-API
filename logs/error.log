@@ -116,3 +116,231 @@ The column `username` does not exist in the current database. {"code":"P2022","m
 2025-11-20 11:20:02 [ERROR]: POST /auth/signin: Username dan password dibutuhkan {"code":400,"message":"Username dan password dibutuhkan","isSuccess":false}
 2025-11-20 12:24:08 [ERROR]: POST /auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
 2025-11-20 12:26:15 [ERROR]: POST /auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-11-20 12:44:53 [ERROR]: POST /siswa: Token tidak valid. {"code":401,"message":"Token tidak valid.","isSuccess":false}
+2025-11-20 12:45:01 [ERROR]: POST /siswa: Token tidak valid. {"code":401,"message":"Token tidak valid.","isSuccess":false}
+2025-11-20 12:45:29 [ERROR]: POST /siswa: Token tidak valid. {"code":401,"message":"Token tidak valid.","isSuccess":false}
+2025-11-20 12:46:04 [ERROR]: POST /siswa: Token tidak valid. {"code":401,"message":"Token tidak valid.","isSuccess":false}
+2025-11-20 12:46:20 [ERROR]: POST /tingkatan: Token tidak valid. {"code":401,"message":"Token tidak valid.","isSuccess":false}
+2025-11-20 12:49:18 [ERROR]: POST /tingkatan: Token tidak valid. {"code":401,"message":"Token tidak valid.","isSuccess":false}
+2025-11-20 12:49:25 [ERROR]: POST /tingkatan: Token tidak valid. {"code":401,"message":"Token tidak valid.","isSuccess":false}
+2025-11-20 12:49:50 [ERROR]: POST /tingkatan: Token tidak valid. {"code":401,"message":"Token tidak valid.","isSuccess":false}
+2025-11-20 12:49:54 [ERROR]: POST /tingkatan: Token tidak valid. {"code":401,"message":"Token tidak valid.","isSuccess":false}
+2025-11-20 13:20:46 [ERROR]: Error create tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey`
+2025-11-20 13:20:46 [ERROR]: POST /tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey` {"code":"P2003","meta":{"modelName":"TingkatanKelas","constraint":"TingkatanKelas_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-11-20 13:22:06 [ERROR]: Error create tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey`
+2025-11-20 13:22:06 [ERROR]: POST /tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey` {"code":"P2003","meta":{"modelName":"TingkatanKelas","constraint":"TingkatanKelas_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-11-20 15:42:51 [ERROR]: Error create tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey`
+2025-11-20 15:42:51 [ERROR]: POST /tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey` {"code":"P2003","meta":{"modelName":"TingkatanKelas","constraint":"TingkatanKelas_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-11-20 15:44:10 [ERROR]: POST /tingkatan: Token tidak valid. {"code":401,"message":"Token tidak valid.","isSuccess":false}
+2025-11-20 15:44:25 [ERROR]: Error create tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey`
+2025-11-20 15:44:25 [ERROR]: POST /tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey` {"code":"P2003","meta":{"modelName":"TingkatanKelas","constraint":"TingkatanKelas_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-11-20 15:45:14 [ERROR]: Error create tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey`
+2025-11-20 15:45:14 [ERROR]: POST /tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey` {"code":"P2003","meta":{"modelName":"TingkatanKelas","constraint":"TingkatanKelas_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-11-20 15:48:40 [ERROR]: Error create tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey`
+2025-11-20 15:48:40 [ERROR]: POST /tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey` {"code":"P2003","meta":{"modelName":"TingkatanKelas","constraint":"TingkatanKelas_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-11-20 15:48:45 [ERROR]: Error create tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey`
+2025-11-20 15:48:45 [ERROR]: POST /tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey` {"code":"P2003","meta":{"modelName":"TingkatanKelas","constraint":"TingkatanKelas_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-11-20 15:49:12 [ERROR]: Error create tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey`
+2025-11-20 15:49:12 [ERROR]: POST /tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey` {"code":"P2003","meta":{"modelName":"TingkatanKelas","constraint":"TingkatanKelas_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-11-20 15:49:34 [ERROR]: Error create ruangan: 
+Invalid `prisma.ruangan.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\ruangan.repository.ts:14:45
+
+  11  */
+  12 export const createRuanganRepo = async (data: CreateRuanganInput) => {
+  13   try {
+→ 14     const newRuangan = await prisma.ruangan.create(
+Foreign key constraint violated on the constraint: `Ruangan_adminId_fkey`
+2025-11-20 15:49:34 [ERROR]: POST /ruangan: 
+Invalid `prisma.ruangan.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\ruangan.repository.ts:14:45
+
+  11  */
+  12 export const createRuanganRepo = async (data: CreateRuanganInput) => {
+  13   try {
+→ 14     const newRuangan = await prisma.ruangan.create(
+Foreign key constraint violated on the constraint: `Ruangan_adminId_fkey` {"code":"P2003","meta":{"modelName":"Ruangan","constraint":"Ruangan_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-11-20 15:52:31 [ERROR]: Error create ruangan: 
+Invalid `prisma.ruangan.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\ruangan.repository.ts:14:45
+
+  11  */
+  12 export const createRuanganRepo = async (data: CreateRuanganInput) => {
+  13   try {
+→ 14     const newRuangan = await prisma.ruangan.create(
+Foreign key constraint violated on the constraint: `Ruangan_adminId_fkey`
+2025-11-20 15:52:31 [ERROR]: POST /ruangan: 
+Invalid `prisma.ruangan.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\ruangan.repository.ts:14:45
+
+  11  */
+  12 export const createRuanganRepo = async (data: CreateRuanganInput) => {
+  13   try {
+→ 14     const newRuangan = await prisma.ruangan.create(
+Foreign key constraint violated on the constraint: `Ruangan_adminId_fkey` {"code":"P2003","meta":{"modelName":"Ruangan","constraint":"Ruangan_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-11-20 15:54:15 [ERROR]: Error create tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey`
+2025-11-20 15:54:15 [ERROR]: POST /tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey` {"code":"P2003","meta":{"modelName":"TingkatanKelas","constraint":"TingkatanKelas_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-11-20 15:55:50 [ERROR]: POST /ruangan: Token tidak valid. {"code":401,"message":"Token tidak valid.","isSuccess":false}
+2025-11-20 15:56:02 [ERROR]: POST /ruangan: Token tidak valid. {"code":401,"message":"Token tidak valid.","isSuccess":false}
+2025-11-20 15:58:24 [ERROR]: Error create tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey`
+2025-11-20 15:58:24 [ERROR]: POST /tingkatan: 
+Invalid `prisma.tingkatanKelas.create()` invocation in
+C:\Dev 1\SISKO\e-siska-api\src\repositories\tingkatan.repository.ts:8:54
+
+  5  */
+  6 export const createTingkatanRepo = async (namaTingkat: string) => {
+  7   try {
+→ 8     const newTingkatan = await prisma.tingkatanKelas.create(
+Foreign key constraint violated on the constraint: `TingkatanKelas_adminId_fkey` {"code":"P2003","meta":{"modelName":"TingkatanKelas","constraint":"TingkatanKelas_adminId_fkey"},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}

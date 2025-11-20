@@ -135,11 +135,22 @@ class App {
             error
           )}`
         );
-        res.status(error.code || 500).send(error);
+
+        let status = 500;
+        if (typeof error.code === "number") {
+          status = error.code;
+        } else if (error.code === "P2002") {
+          status = 409; // Conflict
+        } else if (error.code === "P2003") {
+          status = 400; // Bad Request (Foreign Key)
+        } else if (error.code === "P2025") {
+          status = 404; // Not Found
+        }
+
+        res.status(status).send(error);
       }
     );
   }
-
   public start(): void {
     this.app.listen(PORT, () => {
       console.log(`API Running: http://localhost:${PORT}`);

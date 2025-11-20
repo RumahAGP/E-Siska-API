@@ -11,7 +11,7 @@ export const createTingkatanRepo = async (namaTingkat: string) => {
         // adminId akan ditambahkan nanti saat auth sudah siap
         // Untuk sementara, skema HARUS diubah agar adminId opsional (?)
         // atau kita pakai adminId dummy
-        adminId: "dummy-admin-id-untuk-tes", // Pastikan ID ini ADA di db
+        adminId: "ce00f605-e1e5-4e9a-95b0-1514490a8af4", // Pastikan ID ini ADA di db
       },
     });
     return newTingkatan;
