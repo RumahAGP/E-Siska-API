@@ -78,3 +78,68 @@ export const getNilaiBySiswaIdRepo = async (siswaId: string) => {
     }
   });
 };
+
+export const getAllNilaiRepo = async (filters?: {
+  siswaId?: string;
+  mapelId?: string;
+  tahunAjaranId?: string;
+}) => {
+  return await prisma.nilaiDetailSiswa.findMany({
+    where: {
+      ...(filters?.siswaId && { siswaId: filters.siswaId }),
+      ...(filters?.mapelId && { mapelId: filters.mapelId }),
+    },
+    include: {
+      siswa: {
+        select: {
+          id: true,
+          nama: true,
+          nis: true
+        }
+      },
+      mapel: {
+        select: {
+          id: true,
+          namaMapel: true
+        }
+      },
+      komponen: {
+        select: {
+          id: true,
+          namaKomponen: true
+        }
+      },
+      guru: {
+        select: {
+          id: true,
+          nama: true
+        }
+      }
+    },
+    orderBy: [
+      { siswa: { nama: 'asc' } },
+      { mapel: { namaMapel: 'asc' } }
+    ]
+  });
+};
+
+export const updateNilaiRepo = async (id: string, nilai: number, guruId: string) => {
+  return await prisma.nilaiDetailSiswa.update({
+    where: { id },
+    data: {
+      nilaiAngka: nilai,
+      guruId: guruId
+    },
+    include: {
+      siswa: true,
+      mapel: true,
+      komponen: true
+    }
+  });
+};
+
+export const deleteNilaiRepo = async (id: string) => {
+  return await prisma.nilaiDetailSiswa.delete({
+    where: { id }
+  });
+};

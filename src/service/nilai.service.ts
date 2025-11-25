@@ -1,4 +1,4 @@
-import { upsertNilaiRepo, InputNilaiItem, getNilaiKelasRepo, getNilaiBySiswaIdRepo } from "../repositories/nilai.repository";
+import { upsertNilaiRepo, InputNilaiItem, getNilaiKelasRepo, getNilaiBySiswaIdRepo, getAllNilaiRepo, updateNilaiRepo, deleteNilaiRepo } from "../repositories/nilai.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
@@ -16,8 +16,6 @@ export const inputNilaiService = async (input: InputNilaiServiceInput) => {
   logger.info(`Mencoba input nilai untuk mapel ${input.mapelId}, komponen ${input.komponenId}`);
 
   // 1. Validasi: Apakah Guru punya penugasan di mapel ini?
-  // Kita cek apakah ada minimal satu penugasan guru ini di mapel ini (kelas manapun)
-  // Idealnya kita filter per kelas juga, tapi untuk simplifikasi input massal, cek mapel dulu.
   const penugasan = await prisma.penugasanGuru.findFirst({
     where: {
       guruId: input.guruId,
@@ -58,30 +56,19 @@ export const inputNilaiService = async (input: InputNilaiServiceInput) => {
     input.data
   );
 
-  // 4. [BARU] Picu Kalkulasi Formula Otomatis
-  // Kita ambil daftar siswaId yang nilainya baru saja berubah
+  // 4. Picu Kalkulasi Formula Otomatis
   const affectedSiswaIds = input.data.map((d) => d.siswaId);
-  
-  // Jalankan kalkulasi (bisa dibuat async tanpa await jika ingin response cepat, 
-  // tapi pakai await lebih aman untuk konsistensi data saat tes)
   await calculateGradesService(input.mapelId, affectedSiswaIds);
 
   return result;
 };
 
 export const getNilaiKelasService = async (guruId: string, kelasId: string, mapelId: string) => {
-  // 1. Validasi Akses (Optional: Cek apakah guru mengajar di kelas ini)
-  // ...
-
-  // 2. Ambil Data dari Repo
   const { students, grades } = await getNilaiKelasRepo(kelasId, mapelId);
 
-  // 3. Format Data untuk Frontend
-  // Kita ingin return list siswa, dan di dalam tiap siswa ada map nilai per komponen
   const formattedData = students.map((p) => {
     const studentGrades = grades.filter((g) => g.siswaId === p.siswaId);
     
-    // Convert array of grades to object key-value pair: { [komponenId]: nilai }
     const gradesMap: Record<string, number> = {};
     studentGrades.forEach((g) => {
       if (g.komponenId && g.nilaiAngka !== null) {
@@ -104,7 +91,6 @@ export const getMyGradesService = async (siswaId: string) => {
   logger.info(`Fetching grades for student: ${siswaId}`);
   const grades = await getNilaiBySiswaIdRepo(siswaId);
 
-  // Group by Mapel
   const groupedGrades: Record<string, any> = {};
 
   grades.forEach(g => {
@@ -126,4 +112,68 @@ export const getMyGradesService = async (siswaId: string) => {
   });
 
   return Object.values(groupedGrades);
+};
+
+export const getAllNilaiService = async (filters?: {
+  siswaId?: string;
+  mapelId?: string;
+  tahunAjaranId?: string;
+}) => {
+  logger.info(`Fetching all nilai with filters: ${JSON.stringify(filters)}`);
+  const data = await getAllNilaiRepo(filters);
+  
+  return data.map(nilai => ({
+    id: nilai.id,
+    siswaId: nilai.siswaId,
+    mapelId: nilai.mapelId,
+    komponenId: nilai.komponenId,
+    nilai: nilai.nilaiAngka,
+    siswa: nilai.siswa,
+    mapel: nilai.mapel,
+    skema: nilai.komponen
+  }));
+};
+
+export const updateNilaiService = async (id: string, nilai: number, guruId: string) => {
+  logger.info(`Updating nilai ${id} with new value: ${nilai}`);
+  
+  const existingNilai = await prisma.nilaiDetailSiswa.findUnique({
+    where: { id },
+    include: { komponen: true }
+  });
+
+  if (!existingNilai) {
+    throw new AppError("Nilai tidak ditemukan.", 404);
+  }
+
+  if (existingNilai.komponen?.tipe !== NilaiKomponenType.INPUT) {
+    throw new AppError("Anda hanya dapat mengubah nilai pada komponen bertipe INPUT.", 400);
+  }
+
+  const result = await updateNilaiRepo(id, nilai, guruId);
+  await calculateGradesService(result.mapelId, [result.siswaId]);
+
+  return result;
+};
+
+export const deleteNilaiService = async (id: string) => {
+  logger.info(`Deleting nilai ${id}`);
+  
+  const existingNilai = await prisma.nilaiDetailSiswa.findUnique({
+    where: { id },
+    include: { komponen: true }
+  });
+
+  if (!existingNilai) {
+    throw new AppError("Nilai tidak ditemukan.", 404);
+  }
+
+  if (existingNilai.komponen?.tipe !== NilaiKomponenType.INPUT) {
+    throw new AppError("Anda hanya dapat menghapus nilai pada komponen bertipe INPUT.", 400);
+  }
+
+  const result = await deleteNilaiRepo(id);
+  await calculateGradesService(existingNilai.mapelId, [existingNilai.siswaId]);
+
+  return result;
 };
