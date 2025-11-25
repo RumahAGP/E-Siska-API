@@ -109,3 +109,11 @@
 2025-11-24 10:44:27 [INFO]: POST /auth/signin
 2025-11-24 10:46:43 [INFO]: Starting admin seed...
 2025-11-24 10:48:10 [INFO]: POST /auth/signin
+2025-11-25 10:06:30 [INFO]: POST /auth/signin
+2025-11-25 10:13:06 [INFO]: POST /auth/signin
+2025-11-25 10:15:20 [INFO]: POST /auth/signin
+2025-11-25 10:15:49 [INFO]: POST /auth/signin
+2025-11-25 11:45:22 [INFO]: POST /auth/signin
+2025-11-25 12:13:29 [INFO]: POST /siswa
+2025-11-25 12:13:35 [INFO]: Mencoba membuat siswa baru dengan NIS: 202301001
+2025-11-25 12:13:36 [INFO]: Password default dibuat untuk NIS: 202301001

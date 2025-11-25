@@ -52,3 +52,17 @@ export const findAllKelasRepo = async () => {
     },
   });
 };
+
+export const getKelasByWaliKelasRepo = async (waliKelasId: string) => {
+  return await prisma.kelas.findFirst({
+    where: { waliKelasId },
+    include: {
+      tingkatan: true,
+      Penempatan: {
+        include: {
+          siswa: true,
+        },
+      },
+    },
+  });
+};

@@ -22,6 +22,21 @@ class SkemaRouter {
       addKomponenValidation,
       this.skemaController.addKomponen
     );
+
+    // Get Skema by Mapel ID
+    this.route.get(
+      '/mapel/:mapelId',
+      authMiddleware,
+      this.skemaController.getSkema
+    );
+
+    // Delete Komponen - Admin only
+    this.route.delete(
+      '/komponen/:komponenId',
+      authMiddleware,
+      adminGuard,
+      this.skemaController.deleteKomponen
+    );
   }
 
   public getRouter(): Router {

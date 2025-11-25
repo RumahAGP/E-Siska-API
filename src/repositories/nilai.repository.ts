@@ -39,3 +39,26 @@ export const upsertNilaiRepo = async (
     )
   );
 };
+
+export const getNilaiKelasRepo = async (kelasId: string, mapelId: string) => {
+  // 1. Ambil semua siswa di kelas ini (via PenempatanSiswa)
+  // Asumsi: Kita ambil tahun ajaran aktif (perlu logic tambahan di service untuk tentukan TA aktif)
+  // Untuk simplifikasi repo, kita terima list siswaId atau kita join dengan PenempatanSiswa
+  
+  // Query: Ambil siswa yang ada di kelas ini
+  const students = await prisma.penempatanSiswa.findMany({
+    where: { kelasId },
+    include: { siswa: true },
+    orderBy: { siswa: { nama: 'asc' } }
+  });
+
+  // 2. Ambil nilai mereka untuk mapel ini
+  const grades = await prisma.nilaiDetailSiswa.findMany({
+    where: {
+      mapelId,
+      siswaId: { in: students.map(s => s.siswaId) }
+    }
+  });
+
+  return { students, grades };
+};

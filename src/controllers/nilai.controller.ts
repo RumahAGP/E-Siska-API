@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { inputNilaiService } from "../service/nilai.service";
+import { inputNilaiService, getNilaiKelasService } from "../service/nilai.service";
 import logger from "../utils/logger";
 
 class NilaiController {
@@ -24,6 +24,22 @@ class NilaiController {
       if (error instanceof Error) {
         logger.error(`Error input nilai: ${error.message}`);
       }
+      next(error);
+    }
+  }
+
+  public async getNilaiKelas(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { kelasId, mapelId } = req.params;
+      const guruId = req.user?.id || ""; // Asumsi ada middleware auth yang inject user
+
+      const result = await getNilaiKelasService(guruId, kelasId, mapelId);
+
+      res.status(200).send({
+        success: true,
+        data: result,
+      });
+    } catch (error) {
       next(error);
     }
   }

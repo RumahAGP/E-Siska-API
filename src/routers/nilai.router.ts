@@ -22,6 +22,14 @@ class NilaiRouter {
       inputNilaiValidation,
       this.nilaiController.inputNilai
     );
+
+    // Get Nilai Kelas - Guru only
+    this.route.get(
+      '/kelas/:kelasId/mapel/:mapelId',
+      authMiddleware,
+      guruGuard,
+      this.nilaiController.getNilaiKelas
+    );
   }
 
   public getRouter(): Router {

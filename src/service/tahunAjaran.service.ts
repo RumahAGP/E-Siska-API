@@ -130,3 +130,17 @@ export const deleteTahunAjaranService = async (id: string) => {
 
   return { message: "Tahun ajaran berhasil dihapus" };
 };
+
+export const getActiveTahunAjaranService = async () => {
+  logger.info('Fetching active tahun ajaran');
+  
+  const active = await prisma.tahunAjaran.findFirst({
+    where: { isAktif: true }
+  });
+
+  if (!active) {
+    throw new AppError("Tidak ada tahun ajaran yang aktif saat ini.", 404);
+  }
+
+  return active;
+};

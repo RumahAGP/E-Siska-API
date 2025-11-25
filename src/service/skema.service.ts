@@ -1,4 +1,8 @@
-import { addKomponenToSkemaRepo } from "../repositories/skema.repository";
+import { 
+  addKomponenToSkemaRepo, 
+  getSkemaByMapelIdRepo, 
+  deleteKomponenRepo 
+} from "../repositories/skema.repository";
 import logger from "../utils/logger";
 import { MapelCategory, NilaiKomponenType } from "../generated/prisma";
 import AppError from "../utils/AppError";
@@ -62,4 +66,30 @@ export const addKomponenToSkemaService = async (
   const newKomponen = await addKomponenToSkemaRepo(repoInput);
 
   return newKomponen;
+};
+
+export const getSkemaByMapelIdService = async (mapelId: string) => {
+  logger.info(`Fetching skema penilaian untuk mapel: ${mapelId}`);
+  
+  const skema = await getSkemaByMapelIdRepo(mapelId);
+  
+  if (!skema) {
+    throw new AppError("Skema penilaian belum dibuat untuk mapel ini", 404);
+  }
+
+  return skema;
+};
+
+export const deleteKomponenService = async (komponenId: string) => {
+  logger.info(`Menghapus komponen nilai: ${komponenId}`);
+  
+  // Cek apakah komponen ada (opsional, deleteRepo akan throw error jika tidak ada)
+  // Tapi baiknya cek dulu untuk custom error message
+  const komponen = await prisma.nilaiKomponen.findUnique({ where: { id: komponenId } });
+  if (!komponen) {
+    throw new AppError("Komponen tidak ditemukan", 404);
+  }
+
+  await deleteKomponenRepo(komponenId);
+  return { message: "Komponen berhasil dihapus" };
 };

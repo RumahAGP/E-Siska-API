@@ -6,6 +6,7 @@ import {
   updateTahunAjaranService,
   activateTahunAjaranService,
   deleteTahunAjaranService,
+  getActiveTahunAjaranService,
 } from "../service/tahunAjaran.service";
 import logger from "../utils/logger";
 
@@ -117,6 +118,23 @@ class TahunAjaranController {
     } catch (error: unknown) {
       if (error instanceof Error) {
         logger.error(`Error delete tahun ajaran: ${error.message}`);
+      }
+      next(error);
+    }
+  }
+
+  public async getActive(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await getActiveTahunAjaranService();
+
+      res.status(200).send({
+        success: true,
+        message: "Tahun ajaran aktif berhasil diambil",
+        data: result,
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        logger.error(`Error get active tahun ajaran: ${error.message}`);
       }
       next(error);
     }

@@ -31,6 +31,13 @@ class TahunAjaranRouter {
       this.tahunAjaranController.getAll
     );
 
+    // Get active tahun ajaran - Authenticated users
+    this.route.get(
+      '/active',
+      authMiddleware,
+      this.tahunAjaranController.getActive
+    );
+
     // Get tahun ajaran by ID - Admin only
     this.route.get(
       '/:id',

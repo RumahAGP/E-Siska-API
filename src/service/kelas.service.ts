@@ -1,4 +1,4 @@
-import { createKelasRepo, updateKelasRepo, deleteKelasRepo, findAllKelasRepo } from "../repositories/kelas.repository";
+import { createKelasRepo, updateKelasRepo, deleteKelasRepo, findAllKelasRepo, getKelasByWaliKelasRepo } from "../repositories/kelas.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
@@ -59,4 +59,15 @@ export const deleteKelasService = async (id: string) => {
 export const getAllKelasService = async () => {
   logger.info("Fetching all kelas");
   return await findAllKelasRepo();
+};
+
+export const getMyClassService = async (guruId: string) => {
+  logger.info(`Fetching class for wali kelas: ${guruId}`);
+  const kelas = await getKelasByWaliKelasRepo(guruId);
+  
+  if (!kelas) {
+    throw new AppError("Anda tidak terdaftar sebagai Wali Kelas untuk kelas manapun.", 404);
+  }
+
+  return kelas;
 };

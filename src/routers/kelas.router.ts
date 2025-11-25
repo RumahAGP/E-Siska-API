@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import KelasController from '../controllers/kelas.controller';
 import { createKelasValidation } from '../middleware/validation/kelas.validation';
-import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { authMiddleware, adminGuard, guruGuard } from '../middleware/auth.middleware';
 
 class KelasRouter {
   private route: Router;
@@ -27,6 +27,13 @@ class KelasRouter {
       authMiddleware,
       // adminGuard, // Optional: if all logged in users can see classes
       this.kelasController.getAll
+    );
+
+    this.route.get(
+      '/my-class',
+      authMiddleware,
+      guruGuard,
+      this.kelasController.getMyClass
     );
 
     this.route.put(

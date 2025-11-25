@@ -1,4 +1,4 @@
-import { upsertNilaiRepo, InputNilaiItem } from "../repositories/nilai.repository";
+import { upsertNilaiRepo, InputNilaiItem, getNilaiKelasRepo } from "../repositories/nilai.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
@@ -67,4 +67,35 @@ export const inputNilaiService = async (input: InputNilaiServiceInput) => {
   await calculateGradesService(input.mapelId, affectedSiswaIds);
 
   return result;
+};
+
+export const getNilaiKelasService = async (guruId: string, kelasId: string, mapelId: string) => {
+  // 1. Validasi Akses (Optional: Cek apakah guru mengajar di kelas ini)
+  // ...
+
+  // 2. Ambil Data dari Repo
+  const { students, grades } = await getNilaiKelasRepo(kelasId, mapelId);
+
+  // 3. Format Data untuk Frontend
+  // Kita ingin return list siswa, dan di dalam tiap siswa ada map nilai per komponen
+  const formattedData = students.map((p) => {
+    const studentGrades = grades.filter((g) => g.siswaId === p.siswaId);
+    
+    // Convert array of grades to object key-value pair: { [komponenId]: nilai }
+    const gradesMap: Record<string, number> = {};
+    studentGrades.forEach((g) => {
+      if (g.komponenId && g.nilaiAngka !== null) {
+        gradesMap[g.komponenId] = g.nilaiAngka;
+      }
+    });
+
+    return {
+      siswaId: p.siswaId,
+      nis: p.siswa.nis,
+      nama: p.siswa.nama,
+      grades: gradesMap,
+    };
+  });
+
+  return formattedData;
 };

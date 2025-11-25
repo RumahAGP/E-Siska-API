@@ -55,3 +55,9 @@ export const deleteMapelRepo = async (id: string) => {
     where: { id },
   });
 };
+
+export const getAllMapelRepo = async () => {
+  return await prisma.mataPelajaran.findMany({
+    orderBy: { namaMapel: 'asc' }
+  });
+};

@@ -1,4 +1,4 @@
-import { createMapelRepo, updateMapelRepo, deleteMapelRepo } from "../repositories/mapel.repository";
+import { createMapelRepo, updateMapelRepo, deleteMapelRepo, getAllMapelRepo } from "../repositories/mapel.repository";
 import logger from "../utils/logger";
 import { MapelCategory } from "../generated/prisma";
 
@@ -39,4 +39,9 @@ export const updateMapelService = async (id: string, data: Partial<CreateMapelSe
 export const deleteMapelService = async (id: string) => {
   logger.info(`Mencoba hapus mata pelajaran: ${id}`);
   return await deleteMapelRepo(id);
+};
+
+export const getAllMapelService = async () => {
+  logger.info(`Fetching all mata pelajaran`);
+  return await getAllMapelRepo();
 };

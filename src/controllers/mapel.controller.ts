@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { createMapelService, updateMapelService, deleteMapelService } from "../service/mapel.service";
+import { createMapelService, updateMapelService, deleteMapelService, getAllMapelService } from "../service/mapel.service";
 import logger from "../utils/logger";
 
 class MapelController {
@@ -61,6 +61,19 @@ class MapelController {
       if (error instanceof Error) {
         logger.error(`Error delete mapel: ${error.message}`);
       }
+      next(error);
+    }
+  }
+
+  public async getAll(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await getAllMapelService();
+
+      res.status(200).send({
+        success: true,
+        data: result,
+      });
+    } catch (error) {
       next(error);
     }
   }

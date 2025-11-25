@@ -22,6 +22,12 @@ class MapelRouter {
       this.mapelController.create
     );
 
+    this.route.get(
+      '/',
+      authMiddleware,
+      this.mapelController.getAll
+    );
+
     this.route.put(
       '/:id',
       authMiddleware,
