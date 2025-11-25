@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { inputNilaiService, getNilaiKelasService } from "../service/nilai.service";
+import { inputNilaiService, getNilaiKelasService, getMyGradesService } from "../service/nilai.service";
 import logger from "../utils/logger";
 
 class NilaiController {
@@ -40,6 +40,29 @@ class NilaiController {
         data: result,
       });
     } catch (error) {
+      next(error);
+    }
+  }
+
+  public async getMyGrades(req: Request, res: Response, next: NextFunction) {
+    try {
+      const siswaId = req.user?.siswaId;
+
+      if (!siswaId) {
+        throw new Error("Siswa ID not found in request");
+      }
+
+      const result = await getMyGradesService(siswaId);
+
+      res.status(200).send({
+        success: true,
+        message: "Nilai berhasil diambil",
+        data: result,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        logger.error(`Error get my grades: ${error.message}`);
+      }
       next(error);
     }
   }

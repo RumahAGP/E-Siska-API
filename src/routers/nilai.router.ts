@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import NilaiController from '../controllers/nilai.controller';
 import { inputNilaiValidation } from '../middleware/validation/nilai.validation';
-import { authMiddleware, guruGuard } from '../middleware/auth.middleware';
+import { authMiddleware, guruGuard, siswaGuard } from '../middleware/auth.middleware';
 
 class NilaiRouter {
   private route: Router;
@@ -29,6 +29,14 @@ class NilaiRouter {
       authMiddleware,
       guruGuard,
       this.nilaiController.getNilaiKelas
+    );
+
+    // Get My Grades - Siswa only
+    this.route.get(
+      '/me',
+      authMiddleware,
+      siswaGuard,
+      this.nilaiController.getMyGrades
     );
   }
 

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import RaporController from '../controllers/rapor.controller';
-import { authMiddleware, guruGuard, waliKelasGuard, adminGuard } from '../middleware/auth.middleware';
+import { authMiddleware, guruGuard, waliKelasGuard, adminGuard, siswaGuard } from '../middleware/auth.middleware';
 
 class RaporRouter {
   private route: Router;
@@ -51,6 +51,14 @@ class RaporRouter {
       authMiddleware,
       adminGuard,
       this.raporController.override
+    );
+
+    // Get My Rapor - Siswa only
+    this.route.get(
+      '/me',
+      authMiddleware,
+      siswaGuard,
+      this.raporController.getMyRapor
     );
   }
 

@@ -62,3 +62,19 @@ export const getNilaiKelasRepo = async (kelasId: string, mapelId: string) => {
 
   return { students, grades };
 };
+
+export const getNilaiBySiswaIdRepo = async (siswaId: string) => {
+  return await prisma.nilaiDetailSiswa.findMany({
+    where: { siswaId },
+    include: {
+      mapel: true,
+      komponen: true,
+      guru: {
+        select: { nama: true }
+      }
+    },
+    orderBy: {
+      mapel: { namaMapel: 'asc' }
+    }
+  });
+};

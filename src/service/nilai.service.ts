@@ -1,4 +1,4 @@
-import { upsertNilaiRepo, InputNilaiItem, getNilaiKelasRepo } from "../repositories/nilai.repository";
+import { upsertNilaiRepo, InputNilaiItem, getNilaiKelasRepo, getNilaiBySiswaIdRepo } from "../repositories/nilai.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
@@ -98,4 +98,32 @@ export const getNilaiKelasService = async (guruId: string, kelasId: string, mape
   });
 
   return formattedData;
+};
+
+export const getMyGradesService = async (siswaId: string) => {
+  logger.info(`Fetching grades for student: ${siswaId}`);
+  const grades = await getNilaiBySiswaIdRepo(siswaId);
+
+  // Group by Mapel
+  const groupedGrades: Record<string, any> = {};
+
+  grades.forEach(g => {
+    const mapelName = g.mapel.namaMapel;
+    if (!groupedGrades[mapelName]) {
+      groupedGrades[mapelName] = {
+        mapel: mapelName,
+        kategori: g.mapel.kategori,
+        components: []
+      };
+    }
+
+    groupedGrades[mapelName].components.push({
+      komponen: g.komponen?.namaKomponen || "Unknown",
+      tipe: g.komponen?.tipe,
+      nilai: g.nilaiAngka,
+      guru: g.guru.nama
+    });
+  });
+
+  return Object.values(groupedGrades);
 };

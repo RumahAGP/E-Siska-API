@@ -4,7 +4,8 @@ import {
   inputDataRaporService,
   finalizeRaporService,
   definalizeRaporService,
-  overrideNilaiRaporService
+  overrideNilaiRaporService,
+  getMyRaporService
 } from "../service/rapor.service";
 import logger from "../utils/logger";
 
@@ -35,7 +36,7 @@ class RaporController {
     }
   }
 
-public async generate(req: Request, res: Response, next: NextFunction) {
+  public async generate(req: Request, res: Response, next: NextFunction) {
     try {
       const { siswaId } = req.params;
       const { guruId, tahunAjaranId } = req.body; // Atau req.query jika mau GET murni
@@ -53,11 +54,12 @@ public async generate(req: Request, res: Response, next: NextFunction) {
       });
     } catch (error: unknown) {
       if (error instanceof Error) {
- logger.error(`Error generate rapor: ${error.message}`);
+        logger.error(`Error generate rapor: ${error.message}`);
       }
       next(error);
     }
   }
+
   public async finalize(req: Request, res: Response, next: NextFunction) {
     try {
       const { siswaId } = req.params;
@@ -127,6 +129,29 @@ public async generate(req: Request, res: Response, next: NextFunction) {
     } catch (error: unknown) {
       if (error instanceof Error) {
         logger.error(`Error override nilai rapor: ${error.message}`);
+      }
+      next(error);
+    }
+  }
+
+  public async getMyRapor(req: Request, res: Response, next: NextFunction) {
+    try {
+      const siswaId = req.user?.siswaId;
+
+      if (!siswaId) {
+        throw new Error("Siswa ID not found in request");
+      }
+
+      const result = await getMyRaporService(siswaId);
+
+      res.status(200).send({
+        success: true,
+        message: "Rapor berhasil diambil",
+        data: result,
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        logger.error(`Error get my rapor: ${error.message}`);
       }
       next(error);
     }

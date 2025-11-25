@@ -6,7 +6,8 @@ import {
     getAbsensiSummaryRepo, 
     getNilaiRaporRepo, 
     getNilaiEkskulRepo, 
-    getRaporDataRepo 
+    getRaporDataRepo,
+    getRaporBySiswaIdRepo
 } from "../repositories/rapor.repository";
 
 interface InputRaporService {
@@ -250,4 +251,10 @@ export const overrideNilaiRaporService = async (input: OverrideNilaiInput) => {
             isOverride: true
         }
     });
+};
+
+export const getMyRaporService = async (siswaId: string) => {
+  logger.info(`Fetching reports for student: ${siswaId}`);
+  const rapors = await getRaporBySiswaIdRepo(siswaId);
+  return rapors;
 };

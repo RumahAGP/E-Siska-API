@@ -117,3 +117,22 @@ export const getRaporDataRepo = async (siswaId: string, tahunAjaranId: string) =
     include: { waliKelas: true }
   });
 };
+
+export const getRaporBySiswaIdRepo = async (siswaId: string) => {
+  return await prisma.rapor.findMany({
+    where: { siswaId, isFinalisasi: true }, // Only finalized reports
+    include: {
+      tahunAjaran: true,
+      kelas: true,
+      waliKelas: true,
+      NilaiRaporAkhir: {
+        include: {
+          mapel: true
+        }
+      }
+    },
+    orderBy: {
+      tahunAjaran: { nama: 'desc' }
+    }
+  });
+};
