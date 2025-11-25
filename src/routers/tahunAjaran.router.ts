@@ -23,26 +23,24 @@ class TahunAjaranRouter {
       this.tahunAjaranController.create
     );
 
-    // List all tahun ajaran - Admin only
+    // List all tahun ajaran - All authenticated users can read
     this.route.get(
       '/',
       authMiddleware,
-      adminGuard,
       this.tahunAjaranController.getAll
     );
 
-    // Get active tahun ajaran - Authenticated users
+    // Get active tahun ajaran - All authenticated users
     this.route.get(
       '/active',
       authMiddleware,
       this.tahunAjaranController.getActive
     );
 
-    // Get tahun ajaran by ID - Admin only
+    // Get tahun ajaran by ID - All authenticated users can read
     this.route.get(
       '/:id',
       authMiddleware,
-      adminGuard,
       this.tahunAjaranController.getById
     );
 
@@ -55,9 +53,17 @@ class TahunAjaranRouter {
       this.tahunAjaranController.update
     );
 
-    // Activate tahun ajaran - Admin only
+    // Activate tahun ajaran - Admin only (POST for backward compatibility)
     this.route.post(
       '/:id/activate',
+      authMiddleware,
+      adminGuard,
+      this.tahunAjaranController.activate
+    );
+
+    // Activate tahun ajaran - Admin only (PATCH - new standard)
+    this.route.patch(
+      '/:id/active',
       authMiddleware,
       adminGuard,
       this.tahunAjaranController.activate

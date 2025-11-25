@@ -23,19 +23,17 @@ class PenempatanRouter {
       this.penempatanController.create
     );
 
-    // List all penempatan - Admin only (with optional filters)
+    // List all penempatan - All authenticated users can read
     this.route.get(
       '/',
       authMiddleware,
-      adminGuard,
       this.penempatanController.getAll
     );
 
-    // Get penempatan by ID - Admin only
+    // Get penempatan by ID - All authenticated users can read
     this.route.get(
       '/:id',
       authMiddleware,
-      adminGuard,
       this.penempatanController.getById
     );
 

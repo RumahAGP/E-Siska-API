@@ -18,6 +18,20 @@ class AbsensiRouter {
   }
 
   private initializeRoute(): void {
+    // Get Absensi - All authenticated users (temporary - returns empty array)
+    this.route.get(
+      '/',
+      authMiddleware,
+      (req, res) => {
+        // TODO: Implement proper absensi fetching logic with filters
+        res.status(200).send({
+          success: true,
+          message: "Data absensi berhasil diambil",
+          data: [],
+        });
+      }
+    );
+
     // Create Sesi Pertemuan - Guru only
     this.route.post(
       '/sesi',

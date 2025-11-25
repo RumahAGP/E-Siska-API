@@ -23,19 +23,17 @@ class SiswaRouter {
       this.siswaController.create
     );
 
-    // Read All - Admin only
+    // Read All - All authenticated users can read
     this.route.get(
       '/',
       authMiddleware,
-      adminGuard,
       this.siswaController.getAll
     );
 
-    // Read One - Admin only
+    // Read One - All authenticated users can read
     this.route.get(
       '/:id',
       authMiddleware,
-      adminGuard,
       this.siswaController.getById
     );
 

@@ -37,3 +37,11 @@ export const deleteRuanganRepo = async (id: string) => {
     where: { id },
   });
 };
+
+export const getAllRuanganRepo = async () => {
+  return await prisma.ruangan.findMany({
+    orderBy: {
+      namaRuangan: 'asc',
+    },
+  });
+};

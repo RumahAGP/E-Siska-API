@@ -5,18 +5,16 @@ import { MapelCategory } from "../generated/prisma";
 interface CreateMapelServiceInput {
   namaMapel: string;
   kategori: string; // Terima sebagai string dari validator
+  adminId: string;
 }
 
 export const createMapelService = async (data: CreateMapelServiceInput) => {
   logger.info(`Mencoba membuat mata pelajaran: ${data.namaMapel}`);
 
-  // TODO: adminId harus didapat dari data user yang sedang login (via token)
-  const ADMIN_ID_DUMMY = "dummy-admin-id-untuk-tes"; // Ganti ini
-
   const repoInput = {
     namaMapel: data.namaMapel,
     kategori: data.kategori as MapelCategory, // Konversi string ke Enum
-    adminId: ADMIN_ID_DUMMY,
+    adminId: data.adminId,
   };
 
   // Panggil Repository

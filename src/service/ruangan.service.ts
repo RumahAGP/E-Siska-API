@@ -1,10 +1,10 @@
-import { createRuanganRepo, updateRuanganRepo, deleteRuanganRepo } from "../repositories/ruangan.repository";
+import { createRuanganRepo, updateRuanganRepo, deleteRuanganRepo, getAllRuanganRepo } from "../repositories/ruangan.repository";
 import logger from "../utils/logger";
 
 interface CreateRuanganServiceInput {
   namaRuangan: string;
   kapasitas?: number;
-  // adminId: string; // Akan kita dapatkan dari token nanti
+  adminId: string;
 }
 
 export const createRuanganService = async (
@@ -12,13 +12,8 @@ export const createRuanganService = async (
 ) => {
   logger.info(`Mencoba membuat ruangan: ${data.namaRuangan}`);
 
-  // TODO: adminId harus didapat dari data user yang sedang login (via token)
-  // Kita gunakan ID dummy yang sama dari tes tingkatan
-  const ADMIN_ID_DUMMY = "dummy-admin-id-untuk-tes";
-
   const repoInput = {
     ...data,
-    adminId: ADMIN_ID_DUMMY,
   };
 
   // Panggil Repository
@@ -39,4 +34,9 @@ export const updateRuanganService = async (id: string, data: Partial<CreateRuang
 export const deleteRuanganService = async (id: string) => {
   logger.info(`Mencoba hapus ruangan: ${id}`);
   return await deleteRuanganRepo(id);
+};
+
+export const getAllRuanganService = async () => {
+  logger.info(`Mencoba mengambil semua data ruangan`);
+  return await getAllRuanganRepo();
 };

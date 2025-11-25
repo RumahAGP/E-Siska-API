@@ -6,10 +6,16 @@ class MapelController {
   public async create(req: Request, res: Response, next: NextFunction) {
     try {
       const { namaMapel, kategori } = req.body;
+      const adminId = (req as any).user?.adminId;
+
+      if (!adminId) {
+        throw new Error("Admin ID not found in request");
+      }
 
       const result = await createMapelService({
         namaMapel,
         kategori,
+        adminId,
       });
 
       res.status(201).send({

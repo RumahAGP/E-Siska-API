@@ -22,6 +22,13 @@ class RuanganRouter {
       this.ruanganController.create
     );
 
+    this.route.get(
+      '/',
+      authMiddleware,
+      adminGuard,
+      this.ruanganController.getAll
+    );
+
     this.route.put(
       '/:id',
       authMiddleware,

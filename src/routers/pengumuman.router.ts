@@ -23,19 +23,17 @@ class PengumumanRouter {
       this.pengumumanController.create
     );
 
-    // List all pengumuman - Admin only
+    // List all pengumuman - All authenticated users can read
     this.route.get(
       '/',
       authMiddleware,
-      adminGuard,
       this.pengumumanController.getAll
     );
 
-    // Get pengumuman by ID - Admin only
+    // Get pengumuman by ID - All authenticated users can read
     this.route.get(
       '/:id',
       authMiddleware,
-      adminGuard,
       this.pengumumanController.getById
     );
 

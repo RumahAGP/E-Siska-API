@@ -33,7 +33,11 @@ export const getAllTahunAjaranService = async () => {
     },
   });
 
-  return tahunAjaran;
+  // Transform isAktif to isActive for frontend compatibility
+  return tahunAjaran.map((ta) => ({
+    ...ta,
+    isActive: ta.isAktif,
+  }));
 };
 
 /**
@@ -50,7 +54,10 @@ export const getTahunAjaranByIdService = async (id: string) => {
     throw new AppError("Tahun ajaran tidak ditemukan", 404);
   }
 
-  return tahunAjaran;
+  return {
+    ...tahunAjaran,
+    isActive: tahunAjaran.isAktif,
+  };
 };
 
 /**
@@ -74,7 +81,10 @@ export const updateTahunAjaranService = async (id: string, data: Partial<CreateT
     },
   });
 
-  return updated;
+  return {
+    ...updated,
+    isActive: updated.isAktif,
+  };
 };
 
 /**
@@ -102,7 +112,10 @@ export const activateTahunAjaranService = async (id: string) => {
     data: { isAktif: true },
   });
 
-  return activated;
+  return {
+    ...activated,
+    isActive: activated.isAktif,
+  };
 };
 
 /**
@@ -142,5 +155,8 @@ export const getActiveTahunAjaranService = async () => {
     throw new AppError("Tidak ada tahun ajaran yang aktif saat ini.", 404);
   }
 
-  return active;
+  return {
+    ...active,
+    isActive: active.isAktif,
+  };
 };

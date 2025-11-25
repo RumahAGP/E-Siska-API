@@ -15,36 +15,41 @@ interface CreateJadwalServiceInput {
 }
 
 export const createJadwalService = async (data: CreateJadwalServiceInput) => {
-  logger.info(`Mencoba membuat jadwal baru...`);
+  try {
+    logger.info(`Mencoba membuat jadwal baru...`);
 
-  const penugasan = await prisma.penugasanGuru.findUnique({
-    where: {
-      guruId_mapelId_kelasId: {
-        guruId: data.guruId,
-        mapelId: data.mapelId,
-        kelasId: data.kelasId,
+    const penugasan = await prisma.penugasanGuru.findUnique({
+      where: {
+        guruId_mapelId_kelasId: {
+          guruId: data.guruId,
+          mapelId: data.mapelId,
+          kelasId: data.kelasId,
+        },
       },
-    },
-  });
+    });
 
-  if (!penugasan) {
-    throw new AppError(
-      "Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu.",
-      404,
-    );
+    if (!penugasan) {
+      throw new AppError(
+        "Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu.",
+        404,
+      );
+    }
+
+    const [tahunAjaran, ruangan] = await Promise.all([
+      prisma.tahunAjaran.findUnique({ where: { id: data.tahunAjaranId } }),
+      prisma.ruangan.findUnique({ where: { id: data.ruanganId } }),
+    ]);
+
+    if (!tahunAjaran) throw new AppError("Tahun Ajaran tidak ditemukan", 404);
+    if (!ruangan) throw new AppError("Ruangan tidak ditemukan", 404);
+
+    const newJadwal = await createJadwalRepo(data);
+
+    return newJadwal;
+  } catch (error) {
+    logger.error(`Error in createJadwalService: ${error}`);
+    throw error;
   }
-
-  const [tahunAjaran, ruangan] = await Promise.all([
-    prisma.tahunAjaran.findUnique({ where: { id: data.tahunAjaranId } }),
-    prisma.ruangan.findUnique({ where: { id: data.ruanganId } }),
-  ]);
-
-  if (!tahunAjaran) throw new AppError("Tahun Ajaran tidak ditemukan", 404);
-  if (!ruangan) throw new AppError("Ruangan tidak ditemukan", 404);
-
-  const newJadwal = await createJadwalRepo(data);
-
-  return newJadwal;
 };
 
 /**

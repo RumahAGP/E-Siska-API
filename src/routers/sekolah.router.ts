@@ -21,8 +21,16 @@ class SekolahRouter {
       this.sekolahController.get
     );
 
-    // Create or Update school data - Admin only
+    // Create or Update school data - Admin only (POST)
     this.route.post(
+      '/',
+      authMiddleware,
+      adminGuard,
+      this.sekolahController.upsert
+    );
+
+    // Create or Update school data - Admin only (PUT - for frontend compatibility)
+    this.route.put(
       '/',
       authMiddleware,
       adminGuard,

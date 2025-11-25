@@ -1,0 +1,321 @@
+2025-11-25 23:59:44 [INFO]: GET /pengumuman
+2025-11-25 23:59:47 [INFO]: Fetching all pengumuman - Page: 1, Limit: 50
+2025-11-25 23:59:50 [INFO]: GET /pengumuman
+2025-11-25 23:59:51 [INFO]: GET /absensi
+2025-11-25 23:59:51 [INFO]: Fetching all pengumuman - Page: 1, Limit: 50
+2025-11-25 23:59:53 [INFO]: GET /absensi
+2025-11-25 23:59:55 [INFO]: GET /nilai/me
+2025-11-25 23:59:56 [INFO]: Fetching grades for student: 8cb2a5aa-8c2e-4eed-ab25-5b253b849b18
+2025-11-25 23:59:58 [INFO]: GET /nilai/me
+2025-11-25 23:59:59 [INFO]: Fetching grades for student: 8cb2a5aa-8c2e-4eed-ab25-5b253b849b18
+2025-11-25 23:59:59 [INFO]: GET /penempatan
+2025-11-26 00:00:00 [INFO]: Fetching all penempatan
+2025-11-26 00:00:02 [INFO]: GET /penempatan
+2025-11-26 00:00:03 [INFO]: Fetching all penempatan
+2025-11-26 00:00:06 [INFO]: GET /pengumuman
+2025-11-26 00:00:07 [INFO]: Fetching all pengumuman - Page: 1, Limit: 50
+2025-11-26 00:00:10 [INFO]: GET /pengumuman
+2025-11-26 00:00:11 [INFO]: Fetching all pengumuman - Page: 1, Limit: 50
+2025-11-26 00:00:15 [INFO]: GET /absensi
+2025-11-26 00:00:16 [INFO]: GET /absensi
+2025-11-26 00:00:23 [INFO]: GET /nilai/me
+2025-11-26 00:00:24 [INFO]: Fetching grades for student: 8cb2a5aa-8c2e-4eed-ab25-5b253b849b18
+2025-11-26 00:00:26 [INFO]: GET /nilai/me
+2025-11-26 00:00:27 [INFO]: Fetching grades for student: 8cb2a5aa-8c2e-4eed-ab25-5b253b849b18
+2025-11-26 00:00:27 [INFO]: GET /penempatan
+2025-11-26 00:00:29 [INFO]: Fetching all penempatan
+2025-11-26 00:00:30 [INFO]: GET /penempatan
+2025-11-26 00:00:31 [INFO]: Fetching all penempatan
+2025-11-26 00:00:31 [INFO]: GET /pengumuman
+2025-11-26 00:00:32 [INFO]: Fetching all pengumuman - Page: 1, Limit: 50
+2025-11-26 00:00:35 [INFO]: GET /pengumuman
+2025-11-26 00:00:36 [INFO]: Fetching all pengumuman - Page: 1, Limit: 50
+2025-11-26 00:00:57 [INFO]: POST /auth/signin
+2025-11-26 00:00:58 [INFO]: GET /siswa
+2025-11-26 00:01:00 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:01:00 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:01:01 [INFO]: GET /guru
+2025-11-26 00:01:03 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:01:03 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:01:03 [INFO]: GET /siswa
+2025-11-26 00:01:03 [INFO]: GET /guru
+2025-11-26 00:01:04 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:01:04 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:01:06 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:01:06 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:01:06 [INFO]: GET /guru
+2025-11-26 00:01:07 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:01:07 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:01:10 [INFO]: GET /guru
+2025-11-26 00:01:10 [INFO]: GET /tahun-ajaran
+2025-11-26 00:01:11 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:01:11 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:01:11 [INFO]: Fetching all tahun ajaran
+2025-11-26 00:01:14 [INFO]: GET /tahun-ajaran
+2025-11-26 00:01:16 [INFO]: Fetching all tahun ajaran
+2025-11-26 00:01:51 [INFO]: POST /auth/signin
+2025-11-26 00:02:17 [INFO]: POST /auth/signin
+2025-11-26 00:09:19 [INFO]: POST /auth/signin
+2025-11-26 00:09:54 [INFO]: POST /auth/signin
+2025-11-26 00:09:56 [INFO]: GET /siswa
+2025-11-26 00:09:57 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:09:57 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:10:00 [INFO]: GET /siswa
+2025-11-26 00:10:00 [INFO]: GET /guru
+2025-11-26 00:10:01 [INFO]: GET /guru
+2025-11-26 00:10:01 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:10:01 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:10:03 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:10:03 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:10:04 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:10:04 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:10:07 [INFO]: GET /guru
+2025-11-26 00:10:07 [INFO]: GET /tahun-ajaran
+2025-11-26 00:10:08 [INFO]: GET /guru
+2025-11-26 00:10:08 [INFO]: Fetching all tahun ajaran
+2025-11-26 00:10:08 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:10:08 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:10:09 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:10:09 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:10:11 [INFO]: GET /tahun-ajaran
+2025-11-26 00:10:13 [INFO]: Fetching all tahun ajaran
+2025-11-26 00:10:17 [INFO]: DELETE /guru/423bc5c7-1ea1-4d95-b53e-1542b61d5acc
+2025-11-26 00:10:19 [INFO]: Deleting guru: 423bc5c7-1ea1-4d95-b53e-1542b61d5acc
+2025-11-26 00:10:19 [INFO]: Deleting guru: 423bc5c7-1ea1-4d95-b53e-1542b61d5acc
+2025-11-26 00:10:36 [INFO]: GET /guru
+2025-11-26 00:10:38 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:10:38 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:10:41 [INFO]: GET /guru
+2025-11-26 00:10:42 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:10:42 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:10:44 [INFO]: DELETE /guru/423bc5c7-1ea1-4d95-b53e-1542b61d5acc
+2025-11-26 00:10:45 [INFO]: Deleting guru: 423bc5c7-1ea1-4d95-b53e-1542b61d5acc
+2025-11-26 00:10:45 [INFO]: Deleting guru: 423bc5c7-1ea1-4d95-b53e-1542b61d5acc
+2025-11-26 00:12:27 [INFO]: GET /kelas
+2025-11-26 00:12:27 [INFO]: GET /guru
+2025-11-26 00:12:27 [INFO]: GET /tingkatan
+2025-11-26 00:12:29 [INFO]: Fetching all tingkatan
+2025-11-26 00:12:29 [INFO]: Fetching all kelas
+2025-11-26 00:12:29 [INFO]: Fetching all guru - Page: 1, Limit: 100
+2025-11-26 00:12:29 [INFO]: Fetching all guru - Page: 1, Limit: 100
+2025-11-26 00:12:30 [INFO]: GET /tingkatan
+2025-11-26 00:12:31 [INFO]: GET /guru
+2025-11-26 00:12:31 [INFO]: GET /kelas
+2025-11-26 00:12:31 [INFO]: Fetching all tingkatan
+2025-11-26 00:12:32 [INFO]: GET /guru
+2025-11-26 00:12:32 [INFO]: Fetching all kelas
+2025-11-26 00:12:33 [INFO]: Fetching all guru - Page: 1, Limit: 100
+2025-11-26 00:12:33 [INFO]: Fetching all guru - Page: 1, Limit: 100
+2025-11-26 00:12:34 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:12:34 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:12:37 [INFO]: GET /guru
+2025-11-26 00:12:38 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:12:38 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:12:56 [INFO]: POST /guru
+2025-11-26 00:12:57 [INFO]: POST /guru
+2025-11-26 00:12:57 [INFO]: POST /guru
+2025-11-26 00:13:00 [INFO]: POST /guru
+2025-11-26 00:13:00 [INFO]: POST /guru
+2025-11-26 00:13:03 [INFO]: POST /guru
+2025-11-26 00:13:25 [INFO]: POST /guru
+2025-11-26 00:13:27 [INFO]: Mencoba membuat guru baru dengan NIP: 112233445566
+2025-11-26 00:13:27 [INFO]: Password di-hash untuk user guru baru: 112233445566
+2025-11-26 00:13:29 [INFO]: GET /guru
+2025-11-26 00:13:30 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:13:30 [INFO]: Fetching all guru - Page: 1, Limit: 10
+2025-11-26 00:13:49 [INFO]: POST /auth/signin
+2025-11-26 00:13:51 [INFO]: GET /siswa
+2025-11-26 00:13:52 [INFO]: GET /siswa
+2025-11-26 00:13:59 [INFO]: GET /siswa
+2025-11-26 00:14:00 [INFO]: GET /siswa
+2025-11-26 00:15:02 [INFO]: GET /mapel
+2025-11-26 00:15:05 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:15:06 [INFO]: GET /mapel
+2025-11-26 00:15:08 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:15:09 [INFO]: GET /skema/mapel/c6ec6a95-e665-45f4-9289-997050a906d4
+2025-11-26 00:15:10 [INFO]: Fetching skema penilaian untuk mapel: c6ec6a95-e665-45f4-9289-997050a906d4
+2025-11-26 00:15:13 [INFO]: GET /nilai/kelas/cls-1/mapel/c6ec6a95-e665-45f4-9289-997050a906d4
+2025-11-26 00:15:32 [INFO]: GET /kelas/teaching
+2025-11-26 00:15:54 [INFO]: GET /jadwal
+2025-11-26 00:15:58 [INFO]: GET /jadwal
+2025-11-26 00:16:10 [INFO]: GET /siswa
+2025-11-26 00:16:11 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:16:11 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:16:12 [INFO]: GET /siswa
+2025-11-26 00:16:15 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:16:15 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:16:18 [INFO]: GET /siswa
+2025-11-26 00:16:18 [INFO]: GET /guru
+2025-11-26 00:16:19 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:16:19 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:16:22 [INFO]: GET /guru
+2025-11-26 00:17:51 [INFO]: GET /siswa
+2025-11-26 00:17:54 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:17:54 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:17:57 [INFO]: GET /siswa
+2025-11-26 00:17:57 [INFO]: GET /guru
+2025-11-26 00:17:58 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:17:58 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:18:00 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:18:00 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:18:01 [INFO]: GET /siswa
+2025-11-26 00:18:04 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:18:04 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:18:07 [INFO]: GET /siswa
+2025-11-26 00:18:07 [INFO]: GET /guru
+2025-11-26 00:18:09 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:18:09 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:18:09 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:18:09 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:18:12 [INFO]: GET /guru
+2025-11-26 00:18:12 [INFO]: GET /tahun-ajaran
+2025-11-26 00:18:13 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:18:13 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:18:17 [INFO]: GET /mapel
+2025-11-26 00:18:17 [INFO]: GET /tahun-ajaran
+2025-11-26 00:18:18 [INFO]: GET /siswa
+2025-11-26 00:18:18 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:18:20 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:18:20 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:18:20 [INFO]: GET /mapel
+2025-11-26 00:18:21 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:18:23 [INFO]: GET /siswa
+2025-11-26 00:18:23 [INFO]: GET /guru
+2025-11-26 00:18:24 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:18:24 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:18:24 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:18:24 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:18:28 [INFO]: GET /guru
+2025-11-26 00:18:28 [INFO]: GET /tahun-ajaran
+2025-11-26 00:18:29 [INFO]: GET /mapel
+2025-11-26 00:18:29 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:18:29 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:18:30 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:18:30 [INFO]: GET /kelas/teaching
+2025-11-26 00:18:31 [INFO]: GET /jadwal
+2025-11-26 00:18:31 [INFO]: GET /mapel
+2025-11-26 00:18:32 [INFO]: Fetching teaching classes for guru: 2d8001a9-38c2-44f4-8110-57f14baa1f2a
+2025-11-26 00:18:33 [INFO]: GET /tahun-ajaran
+2025-11-26 00:18:33 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:18:33 [INFO]: GET /kelas/teaching
+2025-11-26 00:18:33 [INFO]: GET /pengumuman
+2025-11-26 00:18:34 [INFO]: Fetching teaching classes for guru: 2d8001a9-38c2-44f4-8110-57f14baa1f2a
+2025-11-26 00:18:34 [INFO]: Fetching all jadwal
+2025-11-26 00:18:36 [INFO]: GET /jadwal
+2025-11-26 00:18:36 [INFO]: Fetching all pengumuman - Page: 1, Limit: 50
+2025-11-26 00:18:37 [INFO]: Fetching all jadwal
+2025-11-26 00:18:39 [INFO]: GET /pengumuman
+2025-11-26 00:18:40 [INFO]: Fetching all pengumuman - Page: 1, Limit: 50
+2025-11-26 00:19:44 [INFO]: GET /pengumuman
+2025-11-26 00:19:47 [INFO]: Fetching all pengumuman - Page: 1, Limit: 50
+2025-11-26 00:19:50 [INFO]: GET /pengumuman
+2025-11-26 00:19:51 [INFO]: Fetching all pengumuman - Page: 1, Limit: 50
+2025-11-26 00:20:46 [INFO]: GET /kelas/teaching
+2025-11-26 00:20:47 [INFO]: Fetching teaching classes for guru: 2d8001a9-38c2-44f4-8110-57f14baa1f2a
+2025-11-26 00:20:49 [INFO]: GET /kelas/teaching
+2025-11-26 00:20:49 [INFO]: GET /mapel
+2025-11-26 00:20:50 [INFO]: Fetching teaching classes for guru: 2d8001a9-38c2-44f4-8110-57f14baa1f2a
+2025-11-26 00:20:50 [INFO]: GET /siswa
+2025-11-26 00:20:52 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:20:53 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:20:53 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:20:53 [INFO]: GET /mapel
+2025-11-26 00:20:54 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:20:56 [INFO]: GET /mapel
+2025-11-26 00:20:56 [INFO]: GET /siswa
+2025-11-26 00:20:56 [INFO]: GET /guru
+2025-11-26 00:20:57 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:20:57 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:20:57 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:20:57 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:20:57 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:20:58 [INFO]: GET /mapel
+2025-11-26 00:20:59 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:21:00 [INFO]: GET /siswa
+2025-11-26 00:21:01 [INFO]: GET /guru
+2025-11-26 00:21:01 [INFO]: GET /tahun-ajaran
+2025-11-26 00:21:01 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:21:01 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:21:02 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:21:02 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:21:02 [INFO]: Fetching all tahun ajaran
+2025-11-26 00:21:04 [INFO]: GET /siswa
+2025-11-26 00:21:06 [INFO]: GET /guru
+2025-11-26 00:21:06 [INFO]: GET /tahun-ajaran
+2025-11-26 00:21:06 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:21:06 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:21:07 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:21:07 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:21:07 [INFO]: Fetching all tahun ajaran
+2025-11-26 00:21:10 [INFO]: GET /guru
+2025-11-26 00:21:10 [INFO]: GET /tahun-ajaran
+2025-11-26 00:21:11 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:21:11 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:21:11 [INFO]: Fetching all tahun ajaran
+2025-11-26 00:21:15 [INFO]: GET /tahun-ajaran
+2025-11-26 00:21:16 [INFO]: Fetching all tahun ajaran
+2025-11-26 00:22:19 [INFO]: GET /kelas/teaching
+2025-11-26 00:22:21 [INFO]: Fetching teaching classes for guru: 2d8001a9-38c2-44f4-8110-57f14baa1f2a
+2025-11-26 00:22:22 [INFO]: GET /kelas/teaching
+2025-11-26 00:22:23 [INFO]: GET /mapel
+2025-11-26 00:22:23 [INFO]: Fetching teaching classes for guru: 2d8001a9-38c2-44f4-8110-57f14baa1f2a
+2025-11-26 00:22:24 [INFO]: GET /siswa
+2025-11-26 00:22:25 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:22:26 [INFO]: GET /mapel
+2025-11-26 00:22:26 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:22:26 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:22:27 [INFO]: GET /kelas/teaching
+2025-11-26 00:22:27 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:22:28 [INFO]: GET /jadwal
+2025-11-26 00:22:28 [INFO]: Fetching teaching classes for guru: 2d8001a9-38c2-44f4-8110-57f14baa1f2a
+2025-11-26 00:22:28 [INFO]: GET /mapel
+2025-11-26 00:22:29 [INFO]: GET /siswa
+2025-11-26 00:22:29 [INFO]: GET /guru
+2025-11-26 00:22:29 [INFO]: GET /kelas/teaching
+2025-11-26 00:22:29 [INFO]: GET /pengumuman
+2025-11-26 00:22:30 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:22:30 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:22:30 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:22:30 [INFO]: Fetching teaching classes for guru: 2d8001a9-38c2-44f4-8110-57f14baa1f2a
+2025-11-26 00:22:31 [INFO]: Fetching all jadwal
+2025-11-26 00:22:31 [INFO]: GET /mapel
+2025-11-26 00:22:31 [INFO]: GET /kelas/teaching
+2025-11-26 00:22:32 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:22:32 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:22:32 [INFO]: GET /jadwal
+2025-11-26 00:22:32 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:22:32 [INFO]: Fetching all pengumuman - Page: 1, Limit: 50
+2025-11-26 00:22:33 [INFO]: Fetching teaching classes for guru: 2d8001a9-38c2-44f4-8110-57f14baa1f2a
+2025-11-26 00:22:33 [INFO]: Fetching all jadwal
+2025-11-26 00:22:34 [INFO]: GET /kelas/teaching
+2025-11-26 00:22:35 [INFO]: Fetching teaching classes for guru: 2d8001a9-38c2-44f4-8110-57f14baa1f2a
+2025-11-26 00:22:35 [INFO]: GET /siswa
+2025-11-26 00:22:36 [INFO]: GET /kelas/teaching
+2025-11-26 00:22:37 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:22:37 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:22:37 [INFO]: Fetching teaching classes for guru: 2d8001a9-38c2-44f4-8110-57f14baa1f2a
+2025-11-26 00:22:39 [INFO]: GET /siswa
+2025-11-26 00:22:39 [INFO]: GET /guru
+2025-11-26 00:22:41 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:22:41 [INFO]: Fetching all siswa - Page: 1, Limit: 1
+2025-11-26 00:22:41 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:22:41 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:22:42 [INFO]: GET /mapel
+2025-11-26 00:22:43 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:22:44 [INFO]: GET /kelas/teaching
+2025-11-26 00:22:44 [INFO]: GET /guru
+2025-11-26 00:22:44 [INFO]: GET /tahun-ajaran
+2025-11-26 00:22:44 [INFO]: GET /mapel
+2025-11-26 00:22:45 [INFO]: Fetching teaching classes for guru: 2d8001a9-38c2-44f4-8110-57f14baa1f2a
+2025-11-26 00:22:46 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:22:46 [INFO]: Fetching all guru - Page: 1, Limit: 1
+2025-11-26 00:22:46 [INFO]: Fetching all tahun ajaran
+2025-11-26 00:22:46 [INFO]: Fetching all mata pelajaran
+2025-11-26 00:22:47 [INFO]: GET /kelas/teaching
+2025-11-26 00:22:48 [INFO]: Fetching teaching classes for guru: 2d8001a9-38c2-44f4-8110-57f14baa1f2a
+2025-11-26 00:22:49 [INFO]: GET /tahun-ajaran
+2025-11-26 00:22:49 [INFO]: GET /jadwal
+2025-11-26 00:22:50 [INFO]: Fetching all tahun ajaran
+2025-11-26 00:22:51 [INFO]: Fetching all jadwal
+2025-11-26 00:22:52 [INFO]: GET /jadwal
+2025-11-26 00:22:53 [INFO]: Fetching all jadwal

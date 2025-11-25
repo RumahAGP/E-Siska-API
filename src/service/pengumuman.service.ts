@@ -6,6 +6,7 @@ import AppError from "../utils/AppError";
 interface CreatePengumumanServiceInput {
   judul: string;
   konten: string;
+  adminId: string;
 }
 
 export const createPengumumanService = async (
@@ -13,15 +14,10 @@ export const createPengumumanService = async (
 ) => {
   logger.info(`Mencoba membuat pengumuman: ${data.judul}`);
 
-  const ADMIN_USER_ID_DUMMY = (await prisma.admin.findFirst({
-      where: { id: "dummy-admin-id-untuk-tes" },
-      include: { user: true }
-  }))?.user.id || "dummy-admin-user-id";
-
   const repoInput = {
     judul: data.judul,
     konten: data.konten,
-    adminId: ADMIN_USER_ID_DUMMY,
+    adminId: data.adminId,
   };
 
   const newPengumuman = await createPengumumanRepo(repoInput);

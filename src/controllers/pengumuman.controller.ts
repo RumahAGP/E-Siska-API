@@ -12,10 +12,16 @@ class PengumumanController {
   public async create(req: Request, res: Response, next: NextFunction) {
     try {
       const { judul, konten } = req.body;
+      const { id: userId } = req.user as any;
+
+      if (!userId) {
+        throw new Error("User ID not found");
+      }
 
       const result = await createPengumumanService({
         judul,
         konten,
+        adminId: userId,
       });
 
       res.status(201).send({

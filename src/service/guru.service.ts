@@ -17,14 +17,25 @@ interface CreateGuruServiceInput {
   nama: string;
   email?: string;
   username: string;
-  passwordDefault: string; // Admin menyediakan password awal
+  passwordDefault?: string; // Admin dapat menyediakan password awal (optional)
 }
 
 export const createGuruService = async (data: CreateGuruServiceInput) => {
-  const { nip, nama, email, username, passwordDefault } = data;
+  const { nip, nama, email, username } = data;
+  
+  // Auto-generate password from last 6 digits of NIP if not provided
+  let passwordToHash = data.passwordDefault;
+  if (!passwordToHash && nip) {
+    passwordToHash = nip.slice(-6); // Get last 6 digits
+    logger.info(`Auto-generated password for guru from NIP: ${nip} -> last 6 digits`);
+  }
 
-  // 1. Hash password default yang diinput Admin
-  const passwordHash = await hashPassword(passwordDefault);
+  if (!passwordToHash) {
+    throw new AppError("Password atau NIP harus disediakan", 400);
+  }
+
+  // 1. Hash password default yang diinput Admin or auto-generated
+  const passwordHash = await hashPassword(passwordToHash);
   logger.info(`Password di-hash untuk user guru baru: ${username}`);
 
   // 2. Siapkan data untuk repository

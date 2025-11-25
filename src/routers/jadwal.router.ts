@@ -23,19 +23,17 @@ class JadwalRouter {
       this.jadwalController.create
     );
 
-    // List all jadwal - Admin only (with optional filters)
+    // List all jadwal - All authenticated users can read
     this.route.get(
       '/',
       authMiddleware,
-      adminGuard,
       this.jadwalController.getAll
     );
 
-    // Get jadwal by ID - Admin only
+    // Get jadwal by ID - All authenticated users can read
     this.route.get(
       '/:id',
       authMiddleware,
-      adminGuard,
       this.jadwalController.getById
     );
 

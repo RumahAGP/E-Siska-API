@@ -23,19 +23,17 @@ class GuruRouter {
       this.guruController.create
     );
 
-    // Read All - Admin only
+    // Read All - All authenticated users can read
     this.route.get(
       '/',
       authMiddleware,
-      adminGuard,
       this.guruController.getAll
     );
 
-    // Read One - Admin only
+    // Read One - All authenticated users can read
     this.route.get(
       '/:id',
       authMiddleware,
-      adminGuard,
       this.guruController.getById
     );
 
