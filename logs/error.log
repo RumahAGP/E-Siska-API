@@ -1,0 +1,42 @@
+2025-11-27 17:38:58 [ERROR]: POST /auth/signin: 
+Invalid `prisma.user.findUnique()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\user.repository.ts:11:22
+
+   8  * @returns data user (termasuk password hash) atau null
+   9  */
+  10 export const findUserByUsernameRepo = async (username: string) => {
+→ 11   return prisma.user.findUnique(
+Can't reach database server at `aws-1-us-east-2.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-1-us-east-2.pooler.supabase.com:6543`. {"clientVersion":"6.19.0","name":"PrismaClientInitializationError"}
+2025-11-27 17:44:27 [ERROR]: Error create siswa: 
+Invalid `tx.user.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\siswa.repository.ts:24:37
+
+  21 try {
+  22   const result = await prisma.$transaction(async (tx) => {
+  23     // 1. Buat User baru
+→ 24     const newUser = await tx.user.create(
+Unique constraint failed on the fields: (`username`)
+2025-11-27 17:44:27 [ERROR]: POST /siswa: 
+Invalid `tx.user.create()` invocation in
+C:\Dev 1\e-siska\e-siska-api\src\repositories\siswa.repository.ts:24:37
+
+  21 try {
+  22   const result = await prisma.$transaction(async (tx) => {
+  23     // 1. Buat User baru
+→ 24     const newUser = await tx.user.create(
+Unique constraint failed on the fields: (`username`) {"code":"P2002","meta":{"modelName":"User","target":["username"]},"clientVersion":"6.19.0","name":"PrismaClientKnownRequestError"}
+2025-11-27 17:44:48 [ERROR]: GET /siswa: Token tidak ditemukan. Silakan login terlebih dahulu. {"code":401,"message":"Token tidak ditemukan. Silakan login terlebih dahulu.","isSuccess":false}
+2025-11-27 17:44:48 [ERROR]: GET /siswa: Token tidak ditemukan. Silakan login terlebih dahulu. {"code":401,"message":"Token tidak ditemukan. Silakan login terlebih dahulu.","isSuccess":false}
+2025-11-27 20:38:09 [ERROR]: Error seeding admin: PrismaClientInitializationError: 
+Invalid `prisma.user.findFirst()` invocation in
+C:\Dev 1\e-siska\e-siska-api\prisma\seed-admin.ts:14:45
+
+  11 logger.info("Starting admin seed...");
+  12 
+  13 // Check if admin already exists
+→ 14 const existingAdmin = await prisma.user.findFirst(
+Can't reach database server at `aws-1-us-east-2.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-1-us-east-2.pooler.supabase.com:6543`.

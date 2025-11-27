@@ -1,11 +1,11 @@
 import { UserRole } from "../generated/prisma";
 import { prisma } from "../config/prisma";
-import { 
+import {
   createGuruRepo,
   getAllGuruRepo,
   getGuruByIdRepo,
   updateGuruRepo,
-  deleteGuruRepo
+  deleteGuruRepo,
 } from "../repositories/guru.repository";
 import { hashPassword } from "../utils/hashPassword";
 import logger from "../utils/logger";
@@ -18,16 +18,28 @@ interface CreateGuruServiceInput {
   email?: string;
   username: string;
   passwordDefault?: string; // Admin dapat menyediakan password awal (optional)
+  jenisKelamin?: string;
+  agama?: string;
+  tempatLahir?: string;
+  tanggalLahir?: string;
+  noTelp?: string;
+  nik?: string;
+  nuptk?: string;
+  statusKepegawaian?: string;
+  alamat?: string;
+  isAktif?: boolean;
 }
 
 export const createGuruService = async (data: CreateGuruServiceInput) => {
   const { nip, nama, email, username } = data;
-  
+
   // Auto-generate password from last 6 digits of NIP if not provided
   let passwordToHash = data.passwordDefault;
   if (!passwordToHash && nip) {
     passwordToHash = nip.slice(-6); // Get last 6 digits
-    logger.info(`Auto-generated password for guru from NIP: ${nip} -> last 6 digits`);
+    logger.info(
+      `Auto-generated password for guru from NIP: ${nip} -> last 6 digits`
+    );
   }
 
   if (!passwordToHash) {
@@ -46,6 +58,16 @@ export const createGuruService = async (data: CreateGuruServiceInput) => {
     username,
     passwordHash,
     role: UserRole.GURU, // Set role sebagai GURU
+    jenisKelamin: data.jenisKelamin,
+    agama: data.agama,
+    tempatLahir: data.tempatLahir,
+    tanggalLahir: data.tanggalLahir ? new Date(data.tanggalLahir) : undefined,
+    noTelp: data.noTelp,
+    nik: data.nik,
+    nuptk: data.nuptk,
+    statusKepegawaian: data.statusKepegawaian,
+    alamat: data.alamat,
+    isAktif: data.isAktif,
   };
 
   // 3. Panggil Repository
@@ -57,7 +79,10 @@ export const createGuruService = async (data: CreateGuruServiceInput) => {
 /**
  * Get all Guru with pagination
  */
-export const getAllGuruService = async (page: number = 1, limit: number = 50) => {
+export const getAllGuruService = async (
+  page: number = 1,
+  limit: number = 50
+) => {
   const skip = (page - 1) * limit;
   const take = limit;
 
@@ -96,12 +121,25 @@ interface UpdateGuruServiceInput {
   nip?: string;
   nama?: string;
   email?: string;
+  jenisKelamin?: string;
+  agama?: string;
+  tempatLahir?: string;
+  tanggalLahir?: string;
+  noTelp?: string;
+  nik?: string;
+  nuptk?: string;
+  statusKepegawaian?: string;
+  alamat?: string;
+  isAktif?: boolean;
 }
 
 /**
  * Update Guru data
  */
-export const updateGuruService = async (id: string, data: UpdateGuruServiceInput) => {
+export const updateGuruService = async (
+  id: string,
+  data: UpdateGuruServiceInput
+) => {
   logger.info(`Updating guru: ${id}`);
 
   // Check if guru exists
@@ -115,6 +153,17 @@ export const updateGuruService = async (id: string, data: UpdateGuruServiceInput
   if (data.nip) updateData.nip = data.nip;
   if (data.nama) updateData.nama = data.nama;
   if (data.email !== undefined) updateData.email = data.email;
+  if (data.jenisKelamin) updateData.jenisKelamin = data.jenisKelamin;
+  if (data.agama) updateData.agama = data.agama;
+  if (data.tempatLahir) updateData.tempatLahir = data.tempatLahir;
+  if (data.tanggalLahir) updateData.tanggalLahir = new Date(data.tanggalLahir);
+  if (data.noTelp) updateData.noTelp = data.noTelp;
+  if (data.nik) updateData.nik = data.nik;
+  if (data.nuptk) updateData.nuptk = data.nuptk;
+  if (data.statusKepegawaian)
+    updateData.statusKepegawaian = data.statusKepegawaian;
+  if (data.alamat) updateData.alamat = data.alamat;
+  if (data.isAktif !== undefined) updateData.isAktif = data.isAktif;
 
   const updatedGuru = await updateGuruRepo(id, updateData);
 
@@ -135,7 +184,10 @@ export const deleteGuruService = async (id: string) => {
 
   // Check if guru is wali kelas
   if (existingGuru.KelasBimbingan) {
-    throw new AppError("Guru masih menjadi wali kelas. Hapus penugasan wali kelas terlebih dahulu.", 400);
+    throw new AppError(
+      "Guru masih menjadi wali kelas. Hapus penugasan wali kelas terlebih dahulu.",
+      400
+    );
   }
 
   // Delete guru (cascade will delete user)

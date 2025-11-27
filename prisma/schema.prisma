@@ -71,6 +71,16 @@ model Guru {
   nip             String?              @unique
   nama            String
   email           String?              @unique
+  jenisKelamin    String?
+  agama           String?
+  tempatLahir     String?
+  tanggalLahir    DateTime?
+  noTelp          String?
+  nik             String?
+  nuptk           String?
+  statusKepegawaian String?
+  alamat          String?
+  isAktif         Boolean              @default(true)
   KelasBimbingan  Kelas?
   Penugasan       PenugasanGuru[]
   Jadwal          Jadwal[]
@@ -85,9 +95,24 @@ model Siswa {
   userId          String               @unique
   user            User                 @relation(fields: [userId], references: [id])
   nis             String               @unique
+  nisn            String?              @unique
   nama            String
+  jenisKelamin    String?
+  agama           String?
+  tempatLahir     String?
   tanggalLahir    DateTime?
+  pendidikanSebelumnya String?
   alamat          String?
+  namaAyah        String?
+  pekerjaanAyah   String?
+  namaIbu         String?
+  pekerjaanIbu    String?
+  alamatOrtu      String?
+  namaWali        String?
+  pekerjaanWali   String?
+  alamatWali      String?
+  status          String?              @default("Aktif")
+  nik             String?
   Penempatan      PenempatanSiswa[]
   AbsensiDetail   AbsensiDetail[]
   Rapor           Rapor[]

@@ -10,7 +10,11 @@
     "test": "jest",
     "dev": "nodemon src/index.ts",
     "start": "nodemon src/index.ts",
+    "build": "tsc",
     "postinstall": "prisma generate"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed-admin.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
