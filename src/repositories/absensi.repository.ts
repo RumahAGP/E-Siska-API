@@ -7,9 +7,6 @@ interface CreateSesiInput {
   pertemuanKe: number;
 }
 
-/**
- * Membuat Sesi Absensi baru
- */
 export const createSesiRepo = async (data: CreateSesiInput) => {
   try {
     const newSesi = await prisma.absensiSesi.create({
@@ -22,7 +19,6 @@ export const createSesiRepo = async (data: CreateSesiInput) => {
     });
     return newSesi;
   } catch (error) {
-    // Tangani error, misal sesi pada tanggal/pertemuan tsb sudah ada
     throw error;
   }
 };
@@ -30,12 +26,12 @@ export const createSesiRepo = async (data: CreateSesiInput) => {
 export const findSesiByKelasRepo = async (kelasId: string) => {
   return await prisma.absensiSesi.findMany({
     where: { kelasId },
-    orderBy: { tanggal: 'desc' },
+    orderBy: { tanggal: "desc" },
     include: {
       _count: {
-        select: { Detail: true }
-      }
-    }
+        select: { Detail: true },
+      },
+    },
   });
 };
 
@@ -46,9 +42,9 @@ export const findSesiByIdRepo = async (sesiId: string) => {
       kelas: true,
       Detail: {
         include: {
-          siswa: true
-        }
-      }
-    }
+          siswa: true,
+        },
+      },
+    },
   });
 };

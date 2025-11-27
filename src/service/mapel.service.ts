@@ -1,10 +1,15 @@
-import { createMapelRepo, updateMapelRepo, deleteMapelRepo, getAllMapelRepo } from "../repositories/mapel.repository";
+import {
+  createMapelRepo,
+  updateMapelRepo,
+  deleteMapelRepo,
+  getAllMapelRepo,
+} from "../repositories/mapel.repository";
 import logger from "../utils/logger";
 import { MapelCategory } from "../generated/prisma";
 
 interface CreateMapelServiceInput {
   namaMapel: string;
-  kategori: string; // Terima sebagai string dari validator
+  kategori: string;
   adminId: string;
 }
 
@@ -13,22 +18,24 @@ export const createMapelService = async (data: CreateMapelServiceInput) => {
 
   const repoInput = {
     namaMapel: data.namaMapel,
-    kategori: data.kategori as MapelCategory, // Konversi string ke Enum
+    kategori: data.kategori as MapelCategory,
     adminId: data.adminId,
   };
 
-  // Panggil Repository
   const newData = await createMapelRepo(repoInput);
 
   return newData;
 };
 
-export const updateMapelService = async (id: string, data: Partial<CreateMapelServiceInput>) => {
+export const updateMapelService = async (
+  id: string,
+  data: Partial<CreateMapelServiceInput>
+) => {
   logger.info(`Mencoba update mata pelajaran: ${id}`);
-  
+
   const updateData: any = { ...data };
   if (data.kategori) {
-      updateData.kategori = data.kategori as MapelCategory;
+    updateData.kategori = data.kategori as MapelCategory;
   }
 
   return await updateMapelRepo(id, updateData);

@@ -11,9 +11,6 @@ interface CreateJadwalInput {
   waktuSelesai: string;
 }
 
-/**
- * Membuat data Jadwal baru
- */
 export const createJadwalRepo = async (data: CreateJadwalInput) => {
   try {
     const newJadwal = await prisma.jadwal.create({

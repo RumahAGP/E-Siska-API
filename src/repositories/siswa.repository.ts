@@ -1,7 +1,6 @@
 import { prisma } from "../config/prisma";
-import { UserRole } from "../generated/prisma"; // Impor Enum Role
+import { UserRole } from "../generated/prisma";
 
-// Tipe data ini bisa dipindah ke file 'types' nanti
 interface CreateSiswaInput {
   nis: string;
   nisn?: string;
@@ -22,14 +21,11 @@ interface CreateSiswaInput {
   alamatWali?: string;
   status?: string;
   nik?: string;
-  username: string; // Ini adalah NIS
+  username: string;
   passwordHash: string;
   role: UserRole;
 }
 
-/**
- * Membuat data Siswa dan User baru dalam satu transaksi
- */
 export const createSiswaRepo = async (data: CreateSiswaInput) => {
   const {
     nis,
@@ -58,7 +54,6 @@ export const createSiswaRepo = async (data: CreateSiswaInput) => {
 
   try {
     const result = await prisma.$transaction(async (tx) => {
-      // 1. Buat User baru
       const newUser = await tx.user.create({
         data: {
           username: username,
@@ -67,7 +62,6 @@ export const createSiswaRepo = async (data: CreateSiswaInput) => {
         },
       });
 
-      // 2. Buat Siswa baru, hubungkan dengan userId yang baru dibuat
       const newSiswa = await tx.siswa.create({
         data: {
           nis,
@@ -89,26 +83,20 @@ export const createSiswaRepo = async (data: CreateSiswaInput) => {
           alamatWali,
           status,
           nik,
-          userId: newUser.id, // Menghubungkan ke User
+          userId: newUser.id,
         },
       });
 
       return { user: newUser, siswa: newSiswa };
     });
-
-    // Hapus passwordHash dari response
     const { passwordHash: _, ...safeUser } = result.user;
 
     return { user: safeUser, siswa: result.siswa };
   } catch (error) {
-    // Tangani jika ada error, misal NIS/Username duplikat
     throw error;
   }
 };
 
-/**
- * Get all Students with optional pagination
- */
 export const getAllSiswaRepo = async (skip?: number, take?: number) => {
   return prisma.siswa.findMany({
     skip: skip || 0,
@@ -128,9 +116,6 @@ export const getAllSiswaRepo = async (skip?: number, take?: number) => {
   });
 };
 
-/**
- * Get Student by ID with user data
- */
 export const getSiswaByIdRepo = async (id: string) => {
   return prisma.siswa.findUnique({
     where: { id },
@@ -174,9 +159,6 @@ interface UpdateSiswaInput {
   nik?: string;
 }
 
-/**
- * Update Student data
- */
 export const updateSiswaRepo = async (id: string, data: UpdateSiswaInput) => {
   return prisma.siswa.update({
     where: { id },
@@ -217,9 +199,6 @@ export const updateSiswaRepo = async (id: string, data: UpdateSiswaInput) => {
   });
 };
 
-/**
- * Delete Student (cascade delete user via Prisma schema)
- */
 export const deleteSiswaRepo = async (id: string) => {
   return prisma.siswa.delete({
     where: { id },

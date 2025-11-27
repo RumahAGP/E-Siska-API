@@ -1,6 +1,6 @@
-import { Router } from 'express';
-import SiswaViewController from '../controllers/siswa-view.controller';
-import { authMiddleware, siswaGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import SiswaViewController from "../controllers/siswa-view.controller";
+import { authMiddleware, siswaGuard } from "../middleware/auth.middleware";
 
 class SiswaViewRouter {
   private route: Router;
@@ -13,41 +13,36 @@ class SiswaViewRouter {
   }
 
   private initializeRoute(): void {
-    // Get my attendance - Siswa only
     this.route.get(
-      '/my/absensi',
+      "/my/absensi",
       authMiddleware,
       siswaGuard,
       this.siswaViewController.getMyAbsensi
     );
 
-    // Get my grades - Siswa only
     this.route.get(
-      '/my/nilai',
+      "/my/nilai",
       authMiddleware,
       siswaGuard,
       this.siswaViewController.getMyNilai
     );
 
-    // Get my class schedule - Siswa only
     this.route.get(
-      '/my/jadwal',
+      "/my/jadwal",
       authMiddleware,
       siswaGuard,
       this.siswaViewController.getMyJadwal
     );
 
-    // Get pengumuman - Siswa only (could be public but protected for now)
     this.route.get(
-      '/pengumuman',
+      "/pengumuman",
       authMiddleware,
       siswaGuard,
       this.siswaViewController.getPengumuman
     );
 
-    // Get dokumen list - Siswa only (could be public but protected for now)
     this.route.get(
-      '/dokumen',
+      "/dokumen",
       authMiddleware,
       siswaGuard,
       this.siswaViewController.getDokumen

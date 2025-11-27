@@ -20,7 +20,9 @@ class WaliKelasController {
         });
       }
 
-      logger.info(`Wali kelas ${guruId} fetching rekap nilai for kelas ${kelasId}`);
+      logger.info(
+        `Wali kelas ${guruId} fetching rekap nilai for kelas ${kelasId}`
+      );
 
       const result = await getRekapNilaiKelasService(guruId, kelasId);
 
@@ -37,7 +39,11 @@ class WaliKelasController {
     }
   }
 
-  public async getRekapAbsensi(req: Request, res: Response, next: NextFunction) {
+  public async getRekapAbsensi(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
       const guruId = req.user?.guruId;
       const { kelasId } = req.params;
@@ -49,7 +55,9 @@ class WaliKelasController {
         });
       }
 
-      logger.info(`Wali kelas ${guruId} fetching rekap absensi for kelas ${kelasId}`);
+      logger.info(
+        `Wali kelas ${guruId} fetching rekap absensi for kelas ${kelasId}`
+      );
 
       const result = await getRekapAbsensiKelasService(guruId, kelasId);
 
@@ -78,7 +86,9 @@ class WaliKelasController {
         });
       }
 
-      logger.info(`Wali kelas ${guruId} fetching data siswa for kelas ${kelasId}`);
+      logger.info(
+        `Wali kelas ${guruId} fetching data siswa for kelas ${kelasId}`
+      );
 
       const result = await getDataSiswaBimbinganService(guruId, kelasId);
 

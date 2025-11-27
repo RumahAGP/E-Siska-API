@@ -2,13 +2,12 @@ import { prisma } from "../config/prisma";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 
-/**
- * Get rekap nilai for all students in wali kelas's class
- */
-export const getRekapNilaiKelasService = async (guruId: string, kelasId: string) => {
+export const getRekapNilaiKelasService = async (
+  guruId: string,
+  kelasId: string
+) => {
   logger.info(`Guru ${guruId} fetching rekap nilai for kelas ${kelasId}`);
 
-  // Verify that guru is wali kelas of this class
   const kelas = await prisma.kelas.findUnique({
     where: { id: kelasId },
     include: {
@@ -24,7 +23,6 @@ export const getRekapNilaiKelasService = async (guruId: string, kelasId: string)
     throw new AppError("Anda bukan wali kelas dari kelas ini", 403);
   }
 
-  // Get all students in this class
   const siswaList = await prisma.penempatanSiswa.findMany({
     where: {
       kelasId: kelasId,
@@ -35,10 +33,8 @@ export const getRekapNilaiKelasService = async (guruId: string, kelasId: string)
     },
   });
 
-  // Get nilai for each student
   const rekapNilai = await Promise.all(
     siswaList.map(async (penempatan: any) => {
-      // Get rapor if exists
       const rapor = await prisma.rapor.findFirst({
         where: {
           siswaId: penempatan.siswaId,
@@ -67,13 +63,12 @@ export const getRekapNilaiKelasService = async (guruId: string, kelasId: string)
   };
 };
 
-/**
- * Get rekap absensi for all students in wali kelas's class
- */
-export const getRekapAbsensiKelasService = async (guruId: string, kelasId: string) => {
+export const getRekapAbsensiKelasService = async (
+  guruId: string,
+  kelasId: string
+) => {
   logger.info(`Guru ${guruId} fetching rekap absensi for kelas ${kelasId}`);
 
-  // Verify that guru is wali kelas of this class
   const kelas = await prisma.kelas.findUnique({
     where: { id: kelasId },
     include: {
@@ -89,7 +84,6 @@ export const getRekapAbsensiKelasService = async (guruId: string, kelasId: strin
     throw new AppError("Anda bukan wali kelas dari kelas ini", 403);
   }
 
-  // Get all students in this class
   const siswaList = await prisma.penempatanSiswa.findMany({
     where: {
       kelasId: kelasId,
@@ -99,7 +93,6 @@ export const getRekapAbsensiKelasService = async (guruId: string, kelasId: strin
     },
   });
 
-  // Get absensi summary for each student
   const rekapAbsensi = await Promise.all(
     siswaList.map(async (penempatan: any) => {
       const absensiDetails = await prisma.absensiDetail.findMany({
@@ -112,10 +105,10 @@ export const getRekapAbsensiKelasService = async (guruId: string, kelasId: strin
       });
 
       const summary = {
-        hadir: absensiDetails.filter(a => a.status === 'HADIR').length,
-        sakit: absensiDetails.filter(a => a.status === 'SAKIT').length,
-        izin: absensiDetails.filter(a => a.status === 'IZIN').length,
-        alpha: absensiDetails.filter(a => a.status === 'ALPHA').length,
+        hadir: absensiDetails.filter((a) => a.status === "HADIR").length,
+        sakit: absensiDetails.filter((a) => a.status === "SAKIT").length,
+        izin: absensiDetails.filter((a) => a.status === "IZIN").length,
+        alpha: absensiDetails.filter((a) => a.status === "ALPHA").length,
         total: absensiDetails.length,
       };
 
@@ -132,13 +125,12 @@ export const getRekapAbsensiKelasService = async (guruId: string, kelasId: strin
   };
 };
 
-/**
- * Get all students data in wali kelas's class
- */
-export const getDataSiswaBimbinganService = async (guruId: string, kelasId: string) => {
+export const getDataSiswaBimbinganService = async (
+  guruId: string,
+  kelasId: string
+) => {
   logger.info(`Guru ${guruId} fetching data siswa for kelas ${kelasId}`);
 
-  // Verify that guru is wali kelas of this class
   const kelas = await prisma.kelas.findUnique({
     where: { id: kelasId },
     include: {
@@ -154,7 +146,6 @@ export const getDataSiswaBimbinganService = async (guruId: string, kelasId: stri
     throw new AppError("Anda bukan wali kelas dari kelas ini", 403);
   }
 
-  // Get all students in this class
   const siswaList = await prisma.penempatanSiswa.findMany({
     where: {
       kelasId: kelasId,
@@ -173,7 +164,7 @@ export const getDataSiswaBimbinganService = async (guruId: string, kelasId: stri
     },
     orderBy: {
       siswa: {
-        nama: 'asc',
+        nama: "asc",
       },
     },
   });
@@ -188,9 +179,6 @@ export const getDataSiswaBimbinganService = async (guruId: string, kelasId: stri
   };
 };
 
-/**
- * Get wali kelas's own class (if assigned)
- */
 export const getMyKelasService = async (guruId: string) => {
   logger.info(`Guru ${guruId} fetching own kelas as wali kelas`);
 
@@ -207,7 +195,6 @@ export const getMyKelasService = async (guruId: string) => {
     throw new AppError("Anda belum ditugaskan sebagai wali kelas", 404);
   }
 
-  // Get student count
   const studentCount = await prisma.penempatanSiswa.count({
     where: {
       kelasId: kelas.id,

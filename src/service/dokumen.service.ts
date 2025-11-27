@@ -9,38 +9,37 @@ interface CreateDokumenServiceInput {
   file: Express.Multer.File;
 }
 
-export const createDokumenService = async (
-  data: CreateDokumenServiceInput,
-) => {
+export const createDokumenService = async (data: CreateDokumenServiceInput) => {
   logger.info(`Mencoba mengupload dokumen: ${data.judul}`);
 
-  // 1. Upload file ke Cloudinary
   const uploadResult = await cloudinaryUpload(data.file);
-  logger.info(`File berhasil diupload ke Cloudinary: ${uploadResult.secure_url}`);
+  logger.info(
+    `File berhasil diupload ke Cloudinary: ${uploadResult.secure_url}`
+  );
 
-  // TODO: adminUserId harus didapat dari data user (Admin) yang sedang login
-  const ADMIN_USER_ID_DUMMY = (await prisma.admin.findFirst({
-      where: { id: "dummy-admin-id-untuk-tes" },
-      include: { user: true }
-  }))?.user.id || "dummy-admin-user-id";
+  const ADMIN_USER_ID_DUMMY =
+    (
+      await prisma.admin.findFirst({
+        where: { id: "dummy-admin-id-untuk-tes" },
+        include: { user: true },
+      })
+    )?.user.id || "dummy-admin-user-id";
 
-  // 2. Siapkan data untuk repository
   const repoInput = {
     judul: data.judul,
     urlFile: uploadResult.secure_url,
     adminId: ADMIN_USER_ID_DUMMY,
   };
 
-  // 3. Panggil Repository
   const newDokumen = await createDokumenRepo(repoInput);
 
   return newDokumen;
 };
 
-/**
- * Get all documents with pagination
- */
-export const getAllDokumenService = async (page: number = 1, limit: number = 50) => {
+export const getAllDokumenService = async (
+  page: number = 1,
+  limit: number = 50
+) => {
   const skip = (page - 1) * limit;
   const take = limit;
 
@@ -50,7 +49,7 @@ export const getAllDokumenService = async (page: number = 1, limit: number = 50)
     skip,
     take,
     orderBy: {
-      createdAt: 'desc',
+      createdAt: "desc",
     },
     select: {
       id: true,
@@ -73,13 +72,9 @@ export const getAllDokumenService = async (page: number = 1, limit: number = 50)
   };
 };
 
-/**
- * Delete dokumen by ID
- */
 export const deleteDokumenService = async (id: string) => {
   logger.info(`Deleting dokumen: ${id}`);
 
-  // Check if dokumen exists
   const dokumen = await prisma.dokumen.findUnique({
     where: { id },
   });
@@ -88,7 +83,6 @@ export const deleteDokumenService = async (id: string) => {
     throw new AppError("Dokumen tidak ditemukan", 404);
   }
 
-  // Delete from database
   await prisma.dokumen.delete({
     where: { id },
   });

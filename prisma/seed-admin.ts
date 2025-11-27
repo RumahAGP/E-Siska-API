@@ -2,15 +2,10 @@ import { prisma } from "../src/config/prisma";
 import bcrypt from "bcrypt";
 import logger from "../src/utils/logger";
 
-/**
- * Seed script untuk membuat Admin pertama kali
- * Run: npx ts-node prisma/seed-admin.ts
- */
 async function seedAdmin() {
   try {
     logger.info("Starting admin seed...");
 
-    // Check if admin already exists
     const existingAdmin = await prisma.user.findFirst({
       where: {
         role: "ADMIN",
@@ -23,7 +18,6 @@ async function seedAdmin() {
       return;
     }
 
-    // Create admin user
     const passwordHash = await bcrypt.hash("admin123", 10);
 
     const adminUser = await prisma.user.create({
@@ -36,7 +30,6 @@ async function seedAdmin() {
 
     logger.info(`Admin user created: ${adminUser.id}`);
 
-    // Create admin profile
     const adminProfile = await prisma.admin.create({
       data: {
         userId: adminUser.id,
@@ -54,7 +47,6 @@ async function seedAdmin() {
     console.log("━".repeat(50));
     console.log("\n⚠️  IMPORTANT: Change password after first login!");
     console.log("\n");
-
   } catch (error) {
     logger.error(`Error seeding admin: ${error}`);
     console.error("❌ Error creating admin:", error);
@@ -64,7 +56,6 @@ async function seedAdmin() {
   }
 }
 
-// Run seed
 seedAdmin()
   .then(() => {
     console.log("✅ Seed completed!");

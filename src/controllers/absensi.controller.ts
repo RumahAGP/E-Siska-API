@@ -1,5 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { createSesiService, getSesiByKelasService, getSesiDetailService } from "../service/absensi.service";
+import {
+  createSesiService,
+  getSesiByKelasService,
+  getSesiDetailService,
+} from "../service/absensi.service";
 import logger from "../utils/logger";
 
 class AbsensiController {

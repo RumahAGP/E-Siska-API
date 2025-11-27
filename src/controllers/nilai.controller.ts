@@ -1,5 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import { inputNilaiService, getNilaiKelasService, getMyGradesService, getAllNilaiService, updateNilaiService, deleteNilaiService } from "../service/nilai.service";
+import {
+  inputNilaiService,
+  getNilaiKelasService,
+  getMyGradesService,
+  getAllNilaiService,
+  updateNilaiService,
+  deleteNilaiService,
+} from "../service/nilai.service";
 import logger from "../utils/logger";
 
 class NilaiController {
@@ -121,4 +128,3 @@ class NilaiController {
 }
 
 export default NilaiController;
-

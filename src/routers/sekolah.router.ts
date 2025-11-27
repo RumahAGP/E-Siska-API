@@ -1,6 +1,6 @@
-import { Router } from 'express';
-import SekolahController from '../controllers/sekolah.controller';
-import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import SekolahController from "../controllers/sekolah.controller";
+import { authMiddleware, adminGuard } from "../middleware/auth.middleware";
 
 class SekolahRouter {
   private route: Router;
@@ -13,33 +13,24 @@ class SekolahRouter {
   }
 
   private initializeRoute(): void {
-    // Get school data - Admin only
-    this.route.get(
-      '/',
-      authMiddleware,
-      adminGuard,
-      this.sekolahController.get
-    );
+    this.route.get("/", authMiddleware, adminGuard, this.sekolahController.get);
 
-    // Create or Update school data - Admin only (POST)
     this.route.post(
-      '/',
+      "/",
       authMiddleware,
       adminGuard,
       this.sekolahController.upsert
     );
 
-    // Create or Update school data - Admin only (PUT - for frontend compatibility)
     this.route.put(
-      '/',
+      "/",
       authMiddleware,
       adminGuard,
       this.sekolahController.upsert
     );
 
-    // Delete school data - Admin only
     this.route.delete(
-      '/',
+      "/",
       authMiddleware,
       adminGuard,
       this.sekolahController.delete

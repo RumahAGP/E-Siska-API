@@ -7,11 +7,13 @@ interface CreateTahunAjaranInput {
   nama: string;
 }
 
-export const createTahunAjaranService = async (data: CreateTahunAjaranInput) => {
+export const createTahunAjaranService = async (
+  data: CreateTahunAjaranInput
+) => {
   logger.info(`Creating tahun ajaran: ${data.nama}`);
 
-  // TODO: Get adminId from authenticated user
-  const ADMIN_ID_DUMMY = (await prisma.admin.findFirst())?.id || "dummy-admin-id";
+  const ADMIN_ID_DUMMY =
+    (await prisma.admin.findFirst())?.id || "dummy-admin-id";
 
   const newTahunAjaran = await createTahunAjaranRepo({
     nama: data.nama,
@@ -21,28 +23,21 @@ export const createTahunAjaranService = async (data: CreateTahunAjaranInput) => 
   return newTahunAjaran;
 };
 
-/**
- * Get all tahun ajaran
- */
 export const getAllTahunAjaranService = async () => {
-  logger.info('Fetching all tahun ajaran');
+  logger.info("Fetching all tahun ajaran");
 
   const tahunAjaran = await prisma.tahunAjaran.findMany({
     orderBy: {
-      nama: 'desc',
+      nama: "desc",
     },
   });
 
-  // Transform isAktif to isActive for frontend compatibility
   return tahunAjaran.map((ta) => ({
     ...ta,
     isActive: ta.isAktif,
   }));
 };
 
-/**
- * Get tahun ajaran by ID
- */
 export const getTahunAjaranByIdService = async (id: string) => {
   logger.info(`Fetching tahun ajaran: ${id}`);
 
@@ -60,10 +55,10 @@ export const getTahunAjaranByIdService = async (id: string) => {
   };
 };
 
-/**
- * Update tahun ajaran
- */
-export const updateTahunAjaranService = async (id: string, data: Partial<CreateTahunAjaranInput>) => {
+export const updateTahunAjaranService = async (
+  id: string,
+  data: Partial<CreateTahunAjaranInput>
+) => {
   logger.info(`Updating tahun ajaran: ${id}`);
 
   const tahunAjaran = await prisma.tahunAjaran.findUnique({
@@ -87,9 +82,6 @@ export const updateTahunAjaranService = async (id: string, data: Partial<CreateT
   };
 };
 
-/**
- * Activate tahun ajaran (set as active, deactivate others)
- */
 export const activateTahunAjaranService = async (id: string) => {
   logger.info(`Activating tahun ajaran: ${id}`);
 
@@ -101,12 +93,10 @@ export const activateTahunAjaranService = async (id: string) => {
     throw new AppError("Tahun ajaran tidak ditemukan", 404);
   }
 
-  // Deactivate all first
   await prisma.tahunAjaran.updateMany({
     data: { isAktif: false },
   });
 
-  // Activate the selected one
   const activated = await prisma.tahunAjaran.update({
     where: { id },
     data: { isAktif: true },
@@ -118,9 +108,6 @@ export const activateTahunAjaranService = async (id: string) => {
   };
 };
 
-/**
- * Delete tahun ajaran
- */
 export const deleteTahunAjaranService = async (id: string) => {
   logger.info(`Deleting tahun ajaran: ${id}`);
 
@@ -132,9 +119,11 @@ export const deleteTahunAjaranService = async (id: string) => {
     throw new AppError("Tahun ajaran tidak ditemukan", 404);
   }
 
-  // Check if active
   if (tahunAjaran.isAktif) {
-    throw new AppError("Tidak dapat menghapus tahun ajaran yang sedang aktif", 400);
+    throw new AppError(
+      "Tidak dapat menghapus tahun ajaran yang sedang aktif",
+      400
+    );
   }
 
   await prisma.tahunAjaran.delete({
@@ -145,10 +134,10 @@ export const deleteTahunAjaranService = async (id: string) => {
 };
 
 export const getActiveTahunAjaranService = async () => {
-  logger.info('Fetching active tahun ajaran');
-  
+  logger.info("Fetching active tahun ajaran");
+
   const active = await prisma.tahunAjaran.findFirst({
-    where: { isAktif: true }
+    where: { isAktif: true },
   });
 
   if (!active) {

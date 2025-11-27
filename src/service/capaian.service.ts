@@ -1,4 +1,7 @@
-import { upsertCapaianRepo, InputCapaianItem } from "../repositories/capaian.repository";
+import {
+  upsertCapaianRepo,
+  InputCapaianItem,
+} from "../repositories/capaian.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
@@ -13,7 +16,6 @@ interface InputCapaianServiceInput {
 export const inputCapaianService = async (input: InputCapaianServiceInput) => {
   logger.info(`Mencoba input capaian kompetensi untuk mapel ${input.mapelId}`);
 
-  // 1. Validasi Mapel: Tidak boleh EKSTRAKURIKULER
   const mapel = await prisma.mataPelajaran.findUnique({
     where: { id: input.mapelId },
   });
@@ -29,7 +31,6 @@ export const inputCapaianService = async (input: InputCapaianServiceInput) => {
     );
   }
 
-  // 2. Validasi Penugasan: Apakah Guru mengajar mapel ini?
   const penugasan = await prisma.penugasanGuru.findFirst({
     where: {
       guruId: input.guruId,
@@ -38,10 +39,12 @@ export const inputCapaianService = async (input: InputCapaianServiceInput) => {
   });
 
   if (!penugasan) {
-    throw new AppError("Anda tidak terdaftar sebagai pengajar mata pelajaran ini.", 403);
+    throw new AppError(
+      "Anda tidak terdaftar sebagai pengajar mata pelajaran ini.",
+      403
+    );
   }
 
-  // 3. Simpan ke Database
   const result = await upsertCapaianRepo(
     input.guruId,
     input.mapelId,

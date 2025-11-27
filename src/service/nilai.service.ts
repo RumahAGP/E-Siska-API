@@ -1,4 +1,12 @@
-import { upsertNilaiRepo, InputNilaiItem, getNilaiKelasRepo, getNilaiBySiswaIdRepo, getAllNilaiRepo, updateNilaiRepo, deleteNilaiRepo } from "../repositories/nilai.repository";
+import {
+  upsertNilaiRepo,
+  InputNilaiItem,
+  getNilaiKelasRepo,
+  getNilaiBySiswaIdRepo,
+  getAllNilaiRepo,
+  updateNilaiRepo,
+  deleteNilaiRepo,
+} from "../repositories/nilai.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
@@ -13,9 +21,10 @@ interface InputNilaiServiceInput {
 }
 
 export const inputNilaiService = async (input: InputNilaiServiceInput) => {
-  logger.info(`Mencoba input nilai untuk mapel ${input.mapelId}, komponen ${input.komponenId}`);
+  logger.info(
+    `Mencoba input nilai untuk mapel ${input.mapelId}, komponen ${input.komponenId}`
+  );
 
-  // 1. Validasi: Apakah Guru punya penugasan di mapel ini?
   const penugasan = await prisma.penugasanGuru.findFirst({
     where: {
       guruId: input.guruId,
@@ -24,10 +33,12 @@ export const inputNilaiService = async (input: InputNilaiServiceInput) => {
   });
 
   if (!penugasan) {
-    throw new AppError("Anda tidak terdaftar sebagai pengajar mata pelajaran ini.", 403);
+    throw new AppError(
+      "Anda tidak terdaftar sebagai pengajar mata pelajaran ini.",
+      403
+    );
   }
 
-  // 2. Validasi Komponen: Cek apakah komponen ada, milik mapel ini, dan tipe INPUT
   const komponen = await prisma.nilaiKomponen.findUnique({
     where: { id: input.komponenId },
     include: { skema: true },
@@ -38,7 +49,10 @@ export const inputNilaiService = async (input: InputNilaiServiceInput) => {
   }
 
   if (komponen.skema.mapelId !== input.mapelId) {
-    throw new AppError("Komponen nilai ini tidak milik mata pelajaran yang dipilih.", 400);
+    throw new AppError(
+      "Komponen nilai ini tidak milik mata pelajaran yang dipilih.",
+      400
+    );
   }
 
   if (komponen.tipe !== NilaiKomponenType.INPUT) {
@@ -48,7 +62,6 @@ export const inputNilaiService = async (input: InputNilaiServiceInput) => {
     );
   }
 
-  // 3. Simpan ke Database (INPUT values)
   const result = await upsertNilaiRepo(
     input.guruId,
     input.mapelId,
@@ -56,19 +69,22 @@ export const inputNilaiService = async (input: InputNilaiServiceInput) => {
     input.data
   );
 
-  // 4. Picu Kalkulasi Formula Otomatis
   const affectedSiswaIds = input.data.map((d) => d.siswaId);
   await calculateGradesService(input.mapelId, affectedSiswaIds);
 
   return result;
 };
 
-export const getNilaiKelasService = async (guruId: string, kelasId: string, mapelId: string) => {
+export const getNilaiKelasService = async (
+  guruId: string,
+  kelasId: string,
+  mapelId: string
+) => {
   const { students, grades } = await getNilaiKelasRepo(kelasId, mapelId);
 
   const formattedData = students.map((p) => {
     const studentGrades = grades.filter((g) => g.siswaId === p.siswaId);
-    
+
     const gradesMap: Record<string, number> = {};
     studentGrades.forEach((g) => {
       if (g.komponenId && g.nilaiAngka !== null) {
@@ -93,13 +109,13 @@ export const getMyGradesService = async (siswaId: string) => {
 
   const groupedGrades: Record<string, any> = {};
 
-  grades.forEach(g => {
+  grades.forEach((g) => {
     const mapelName = g.mapel.namaMapel;
     if (!groupedGrades[mapelName]) {
       groupedGrades[mapelName] = {
         mapel: mapelName,
         kategori: g.mapel.kategori,
-        components: []
+        components: [],
       };
     }
 
@@ -107,7 +123,7 @@ export const getMyGradesService = async (siswaId: string) => {
       komponen: g.komponen?.namaKomponen || "Unknown",
       tipe: g.komponen?.tipe,
       nilai: g.nilaiAngka,
-      guru: g.guru.nama
+      guru: g.guru.nama,
     });
   });
 
@@ -121,8 +137,8 @@ export const getAllNilaiService = async (filters?: {
 }) => {
   logger.info(`Fetching all nilai with filters: ${JSON.stringify(filters)}`);
   const data = await getAllNilaiRepo(filters);
-  
-  return data.map(nilai => ({
+
+  return data.map((nilai) => ({
     id: nilai.id,
     siswaId: nilai.siswaId,
     mapelId: nilai.mapelId,
@@ -130,16 +146,20 @@ export const getAllNilaiService = async (filters?: {
     nilai: nilai.nilaiAngka,
     siswa: nilai.siswa,
     mapel: nilai.mapel,
-    skema: nilai.komponen
+    skema: nilai.komponen,
   }));
 };
 
-export const updateNilaiService = async (id: string, nilai: number, guruId: string) => {
+export const updateNilaiService = async (
+  id: string,
+  nilai: number,
+  guruId: string
+) => {
   logger.info(`Updating nilai ${id} with new value: ${nilai}`);
-  
+
   const existingNilai = await prisma.nilaiDetailSiswa.findUnique({
     where: { id },
-    include: { komponen: true }
+    include: { komponen: true },
   });
 
   if (!existingNilai) {
@@ -147,7 +167,10 @@ export const updateNilaiService = async (id: string, nilai: number, guruId: stri
   }
 
   if (existingNilai.komponen?.tipe !== NilaiKomponenType.INPUT) {
-    throw new AppError("Anda hanya dapat mengubah nilai pada komponen bertipe INPUT.", 400);
+    throw new AppError(
+      "Anda hanya dapat mengubah nilai pada komponen bertipe INPUT.",
+      400
+    );
   }
 
   const result = await updateNilaiRepo(id, nilai, guruId);
@@ -158,10 +181,10 @@ export const updateNilaiService = async (id: string, nilai: number, guruId: stri
 
 export const deleteNilaiService = async (id: string) => {
   logger.info(`Deleting nilai ${id}`);
-  
+
   const existingNilai = await prisma.nilaiDetailSiswa.findUnique({
     where: { id },
-    include: { komponen: true }
+    include: { komponen: true },
   });
 
   if (!existingNilai) {
@@ -169,7 +192,10 @@ export const deleteNilaiService = async (id: string) => {
   }
 
   if (existingNilai.komponen?.tipe !== NilaiKomponenType.INPUT) {
-    throw new AppError("Anda hanya dapat menghapus nilai pada komponen bertipe INPUT.", 400);
+    throw new AppError(
+      "Anda hanya dapat menghapus nilai pada komponen bertipe INPUT.",
+      400
+    );
   }
 
   const result = await deleteNilaiRepo(id);

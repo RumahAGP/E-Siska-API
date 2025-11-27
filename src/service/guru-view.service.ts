@@ -2,9 +2,6 @@ import { prisma } from "../config/prisma";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 
-/**
- * Get guru's teaching schedule
- */
 export const getMyJadwalGuruService = async (guruId: string) => {
   logger.info(`Fetching schedule for guru: ${guruId}`);
 
@@ -22,24 +19,18 @@ export const getMyJadwalGuruService = async (guruId: string) => {
       ruangan: true,
       tahunAjaran: true,
     },
-    orderBy: [
-      { hari: 'asc' },
-      { waktuMulai: 'asc' },
-    ],
+    orderBy: [{ hari: "asc" }, { waktuMulai: "asc" }],
   });
 
   return jadwal;
 };
 
-/**
- * Get pengumuman for guru (reuse from siswa-view or create guru-specific)
- */
 export const getPengumumanGuruService = async () => {
-  logger.info('Fetching pengumuman for guru');
+  logger.info("Fetching pengumuman for guru");
 
   const pengumuman = await prisma.pengumuman.findMany({
     orderBy: {
-      tanggalPublikasi: 'desc',
+      tanggalPublikasi: "desc",
     },
     take: 50,
   });
@@ -47,11 +38,8 @@ export const getPengumumanGuruService = async () => {
   return pengumuman;
 };
 
-/**
- * Get dokumen for guru
- */
 export const getDokumenGuruService = async () => {
-  logger.info('Fetching dokumen for guru');
+  logger.info("Fetching dokumen for guru");
 
   const dokumen = await prisma.dokumen.findMany({
     select: {
@@ -61,7 +49,7 @@ export const getDokumenGuruService = async () => {
       createdAt: true,
     },
     orderBy: {
-      createdAt: 'desc',
+      createdAt: "desc",
     },
   });
 

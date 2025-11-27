@@ -13,9 +13,11 @@ interface CreatePenempatanServiceInput {
 }
 
 export const createPenempatanService = async (
-  data: CreatePenempatanServiceInput,
+  data: CreatePenempatanServiceInput
 ) => {
-  logger.info(`Mencoba menempatkan siswa ${data.siswaId} ke kelas ${data.kelasId}`);
+  logger.info(
+    `Mencoba menempatkan siswa ${data.siswaId} ke kelas ${data.kelasId}`
+  );
 
   const [siswa, kelas, tahunAjaran] = await Promise.all([
     prisma.siswa.findUnique({ where: { id: data.siswaId } }),
@@ -29,13 +31,13 @@ export const createPenempatanService = async (
 
   const existingPenempatan = await findPenempatanBySiswaAndTahun(
     data.siswaId,
-    data.tahunAjaranId,
+    data.tahunAjaranId
   );
 
   if (existingPenempatan) {
     throw new AppError(
       `Siswa ini sudah ditempatkan di kelas lain pada tahun ajaran ${tahunAjaran.nama}`,
-      409,
+      409
     );
   }
 
@@ -44,15 +46,12 @@ export const createPenempatanService = async (
   return newPenempatan;
 };
 
-/**
- * Get all penempatan with filters
- */
 export const getAllPenempatanService = async (filters?: {
   tahunAjaranId?: string;
   kelasId?: string;
   siswaId?: string;
 }) => {
-  logger.info('Fetching all penempatan');
+  logger.info("Fetching all penempatan");
 
   const penempatan = await prisma.penempatanSiswa.findMany({
     where: {
@@ -71,7 +70,7 @@ export const getAllPenempatanService = async (filters?: {
     },
     orderBy: {
       siswa: {
-        nama: 'asc',
+        nama: "asc",
       },
     },
   });
@@ -79,9 +78,6 @@ export const getAllPenempatanService = async (filters?: {
   return penempatan;
 };
 
-/**
- * Get penempatan by ID
- */
 export const getPenempatanByIdService = async (id: string) => {
   logger.info(`Fetching penempatan: ${id}`);
 
@@ -105,10 +101,10 @@ export const getPenempatanByIdService = async (id: string) => {
   return penempatan;
 };
 
-/**
- * Update penempatan
- */
-export const updatePenempatanService = async (id: string, data: Partial<CreatePenempatanServiceInput>) => {
+export const updatePenempatanService = async (
+  id: string,
+  data: Partial<CreatePenempatanServiceInput>
+) => {
   logger.info(`Updating penempatan: ${id}`);
 
   const penempatan = await prisma.penempatanSiswa.findUnique({
@@ -131,9 +127,6 @@ export const updatePenempatanService = async (id: string, data: Partial<CreatePe
   return updated;
 };
 
-/**
- * Delete penempatan
- */
 export const deletePenempatanService = async (id: string) => {
   logger.info(`Deleting penempatan: ${id}`);
 

@@ -13,7 +13,7 @@ interface CreatePenugasanServiceInput {
 }
 
 export const createPenugasanService = async (
-  data: CreatePenugasanServiceInput,
+  data: CreatePenugasanServiceInput
 ) => {
   logger.info(`Mencoba membuat penugasan baru...`);
 
@@ -30,13 +30,13 @@ export const createPenugasanService = async (
   const existingPenugasan = await findPenugasanUnik(
     data.guruId,
     data.mapelId,
-    data.kelasId,
+    data.kelasId
   );
 
   if (existingPenugasan) {
     throw new AppError(
       `Guru ${guru.nama} sudah ditugaskan untuk mapel ${mapel.namaMapel} di kelas ${kelas.namaKelas}`,
-      409,
+      409
     );
   }
 
@@ -45,15 +45,12 @@ export const createPenugasanService = async (
   return newPenugasan;
 };
 
-/**
- * Get all penugasan with filters
- */
 export const getAllPenugasanService = async (filters?: {
   guruId?: string;
   mapelId?: string;
   kelasId?: string;
 }) => {
-  logger.info('Fetching all penugasan');
+  logger.info("Fetching all penugasan");
 
   const penugasan = await prisma.penugasanGuru.findMany({
     where: {
@@ -72,7 +69,7 @@ export const getAllPenugasanService = async (filters?: {
     },
     orderBy: {
       guru: {
-        nama: 'asc',
+        nama: "asc",
       },
     },
   });
@@ -80,9 +77,6 @@ export const getAllPenugasanService = async (filters?: {
   return penugasan;
 };
 
-/**
- * Get penugasan by ID
- */
 export const getPenugasanByIdService = async (id: string) => {
   logger.info(`Fetching penugasan: ${id}`);
 
@@ -106,10 +100,10 @@ export const getPenugasanByIdService = async (id: string) => {
   return penugasan;
 };
 
-/**
- * Update penugasan
- */
-export const updatePenugasanService = async (id: string, data: Partial<CreatePenugasanServiceInput>) => {
+export const updatePenugasanService = async (
+  id: string,
+  data: Partial<CreatePenugasanServiceInput>
+) => {
   logger.info(`Updating penugasan: ${id}`);
 
   const penugasan = await prisma.penugasanGuru.findUnique({
@@ -132,9 +126,6 @@ export const updatePenugasanService = async (id: string, data: Partial<CreatePen
   return updated;
 };
 
-/**
- * Delete penugasan
- */
 export const deletePenugasanService = async (id: string) => {
   logger.info(`Deleting penugasan: ${id}`);
 

@@ -10,7 +10,7 @@ import logger from "../utils/logger";
 class BackupController {
   public async create(req: Request, res: Response, next: NextFunction) {
     try {
-      logger.info('Admin requesting database backup');
+      logger.info("Admin requesting database backup");
 
       const result = await createBackupService();
 

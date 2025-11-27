@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { body, param, validationResult } from "express-validator";
-import { NilaiKomponenType } from "../../generated/prisma"; // Impor Enum
+import { NilaiKomponenType } from "../../generated/prisma";
 
 const validationHandler = (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -15,13 +15,11 @@ const validationHandler = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const addKomponenValidation = [
-  // Validasi parameter URL
   param("skemaId")
     .notEmpty()
     .withMessage("skemaId URL parameter wajib diisi")
     .isUUID()
     .withMessage("Format skemaId tidak valid"),
-  // Validasi body
   body("namaKomponen")
     .notEmpty()
     .withMessage("Nama komponen wajib diisi")
@@ -29,11 +27,11 @@ export const addKomponenValidation = [
   body("tipe")
     .notEmpty()
     .withMessage("Tipe komponen wajib diisi")
-    .isIn(Object.values(NilaiKomponenType)) // Cek harus INPUT atau READ_ONLY
+    .isIn(Object.values(NilaiKomponenType))
     .withMessage(
       `Tipe tidak valid. Pilih dari: ${Object.values(NilaiKomponenType).join(
-        ", ",
-      )}`,
+        ", "
+      )}`
     ),
   body("urutan")
     .notEmpty()

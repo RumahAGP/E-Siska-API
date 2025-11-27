@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import MapelController from '../controllers/mapel.controller';
-import { createMapelValidation } from '../middleware/validation/mapel.validation';
-import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import MapelController from "../controllers/mapel.controller";
+import { createMapelValidation } from "../middleware/validation/mapel.validation";
+import { authMiddleware, adminGuard } from "../middleware/auth.middleware";
 
 class MapelRouter {
   private route: Router;
@@ -15,28 +15,24 @@ class MapelRouter {
 
   private initializeRoute(): void {
     this.route.post(
-      '/',
+      "/",
       authMiddleware,
       adminGuard,
       createMapelValidation,
       this.mapelController.create
     );
 
-    this.route.get(
-      '/',
-      authMiddleware,
-      this.mapelController.getAll
-    );
+    this.route.get("/", authMiddleware, this.mapelController.getAll);
 
     this.route.put(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       this.mapelController.update
     );
 
     this.route.delete(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       this.mapelController.delete

@@ -5,9 +5,6 @@ export interface InputCapaianItem {
   deskripsi: string;
 }
 
-/**
- * Menyimpan (Create/Update) Capaian Kompetensi
- */
 export const upsertCapaianRepo = async (
   guruId: string,
   mapelId: string,
@@ -24,7 +21,7 @@ export const upsertCapaianRepo = async (
         },
         update: {
           deskripsi: item.deskripsi,
-          guruId: guruId, // Update penulis terakhir
+          guruId: guruId,
         },
         create: {
           siswaId: item.siswaId,

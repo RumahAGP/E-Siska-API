@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import AuthController from '../controllers/auth.controller';
-import { uploaderMemory } from '../middleware/uploader';
-import { loginValidation } from '../middleware/validation/auth'; // Impor validasi
+import { Router } from "express";
+import AuthController from "../controllers/auth.controller";
+import { uploaderMemory } from "../middleware/uploader";
+import { loginValidation } from "../middleware/validation/auth";
 
 class AuthRouter {
   private route: Router;
@@ -14,24 +14,13 @@ class AuthRouter {
   }
 
   private initializeRoute(): void {
-    // Rute Login Baru
-    // (Catatan: loginValidation masih pakai 'email', perlu diubah ke 'username' di file validasinya)
-    this.route.post(
-      '/signin',
-      // loginValidation, // Aktifkan setelah validasi diperbarui
-      this.authController.login
-    );
+    this.route.post("/signin", this.authController.login);
 
-    // Logout Route
-    this.route.post(
-      '/signout',
-      this.authController.logout
-    );
+    this.route.post("/signout", this.authController.logout);
 
-    // Rute yang sudah ada
     this.route.patch(
-      '/profile-img',
-      uploaderMemory().single('img'), // 'img' adalah nama field di form-data
+      "/profile-img",
+      uploaderMemory().single("img"),
       this.authController.changeProfileImg
     );
   }

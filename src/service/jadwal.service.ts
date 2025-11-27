@@ -31,7 +31,7 @@ export const createJadwalService = async (data: CreateJadwalServiceInput) => {
     if (!penugasan) {
       throw new AppError(
         "Penugasan Guru untuk Mapel dan Kelas ini tidak ditemukan. Harap buat penugasan terlebih dahulu.",
-        404,
+        404
       );
     }
 
@@ -52,15 +52,12 @@ export const createJadwalService = async (data: CreateJadwalServiceInput) => {
   }
 };
 
-/**
- * Get all jadwal with filters
- */
 export const getAllJadwalService = async (filters?: {
   tahunAjaranId?: string;
   kelasId?: string;
   guruId?: string;
 }) => {
-  logger.info('Fetching all jadwal');
+  logger.info("Fetching all jadwal");
 
   const jadwal = await prisma.jadwal.findMany({
     where: {
@@ -79,18 +76,12 @@ export const getAllJadwalService = async (filters?: {
       ruangan: true,
       tahunAjaran: true,
     },
-    orderBy: [
-      { hari: 'asc' },
-      { waktuMulai: 'asc' },
-    ],
+    orderBy: [{ hari: "asc" }, { waktuMulai: "asc" }],
   });
 
   return jadwal;
 };
 
-/**
- * Get jadwal by ID
- */
 export const getJadwalByIdService = async (id: string) => {
   logger.info(`Fetching jadwal: ${id}`);
 
@@ -116,10 +107,10 @@ export const getJadwalByIdService = async (id: string) => {
   return jadwal;
 };
 
-/**
- * Update jadwal
- */
-export const updateJadwalService = async (id: string, data: Partial<CreateJadwalServiceInput>) => {
+export const updateJadwalService = async (
+  id: string,
+  data: Partial<CreateJadwalServiceInput>
+) => {
   logger.info(`Updating jadwal: ${id}`);
 
   const jadwal = await prisma.jadwal.findUnique({
@@ -147,9 +138,6 @@ export const updateJadwalService = async (id: string, data: Partial<CreateJadwal
   return updated;
 };
 
-/**
- * Delete jadwal
- */
 export const deleteJadwalService = async (id: string) => {
   logger.info(`Deleting jadwal: ${id}`);
 

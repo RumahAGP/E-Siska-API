@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import CapaianController from '../controllers/capaian.controller';
-import { inputCapaianValidation } from '../middleware/validation/capaian.validation';
-import { authMiddleware, guruGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import CapaianController from "../controllers/capaian.controller";
+import { inputCapaianValidation } from "../middleware/validation/capaian.validation";
+import { authMiddleware, guruGuard } from "../middleware/auth.middleware";
 
 class CapaianRouter {
   private route: Router;
@@ -14,9 +14,8 @@ class CapaianRouter {
   }
 
   private initializeRoute(): void {
-    // Input capaian kompetensi - Guru only
     this.route.post(
-      '/',
+      "/",
       authMiddleware,
       guruGuard,
       inputCapaianValidation,

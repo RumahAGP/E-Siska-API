@@ -7,38 +7,34 @@ import logger from "../utils/logger";
 
 const execAsync = promisify(exec);
 
-/**
- * Create database backup using pg_dump
- */
 export const createBackupService = async () => {
-  logger.info('Creating database backup');
+  logger.info("Creating database backup");
 
-  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-  const backupDir = path.join(process.cwd(), 'backups');
+  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const backupDir = path.join(process.cwd(), "backups");
   const backupFile = path.join(backupDir, `backup-${timestamp}.sql`);
 
-  // Create backups directory if not exists
   if (!fs.existsSync(backupDir)) {
     fs.mkdirSync(backupDir, { recursive: true });
   }
 
-  // Get database connection from environment
   const databaseUrl = process.env.DATABASE_URL;
-  
+
   if (!databaseUrl) {
-    throw new AppError("DATABASE_URL tidak ditemukan di environment variables", 500);
+    throw new AppError(
+      "DATABASE_URL tidak ditemukan di environment variables",
+      500
+    );
   }
 
   try {
-    // Parse database URL to get components
     const dbUrl = new URL(databaseUrl);
-    const dbName = dbUrl.pathname.slice(1); // Remove leading /
+    const dbName = dbUrl.pathname.slice(1);
     const dbHost = dbUrl.hostname;
-    const dbPort = dbUrl.port || '5432';
+    const dbPort = dbUrl.port || "5432";
     const dbUser = dbUrl.username;
     const dbPassword = dbUrl.password;
 
-    // Set PGPASSWORD environment variable for pg_dump
     const pgDumpCommand = `PGPASSWORD="${dbPassword}" pg_dump -h ${dbHost} -p ${dbPort} -U ${dbUser} -F p -f "${backupFile}" ${dbName}`;
 
     logger.info(`Executing backup command for database: ${dbName}`);
@@ -61,24 +57,22 @@ export const createBackupService = async () => {
   }
 };
 
-/**
- * List all available backups
- */
 export const listBackupsService = async () => {
-  logger.info('Listing all backups');
+  logger.info("Listing all backups");
 
-  const backupDir = path.join(process.cwd(), 'backups');
+  const backupDir = path.join(process.cwd(), "backups");
 
   if (!fs.existsSync(backupDir)) {
     return [];
   }
 
-  const files = fs.readdirSync(backupDir)
-    .filter(file => file.endsWith('.sql'))
-    .map(file => {
+  const files = fs
+    .readdirSync(backupDir)
+    .filter((file) => file.endsWith(".sql"))
+    .map((file) => {
       const filePath = path.join(backupDir, file);
       const stats = fs.statSync(filePath);
-      
+
       return {
         filename: file,
         path: filePath,
@@ -91,39 +85,38 @@ export const listBackupsService = async () => {
   return files;
 };
 
-/**
- * Restore database from backup file
- * WARNING: This will overwrite current database!
- */
 export const restoreBackupService = async (filename: string) => {
   logger.warn(`RESTORE REQUESTED for file: ${filename}`);
 
-  const backupDir = path.join(process.cwd(), 'backups');
+  const backupDir = path.join(process.cwd(), "backups");
   const backupFile = path.join(backupDir, filename);
 
-  // Check if backup file exists
   if (!fs.existsSync(backupFile)) {
     throw new AppError("File backup tidak ditemukan", 404);
   }
 
   const databaseUrl = process.env.DATABASE_URL;
-  
+
   if (!databaseUrl) {
-    throw new AppError("DATABASE_URL tidak ditemukan di environment variables", 500);
+    throw new AppError(
+      "DATABASE_URL tidak ditemukan di environment variables",
+      500
+    );
   }
 
   try {
     const dbUrl = new URL(databaseUrl);
     const dbName = dbUrl.pathname.slice(1);
     const dbHost = dbUrl.hostname;
-    const dbPort = dbUrl.port || '5432';
+    const dbPort = dbUrl.port || "5432";
     const dbUser = dbUrl.username;
     const dbPassword = dbUrl.password;
 
-    // WARNING: This will DROP and RECREATE the database
     const psqlCommand = `PGPASSWORD="${dbPassword}" psql -h ${dbHost} -p ${dbPort} -U ${dbUser} -d ${dbName} -f "${backupFile}"`;
 
-    logger.warn(`Executing restore command - THIS WILL OVERWRITE DATABASE: ${dbName}`);
+    logger.warn(
+      `Executing restore command - THIS WILL OVERWRITE DATABASE: ${dbName}`
+    );
 
     await execAsync(psqlCommand, {
       env: { ...process.env, PGPASSWORD: dbPassword },
@@ -142,13 +135,10 @@ export const restoreBackupService = async (filename: string) => {
   }
 };
 
-/**
- * Delete backup file
- */
 export const deleteBackupService = async (filename: string) => {
   logger.info(`Deleting backup: ${filename}`);
 
-  const backupDir = path.join(process.cwd(), 'backups');
+  const backupDir = path.join(process.cwd(), "backups");
   const backupFile = path.join(backupDir, filename);
 
   if (!fs.existsSync(backupFile)) {

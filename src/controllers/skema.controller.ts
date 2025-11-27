@@ -1,15 +1,15 @@
 import { Request, Response, NextFunction } from "express";
-import { 
-  addKomponenToSkemaService, 
-  getSkemaByMapelIdService, 
-  deleteKomponenService 
+import {
+  addKomponenToSkemaService,
+  getSkemaByMapelIdService,
+  deleteKomponenService,
 } from "../service/skema.service";
 import logger from "../utils/logger";
 
 class SkemaController {
   public async addKomponen(req: Request, res: Response, next: NextFunction) {
     try {
-      const { skemaId } = req.params; // Ambil dari URL
+      const { skemaId } = req.params;
       const { namaKomponen, tipe, formula, urutan } = req.body;
 
       const result = await addKomponenToSkemaService({
@@ -28,7 +28,7 @@ class SkemaController {
     } catch (error: unknown) {
       if (error instanceof Error) {
         logger.error(
-          `Error add komponen ke skema ${req.params.skemaId}: ${error.message}`,
+          `Error add komponen ke skema ${req.params.skemaId}: ${error.message}`
         );
       }
       next(error);
@@ -39,7 +39,7 @@ class SkemaController {
     try {
       const { mapelId } = req.params;
       const result = await getSkemaByMapelIdService(mapelId);
-      
+
       res.status(200).send({
         success: true,
         data: result,
@@ -53,7 +53,7 @@ class SkemaController {
     try {
       const { komponenId } = req.params;
       const result = await deleteKomponenService(komponenId);
-      
+
       res.status(200).send({
         success: true,
         message: result.message,

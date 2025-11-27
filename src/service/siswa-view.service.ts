@@ -2,13 +2,12 @@ import { prisma } from "../config/prisma";
 import AppError from "../utils/AppError";
 import logger from "../utils/logger";
 
-/**
- * Get student's own attendance summary
- */
-export const getMyAbsensiService = async (siswaId: string, tahunAjaranId?: string) => {
+export const getMyAbsensiService = async (
+  siswaId: string,
+  tahunAjaranId?: string
+) => {
   logger.info(`Fetching attendance for siswa: ${siswaId}`);
 
-  // Get penempatan to find kelas
   const penempatan = await prisma.penempatanSiswa.findFirst({
     where: {
       siswaId: siswaId,
@@ -24,7 +23,6 @@ export const getMyAbsensiService = async (siswaId: string, tahunAjaranId?: strin
     throw new AppError("Penempatan siswa tidak ditemukan", 404);
   }
 
-  // Get all attendance details for this student
   const absensiDetails = await prisma.absensiDetail.findMany({
     where: {
       siswaId: siswaId,
@@ -37,17 +35,16 @@ export const getMyAbsensiService = async (siswaId: string, tahunAjaranId?: strin
     },
     orderBy: {
       sesi: {
-        tanggal: 'desc',
+        tanggal: "desc",
       },
     },
   });
 
-  // Calculate summary
   const summary = {
-    hadir: absensiDetails.filter(a => a.status === 'HADIR').length,
-    sakit: absensiDetails.filter(a => a.status === 'SAKIT').length,
-    izin: absensiDetails.filter(a => a.status === 'IZIN').length,
-    alpha: absensiDetails.filter(a => a.status === 'ALPHA').length,
+    hadir: absensiDetails.filter((a) => a.status === "HADIR").length,
+    sakit: absensiDetails.filter((a) => a.status === "SAKIT").length,
+    izin: absensiDetails.filter((a) => a.status === "IZIN").length,
+    alpha: absensiDetails.filter((a) => a.status === "ALPHA").length,
     total: absensiDetails.length,
   };
 
@@ -59,13 +56,12 @@ export const getMyAbsensiService = async (siswaId: string, tahunAjaranId?: strin
   };
 };
 
-/**
- * Get student's own grades
- */
-export const getMyNilaiService = async (siswaId: string, tahunAjaranId?: string) => {
+export const getMyNilaiService = async (
+  siswaId: string,
+  tahunAjaranId?: string
+) => {
   logger.info(`Fetching grades for siswa: ${siswaId}`);
 
-  // Get penempatan to find kelas
   const penempatan = await prisma.penempatanSiswa.findFirst({
     where: {
       siswaId: siswaId,
@@ -85,7 +81,6 @@ export const getMyNilaiService = async (siswaId: string, tahunAjaranId?: string)
     throw new AppError("Penempatan siswa tidak ditemukan", 404);
   }
 
-  // Get all grades
   const nilaiDetail = await prisma.nilaiDetailSiswa.findMany({
     where: {
       siswaId: siswaId,
@@ -104,7 +99,6 @@ export const getMyNilaiService = async (siswaId: string, tahunAjaranId?: string)
     },
   });
 
-  // Get capaian kompetensi
   const capaianKompetensi = await prisma.capaianKompetensi.findMany({
     where: {
       siswaId: siswaId,
@@ -114,7 +108,6 @@ export const getMyNilaiService = async (siswaId: string, tahunAjaranId?: string)
     },
   });
 
-  // Get rapor if exists
   const rapor = await prisma.rapor.findFirst({
     where: {
       siswaId: siswaId,
@@ -138,13 +131,9 @@ export const getMyNilaiService = async (siswaId: string, tahunAjaranId?: string)
   };
 };
 
-/**
- * Get student's class schedule
- */
 export const getMyJadwalService = async (siswaId: string) => {
   logger.info(`Fetching schedule for siswa: ${siswaId}`);
 
-  // Get current penempatan
   const penempatan = await prisma.penempatanSiswa.findFirst({
     where: {
       siswaId: siswaId,
@@ -159,7 +148,6 @@ export const getMyJadwalService = async (siswaId: string) => {
     throw new AppError("Penempatan siswa tidak ditemukan", 404);
   }
 
-  // Get jadwal for the class
   const jadwal = await prisma.jadwal.findMany({
     where: {
       kelasId: penempatan.kelasId,
@@ -170,10 +158,7 @@ export const getMyJadwalService = async (siswaId: string) => {
       guru: true,
       ruangan: true,
     },
-    orderBy: [
-      { hari: 'asc' },
-      { waktuMulai: 'asc' },
-    ],
+    orderBy: [{ hari: "asc" }, { waktuMulai: "asc" }],
   });
 
   return {
@@ -183,27 +168,21 @@ export const getMyJadwalService = async (siswaId: string) => {
   };
 };
 
-/**
- * Get all announcements (public)
- */
 export const getPengumumanService = async () => {
-  logger.info('Fetching all pengumuman');
+  logger.info("Fetching all pengumuman");
 
   const pengumuman = await prisma.pengumuman.findMany({
     orderBy: {
-      tanggalPublikasi: 'desc',
+      tanggalPublikasi: "desc",
     },
-    take: 50, // Limit to recent 50
+    take: 50,
   });
 
   return pengumuman;
 };
 
-/**
- * Get all documents (public)
- */
 export const getDokumenService = async () => {
-  logger.info('Fetching all dokumen');
+  logger.info("Fetching all dokumen");
 
   const dokumen = await prisma.dokumen.findMany({
     select: {
@@ -213,7 +192,7 @@ export const getDokumenService = async () => {
       createdAt: true,
     },
     orderBy: {
-      createdAt: 'desc',
+      createdAt: "desc",
     },
   });
 

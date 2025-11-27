@@ -1,6 +1,6 @@
-import { Router } from 'express';
-import GuruViewController from '../controllers/guru-view.controller';
-import { authMiddleware, guruGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import GuruViewController from "../controllers/guru-view.controller";
+import { authMiddleware, guruGuard } from "../middleware/auth.middleware";
 
 class GuruViewRouter {
   private route: Router;
@@ -13,25 +13,22 @@ class GuruViewRouter {
   }
 
   private initializeRoute(): void {
-    // Get my teaching schedule - Guru only
     this.route.get(
-      '/my-jadwal',
+      "/my-jadwal",
       authMiddleware,
       guruGuard,
       this.guruViewController.getMyJadwal
     );
 
-    // Get pengumuman - Guru only
     this.route.get(
-      '/pengumuman',
+      "/pengumuman",
       authMiddleware,
       guruGuard,
       this.guruViewController.getPengumuman
     );
 
-    // Get dokumen - Guru only
     this.route.get(
-      '/dokumen',
+      "/dokumen",
       authMiddleware,
       guruGuard,
       this.guruViewController.getDokumen

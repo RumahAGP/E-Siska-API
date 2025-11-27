@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
-import { MapelCategory } from "../../generated/prisma"; // Impor Enum
+import { MapelCategory } from "../../generated/prisma";
 
 const validationHandler = (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -19,11 +19,11 @@ export const createMapelValidation = [
   body("kategori")
     .notEmpty()
     .withMessage("Kategori wajib diisi")
-    .isIn(Object.values(MapelCategory)) // Validasi harus sesuai Enum
+    .isIn(Object.values(MapelCategory))
     .withMessage(
       `Kategori tidak valid. Pilih dari: ${Object.values(MapelCategory).join(
-        ", ",
-      )}`,
+        ", "
+      )}`
     ),
   validationHandler,
 ];

@@ -6,9 +6,6 @@ interface CreatePenempatanInput {
   tahunAjaranId: string;
 }
 
-/**
- * Membuat data Penempatan Siswa baru
- */
 export const createPenempatanRepo = async (data: CreatePenempatanInput) => {
   try {
     const newPenempatan = await prisma.penempatanSiswa.create({
@@ -20,17 +17,13 @@ export const createPenempatanRepo = async (data: CreatePenempatanInput) => {
     });
     return newPenempatan;
   } catch (error) {
-    // Tangani error (misal unique constraint terlanggar)
     throw error;
   }
 };
 
-/**
- * Mencari penempatan berdasarkan siswaId dan tahunAjaranId
- */
 export const findPenempatanBySiswaAndTahun = async (
   siswaId: string,
-  tahunAjaranId: string,
+  tahunAjaranId: string
 ) => {
   return prisma.penempatanSiswa.findUnique({
     where: {

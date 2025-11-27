@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { 
+import {
   createSiswaService,
   getAllSiswaService,
   getSiswaByIdService,
   updateSiswaService,
-  deleteSiswaService
+  deleteSiswaService,
 } from "../service/siswa.service";
 import logger from "../utils/logger";
 

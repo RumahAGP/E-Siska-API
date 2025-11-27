@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import SkemaController from '../controllers/skema.controller';
-import { addKomponenValidation } from '../middleware/validation/skema.validation';
-import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import SkemaController from "../controllers/skema.controller";
+import { addKomponenValidation } from "../middleware/validation/skema.validation";
+import { authMiddleware, adminGuard } from "../middleware/auth.middleware";
 
 class SkemaRouter {
   private route: Router;
@@ -14,25 +14,22 @@ class SkemaRouter {
   }
 
   private initializeRoute(): void {
-    // Add komponen penilaian - Admin only
     this.route.post(
-      '/:skemaId/komponen',
+      "/:skemaId/komponen",
       authMiddleware,
       adminGuard,
       addKomponenValidation,
       this.skemaController.addKomponen
     );
 
-    // Get Skema by Mapel ID
     this.route.get(
-      '/mapel/:mapelId',
+      "/mapel/:mapelId",
       authMiddleware,
       this.skemaController.getSkema
     );
 
-    // Delete Komponen - Admin only
     this.route.delete(
-      '/komponen/:komponenId',
+      "/komponen/:komponenId",
       authMiddleware,
       adminGuard,
       this.skemaController.deleteKomponen

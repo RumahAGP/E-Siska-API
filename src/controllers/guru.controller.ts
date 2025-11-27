@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { 
+import {
   createGuruService,
   getAllGuruService,
   getGuruByIdService,
-  updateGuruService,  deleteGuruService
+  updateGuruService,
+  deleteGuruService,
 } from "../service/guru.service";
 import logger from "../utils/logger";
 

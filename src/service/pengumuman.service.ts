@@ -10,7 +10,7 @@ interface CreatePengumumanServiceInput {
 }
 
 export const createPengumumanService = async (
-  data: CreatePengumumanServiceInput,
+  data: CreatePengumumanServiceInput
 ) => {
   logger.info(`Mencoba membuat pengumuman: ${data.judul}`);
 
@@ -25,10 +25,10 @@ export const createPengumumanService = async (
   return newPengumuman;
 };
 
-/**
- * Get all pengumuman with pagination
- */
-export const getAllPengumumanService = async (page: number = 1, limit: number = 50) => {
+export const getAllPengumumanService = async (
+  page: number = 1,
+  limit: number = 50
+) => {
   const skip = (page - 1) * limit;
   const take = limit;
 
@@ -38,7 +38,7 @@ export const getAllPengumumanService = async (page: number = 1, limit: number = 
     skip,
     take,
     orderBy: {
-      tanggalPublikasi: 'desc',
+      tanggalPublikasi: "desc",
     },
     select: {
       id: true,
@@ -61,9 +61,6 @@ export const getAllPengumumanService = async (page: number = 1, limit: number = 
   };
 };
 
-/**
- * Get pengumuman by ID
- */
 export const getPengumumanByIdService = async (id: string) => {
   logger.info(`Fetching pengumuman: ${id}`);
 
@@ -84,10 +81,10 @@ export const getPengumumanByIdService = async (id: string) => {
   return pengumuman;
 };
 
-/**
- * Update pengumuman
- */
-export const updatePengumumanService = async (id: string, data: Partial<CreatePengumumanServiceInput>) => {
+export const updatePengumumanService = async (
+  id: string,
+  data: Partial<CreatePengumumanServiceInput>
+) => {
   logger.info(`Updating pengumuman: ${id}`);
 
   const pengumuman = await prisma.pengumuman.findUnique({
@@ -109,9 +106,6 @@ export const updatePengumumanService = async (id: string, data: Partial<CreatePe
   return updated;
 };
 
-/**
- * Delete pengumuman
- */
 export const deletePengumumanService = async (id: string) => {
   logger.info(`Deleting pengumuman: ${id}`);
 

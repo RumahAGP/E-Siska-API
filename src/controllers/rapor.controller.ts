@@ -1,16 +1,20 @@
 import { Request, Response, NextFunction } from "express";
-import { 
-  generateRaporService, 
+import {
+  generateRaporService,
   inputDataRaporService,
   finalizeRaporService,
   definalizeRaporService,
   overrideNilaiRaporService,
-  getMyRaporService
+  getMyRaporService,
 } from "../service/rapor.service";
 import logger from "../utils/logger";
 
 class RaporController {
-  public async updateDataRapor(req: Request, res: Response, next: NextFunction) {
+  public async updateDataRapor(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
       const { siswaId } = req.params;
       const { guruId, tahunAjaranId, catatan, kokurikuler } = req.body;
@@ -39,12 +43,12 @@ class RaporController {
   public async generate(req: Request, res: Response, next: NextFunction) {
     try {
       const { siswaId } = req.params;
-      const { guruId, tahunAjaranId } = req.body; // Atau req.query jika mau GET murni
+      const { guruId, tahunAjaranId } = req.body;
 
       const result = await generateRaporService({
         siswaId,
         guruId,
-        tahunAjaranId
+        tahunAjaranId,
       });
 
       res.status(200).send({
@@ -68,7 +72,7 @@ class RaporController {
       const result = await finalizeRaporService({
         guruId,
         siswaId,
-        tahunAjaranId
+        tahunAjaranId,
       });
 
       res.status(200).send({
@@ -92,7 +96,7 @@ class RaporController {
       const result = await definalizeRaporService({
         guruId,
         siswaId,
-        tahunAjaranId
+        tahunAjaranId,
       });
 
       res.status(200).send({
@@ -118,7 +122,7 @@ class RaporController {
         siswaId,
         mapelId,
         tahunAjaranId,
-        nilaiAkhir
+        nilaiAkhir,
       });
 
       res.status(200).send({

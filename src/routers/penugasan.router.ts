@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import PenugasanController from '../controllers/penugasan.controller';
-import { createPenugasanValidation } from '../middleware/validation/penugasan.validation';
-import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import PenugasanController from "../controllers/penugasan.controller";
+import { createPenugasanValidation } from "../middleware/validation/penugasan.validation";
+import { authMiddleware, adminGuard } from "../middleware/auth.middleware";
 
 class PenugasanRouter {
   private route: Router;
@@ -14,43 +14,38 @@ class PenugasanRouter {
   }
 
   private initializeRoute(): void {
-    // Create penugasan - Admin only
     this.route.post(
-      '/',
+      "/",
       authMiddleware,
       adminGuard,
       createPenugasanValidation,
       this.penugasanController.create
     );
 
-    // List all penugasan - Admin only (with optional filters)
     this.route.get(
-      '/',
+      "/",
       authMiddleware,
       adminGuard,
       this.penugasanController.getAll
     );
 
-    // Get penugasan by ID - Admin only
     this.route.get(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       this.penugasanController.getById
     );
 
-    // Update penugasan - Admin only
     this.route.put(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       createPenugasanValidation,
       this.penugasanController.update
     );
 
-    // Delete penugasan - Admin only
     this.route.delete(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       this.penugasanController.delete

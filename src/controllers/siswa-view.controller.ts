@@ -97,7 +97,7 @@ class SiswaViewController {
 
   public async getPengumuman(req: Request, res: Response, next: NextFunction) {
     try {
-      logger.info('Fetching pengumuman for siswa');
+      logger.info("Fetching pengumuman for siswa");
 
       const result = await getPengumumanService();
 
@@ -116,7 +116,7 @@ class SiswaViewController {
 
   public async getDokumen(req: Request, res: Response, next: NextFunction) {
     try {
-      logger.info('Fetching dokumen for siswa');
+      logger.info("Fetching dokumen for siswa");
 
       const result = await getDokumenService();
 

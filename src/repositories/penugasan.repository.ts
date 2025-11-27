@@ -6,9 +6,6 @@ interface CreatePenugasanInput {
   kelasId: string;
 }
 
-/**
- * Membuat data Penugasan Guru baru
- */
 export const createPenugasanRepo = async (data: CreatePenugasanInput) => {
   try {
     const newPenugasan = await prisma.penugasanGuru.create({
@@ -24,14 +21,10 @@ export const createPenugasanRepo = async (data: CreatePenugasanInput) => {
   }
 };
 
-/**
- * Mencari penugasan berdasarkan kombinasi unik guru, mapel, dan kelas
- *
- */
 export const findPenugasanUnik = async (
   guruId: string,
   mapelId: string,
-  kelasId: string,
+  kelasId: string
 ) => {
   return prisma.penugasanGuru.findUnique({
     where: {

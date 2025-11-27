@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import EkskulController from '../controllers/ekskul.controller';
-import { inputEkskulValidation } from '../middleware/validation/ekskul.validation';
-import { authMiddleware, guruGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import EkskulController from "../controllers/ekskul.controller";
+import { inputEkskulValidation } from "../middleware/validation/ekskul.validation";
+import { authMiddleware, guruGuard } from "../middleware/auth.middleware";
 
 class EkskulRouter {
   private route: Router;
@@ -14,9 +14,8 @@ class EkskulRouter {
   }
 
   private initializeRoute(): void {
-    // Input nilai ekstrakurikuler - Guru only
     this.route.post(
-      '/ekskul',
+      "/ekskul",
       authMiddleware,
       guruGuard,
       inputEkskulValidation,

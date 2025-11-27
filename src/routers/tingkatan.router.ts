@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import TingkatanController from '../controllers/tingkatan.controller';
-import { createTingkatanValidation } from '../middleware/validation/tingkatan.validation';
-import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import TingkatanController from "../controllers/tingkatan.controller";
+import { createTingkatanValidation } from "../middleware/validation/tingkatan.validation";
+import { authMiddleware, adminGuard } from "../middleware/auth.middleware";
 
 class TingkatanRouter {
   private route: Router;
@@ -14,35 +14,31 @@ class TingkatanRouter {
   }
 
   private initializeRoute(): void {
-    // Create tingkatan - Admin only
     this.route.post(
-      '/',
+      "/",
       authMiddleware,
       adminGuard,
       createTingkatanValidation,
       this.tingkatanController.create
     );
 
-    // List all tingkatan - Admin only
     this.route.get(
-      '/',
+      "/",
       authMiddleware,
       adminGuard,
       this.tingkatanController.getAll
     );
 
-    // Update tingkatan - Admin only
     this.route.put(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       createTingkatanValidation,
       this.tingkatanController.update
     );
 
-    // Delete tingkatan - Admin only
     this.route.delete(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       this.tingkatanController.delete

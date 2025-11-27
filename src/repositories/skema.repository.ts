@@ -9,9 +9,6 @@ interface AddKomponenInput {
   urutan: number;
 }
 
-/**
- * Menambahkan NilaiKomponen baru ke SkemaPenilaian
- */
 export const addKomponenToSkemaRepo = async (data: AddKomponenInput) => {
   return await prisma.nilaiKomponen.create({
     data: {

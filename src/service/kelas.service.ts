@@ -1,4 +1,11 @@
-import { createKelasRepo, updateKelasRepo, deleteKelasRepo, findAllKelasRepo, getKelasByWaliKelasRepo, getKelasByGuruIdRepo } from "../repositories/kelas.repository";
+import {
+  createKelasRepo,
+  updateKelasRepo,
+  deleteKelasRepo,
+  findAllKelasRepo,
+  getKelasByWaliKelasRepo,
+  getKelasByGuruIdRepo,
+} from "../repositories/kelas.repository";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 import { prisma } from "../config/prisma";
@@ -12,7 +19,6 @@ interface CreateKelasServiceInput {
 export const createKelasService = async (data: CreateKelasServiceInput) => {
   logger.info(`Mencoba membuat kelas: ${data.namaKelas}`);
 
-  // Validasi opsional: Pastikan Tingkatan dan Guru (jika ada) benar-benar ada
   const tingkatan = await prisma.tingkatanKelas.findUnique({
     where: { id: data.tingkatanId },
   });
@@ -29,16 +35,17 @@ export const createKelasService = async (data: CreateKelasServiceInput) => {
     }
   }
 
-  // Panggil Repository
   const newKelas = await createKelasRepo(data);
 
   return newKelas;
 };
 
-export const updateKelasService = async (id: string, data: Partial<CreateKelasServiceInput>) => {
+export const updateKelasService = async (
+  id: string,
+  data: Partial<CreateKelasServiceInput>
+) => {
   logger.info(`Mencoba update kelas: ${id}`);
-  
-  // Validasi jika ada update wali kelas
+
   if (data.waliKelasId) {
     const guru = await prisma.guru.findUnique({
       where: { id: data.waliKelasId },
@@ -64,9 +71,12 @@ export const getAllKelasService = async () => {
 export const getMyClassService = async (guruId: string) => {
   logger.info(`Fetching class for wali kelas: ${guruId}`);
   const kelas = await getKelasByWaliKelasRepo(guruId);
-  
+
   if (!kelas) {
-    throw new AppError("Anda tidak terdaftar sebagai Wali Kelas untuk kelas manapun.", 404);
+    throw new AppError(
+      "Anda tidak terdaftar sebagai Wali Kelas untuk kelas manapun.",
+      404
+    );
   }
 
   return kelas;

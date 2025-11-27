@@ -2,13 +2,10 @@ import { prisma } from "../config/prisma";
 
 interface CreateDokumenInput {
   judul: string;
-  urlFile: string; // URL dari Cloudinary
-  adminId: string; // Ini merujuk ke User ID Admin
+  urlFile: string;
+  adminId: string;
 }
 
-/**
- * Membuat data Dokumen baru
- */
 export const createDokumenRepo = async (data: CreateDokumenInput) => {
   try {
     const newDokumen = await prisma.dokumen.create({

@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 
-// Handler ini bisa dibuat reusable di file terpisah nanti
 const validationHandler = (req: Request, res: Response, next: NextFunction) => {
   try {
     const errorValidation = validationResult(req);

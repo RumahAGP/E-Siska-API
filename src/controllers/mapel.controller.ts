@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { createMapelService, updateMapelService, deleteMapelService, getAllMapelService } from "../service/mapel.service";
+import {
+  createMapelService,
+  updateMapelService,
+  deleteMapelService,
+  getAllMapelService,
+} from "../service/mapel.service";
 import logger from "../utils/logger";
 
 class MapelController {

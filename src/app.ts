@@ -131,20 +131,18 @@ class App {
     this.app.use(
       (error: any, req: Request, res: Response, next: NextFunction) => {
         logger.error(
-          `${req.method} ${req.path}: ${error.message} ${JSON.stringify(
-            error
-          )}`
+          `${req.method} ${req.path}: ${error.message} ${JSON.stringify(error)}`
         );
 
         let status = 500;
         if (typeof error.code === "number") {
           status = error.code;
         } else if (error.code === "P2002") {
-          status = 409; // Conflict
+          status = 409;
         } else if (error.code === "P2003") {
-          status = 400; // Bad Request (Foreign Key)
+          status = 400;
         } else if (error.code === "P2025") {
-          status = 404; // Not Found
+          status = 404;
         }
 
         res.status(status).send(error);
@@ -153,7 +151,7 @@ class App {
   }
   public start(): void {
     this.app.listen(PORT, () => {
-      console.log(`API Running: http://localhost:${PORT}`);
+      logger.info(`API Running: http://localhost:${PORT}`);
     });
   }
 }

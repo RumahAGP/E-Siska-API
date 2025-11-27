@@ -16,7 +16,9 @@ const validationHandler = (req: Request, res: Response, next: NextFunction) => {
 export const inputRaporValidation = [
   param("siswaId").isUUID().withMessage("Format siswaId tidak valid"),
   body("guruId").isUUID().withMessage("Format guruId tidak valid"),
-  body("tahunAjaranId").isUUID().withMessage("Format tahunAjaranId tidak valid"),
+  body("tahunAjaranId")
+    .isUUID()
+    .withMessage("Format tahunAjaranId tidak valid"),
   body("catatan").optional().isString(),
   body("kokurikuler").optional().isString(),
   validationHandler,
@@ -24,8 +26,9 @@ export const inputRaporValidation = [
 
 export const generateRaporValidation = [
   param("siswaId").isUUID().withMessage("Format siswaId tidak valid"),
-  // query("tahunAjaranId").isUUID().withMessage("Tahun Ajaran wajib ada di query params"), // Bisa via query param
-  body("tahunAjaranId").isUUID().withMessage("Format tahunAjaranId tidak valid"), // Kita pakai body biar konsisten
+  body("tahunAjaranId")
+    .isUUID()
+    .withMessage("Format tahunAjaranId tidak valid"),
   body("guruId").isUUID().withMessage("Format guruId tidak valid"),
   validationHandler,
 ];

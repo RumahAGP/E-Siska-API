@@ -3,12 +3,9 @@ import { prisma } from "../config/prisma";
 interface CreateKelasInput {
   namaKelas: string;
   tingkatanId: string;
-  waliKelasId?: string; // Wali kelas bersifat opsional
+  waliKelasId?: string;
 }
 
-/**
- * Membuat data Kelas baru
- */
 export const createKelasRepo = async (data: CreateKelasInput) => {
   try {
     const newKelas = await prisma.kelas.create({
@@ -20,12 +17,14 @@ export const createKelasRepo = async (data: CreateKelasInput) => {
     });
     return newKelas;
   } catch (error) {
-    // Tangani error, misal tingkatanId tidak ada atau waliKelasId unik terlanggar
     throw error;
   }
 };
 
-export const updateKelasRepo = async (id: string, data: Partial<CreateKelasInput>) => {
+export const updateKelasRepo = async (
+  id: string,
+  data: Partial<CreateKelasInput>
+) => {
   return await prisma.kelas.update({
     where: { id },
     data,
@@ -48,7 +47,7 @@ export const findAllKelasRepo = async () => {
       },
     },
     orderBy: {
-      namaKelas: 'asc',
+      namaKelas: "asc",
     },
   });
 };
@@ -85,10 +84,10 @@ export const getKelasByGuruIdRepo = async (guruId: string) => {
   const penugasan = await prisma.penugasanGuru.findMany({
     where: { guruId },
     include: {
-      kelas: true
+      kelas: true,
     },
-    distinct: ['kelasId'] // Ensure unique classes
+    distinct: ["kelasId"],
   });
 
-  return penugasan.map(p => p.kelas);
+  return penugasan.map((p) => p.kelas);
 };

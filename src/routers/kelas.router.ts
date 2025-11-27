@@ -1,7 +1,11 @@
-import { Router } from 'express';
-import KelasController from '../controllers/kelas.controller';
-import { createKelasValidation } from '../middleware/validation/kelas.validation';
-import { authMiddleware, adminGuard, guruGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import KelasController from "../controllers/kelas.controller";
+import { createKelasValidation } from "../middleware/validation/kelas.validation";
+import {
+  authMiddleware,
+  adminGuard,
+  guruGuard,
+} from "../middleware/auth.middleware";
 
 class KelasRouter {
   private route: Router;
@@ -15,43 +19,38 @@ class KelasRouter {
 
   private initializeRoute(): void {
     this.route.post(
-      '/',
+      "/",
       authMiddleware,
       adminGuard,
       createKelasValidation,
       this.kelasController.create
     );
 
-    this.route.get(
-      '/',
-      authMiddleware,
-      // adminGuard, // Optional: if all logged in users can see classes
-      this.kelasController.getAll
-    );
+    this.route.get("/", authMiddleware, this.kelasController.getAll);
 
     this.route.get(
-      '/my-class',
+      "/my-class",
       authMiddleware,
       guruGuard,
       this.kelasController.getMyClass
     );
 
     this.route.get(
-      '/teaching',
+      "/teaching",
       authMiddleware,
       guruGuard,
       this.kelasController.getMyTeachingClasses
     );
 
     this.route.put(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       this.kelasController.update
     );
 
     this.route.delete(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       this.kelasController.delete

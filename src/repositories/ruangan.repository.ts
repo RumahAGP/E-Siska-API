@@ -6,9 +6,6 @@ interface CreateRuanganInput {
   adminId: string;
 }
 
-/**
- * Membuat data Ruangan baru
- */
 export const createRuanganRepo = async (data: CreateRuanganInput) => {
   try {
     const newRuangan = await prisma.ruangan.create({
@@ -20,12 +17,14 @@ export const createRuanganRepo = async (data: CreateRuanganInput) => {
     });
     return newRuangan;
   } catch (error) {
-    // Tangani error, misal namaRuangan duplikat
     throw error;
   }
 };
 
-export const updateRuanganRepo = async (id: string, data: Partial<CreateRuanganInput>) => {
+export const updateRuanganRepo = async (
+  id: string,
+  data: Partial<CreateRuanganInput>
+) => {
   return await prisma.ruangan.update({
     where: { id },
     data,
@@ -41,7 +40,7 @@ export const deleteRuanganRepo = async (id: string) => {
 export const getAllRuanganRepo = async () => {
   return await prisma.ruangan.findMany({
     orderBy: {
-      namaRuangan: 'asc',
+      namaRuangan: "asc",
     },
   });
 };

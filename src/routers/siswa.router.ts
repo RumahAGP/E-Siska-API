@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import SiswaController from '../controllers/siswa.controller';
-import { createSiswaValidation } from '../middleware/validation/siswa.validation';
-import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import SiswaController from "../controllers/siswa.controller";
+import { createSiswaValidation } from "../middleware/validation/siswa.validation";
+import { authMiddleware, adminGuard } from "../middleware/auth.middleware";
 
 class SiswaRouter {
   private route: Router;
@@ -14,40 +14,27 @@ class SiswaRouter {
   }
 
   private initializeRoute(): void {
-    // Create - Admin only
     this.route.post(
-      '/',
+      "/",
       authMiddleware,
       adminGuard,
       createSiswaValidation,
       this.siswaController.create
     );
 
-    // Read All - All authenticated users can read
-    this.route.get(
-      '/',
-      authMiddleware,
-      this.siswaController.getAll
-    );
+    this.route.get("/", authMiddleware, this.siswaController.getAll);
 
-    // Read One - All authenticated users can read
-    this.route.get(
-      '/:id',
-      authMiddleware,
-      this.siswaController.getById
-    );
+    this.route.get("/:id", authMiddleware, this.siswaController.getById);
 
-    // Update - Admin only
     this.route.put(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       this.siswaController.update
     );
 
-    // Delete - Admin only
     this.route.delete(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       this.siswaController.delete

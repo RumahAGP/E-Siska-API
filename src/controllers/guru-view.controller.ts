@@ -37,7 +37,7 @@ class GuruViewController {
 
   public async getPengumuman(req: Request, res: Response, next: NextFunction) {
     try {
-      logger.info('Guru fetching pengumuman');
+      logger.info("Guru fetching pengumuman");
 
       const result = await getPengumumanGuruService();
 
@@ -56,7 +56,7 @@ class GuruViewController {
 
   public async getDokumen(req: Request, res: Response, next: NextFunction) {
     try {
-      logger.info('Guru fetching dokumen');
+      logger.info("Guru fetching dokumen");
 
       const result = await getDokumenGuruService();
 

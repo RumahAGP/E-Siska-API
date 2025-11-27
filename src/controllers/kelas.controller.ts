@@ -1,5 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import { createKelasService, updateKelasService, deleteKelasService, getAllKelasService, getMyClassService, getMyTeachingClassesService } from "../service/kelas.service";
+import {
+  createKelasService,
+  updateKelasService,
+  deleteKelasService,
+  getAllKelasService,
+  getMyClassService,
+  getMyTeachingClassesService,
+} from "../service/kelas.service";
 import logger from "../utils/logger";
 
 class KelasController {
@@ -87,10 +94,7 @@ class KelasController {
 
   public async getMyClass(req: Request, res: Response, next: NextFunction) {
     try {
-      // Asumsi: user sudah diautentikasi dan guruId ada di req.user
-      // Namun karena tipe req.user belum strict di sini, kita ambil dari req.user.id
-      // Pastikan middleware auth sudah memasang user ke req
-      const guruId = (req as any).user?.id; 
+      const guruId = (req as any).user?.id;
 
       if (!guruId) {
         throw new Error("User ID not found in request");
@@ -111,9 +115,13 @@ class KelasController {
     }
   }
 
-  public async getMyTeachingClasses(req: Request, res: Response, next: NextFunction) {
+  public async getMyTeachingClasses(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
-      const guruId = (req as any).user?.id; 
+      const guruId = (req as any).user?.id;
 
       if (!guruId) {
         throw new Error("User ID not found in request");

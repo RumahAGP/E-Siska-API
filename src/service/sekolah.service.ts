@@ -8,11 +8,8 @@ interface SekolahDataInput {
   kepalaSekolah?: string;
 }
 
-/**
- * Get school data (singleton - only one record)
- */
 export const getSekolahDataService = async () => {
-  logger.info('Fetching school data');
+  logger.info("Fetching school data");
 
   const sekolah = await prisma.sekolahData.findFirst();
 
@@ -23,17 +20,15 @@ export const getSekolahDataService = async () => {
   return sekolah;
 };
 
-/**
- * Create or Update school data (upsert)
- */
-export const upsertSekolahDataService = async (data: SekolahDataInput, adminId: string) => {
-  logger.info('Upserting school data');
+export const upsertSekolahDataService = async (
+  data: SekolahDataInput,
+  adminId: string
+) => {
+  logger.info("Upserting school data");
 
-  // Check if data exists
   const existing = await prisma.sekolahData.findFirst();
 
   if (existing) {
-    // Update existing
     const updated = await prisma.sekolahData.update({
       where: { id: existing.id },
       data: {
@@ -46,7 +41,6 @@ export const upsertSekolahDataService = async (data: SekolahDataInput, adminId: 
     logger.info(`School data updated: ${updated.id}`);
     return updated;
   } else {
-    // Create new
     const newSekolah = await prisma.sekolahData.create({
       data: {
         adminId: adminId,
@@ -61,11 +55,8 @@ export const upsertSekolahDataService = async (data: SekolahDataInput, adminId: 
   }
 };
 
-/**
- * Delete school data
- */
 export const deleteSekolahDataService = async () => {
-  logger.info('Deleting school data');
+  logger.info("Deleting school data");
 
   const existing = await prisma.sekolahData.findFirst();
 

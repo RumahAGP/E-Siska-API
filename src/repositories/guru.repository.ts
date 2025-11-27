@@ -1,12 +1,11 @@
 import { prisma } from "../config/prisma";
 import { UserRole } from "../generated/prisma";
 
-// Tipe data input untuk repository
 interface CreateGuruInput {
   nip: string;
   nama: string;
   email?: string;
-  username: string; // Username untuk login
+  username: string;
   passwordHash: string;
   role: UserRole;
   jenisKelamin?: string;
@@ -21,9 +20,6 @@ interface CreateGuruInput {
   isAktif?: boolean;
 }
 
-/**
- * Membuat data Guru dan User baru dalam satu transaksi
- */
 export const createGuruRepo = async (data: CreateGuruInput) => {
   const {
     nip,
@@ -46,7 +42,6 @@ export const createGuruRepo = async (data: CreateGuruInput) => {
 
   try {
     const result = await prisma.$transaction(async (tx) => {
-      // 1. Buat User baru
       const newUser = await tx.user.create({
         data: {
           username: username,
@@ -55,13 +50,12 @@ export const createGuruRepo = async (data: CreateGuruInput) => {
         },
       });
 
-      // 2. Buat Guru baru, hubungkan dengan userId
       const newGuru = await tx.guru.create({
         data: {
           nip: nip,
           nama: nama,
           email: email,
-          userId: newUser.id, // Menghubungkan ke User
+          userId: newUser.id,
           jenisKelamin,
           agama,
           tempatLahir,
@@ -78,19 +72,14 @@ export const createGuruRepo = async (data: CreateGuruInput) => {
       return { user: newUser, guru: newGuru };
     });
 
-    // Hapus passwordHash dari response
     const { passwordHash: _, ...safeUser } = result.user;
 
     return { user: safeUser, guru: result.guru };
   } catch (error) {
-    // Tangani jika ada error, misal NIP/Username duplikat
     throw error;
   }
 };
 
-/**
- * Get all Guru with optional pagination
- */
 export const getAllGuruRepo = async (skip?: number, take?: number) => {
   return prisma.guru.findMany({
     skip: skip || 0,
@@ -112,9 +101,6 @@ export const getAllGuruRepo = async (skip?: number, take?: number) => {
   });
 };
 
-/**
- * Get Guru by ID with user data
- */
 export const getGuruByIdRepo = async (id: string) => {
   return prisma.guru.findUnique({
     where: { id },
@@ -154,9 +140,6 @@ interface UpdateGuruInput {
   isAktif?: boolean;
 }
 
-/**
- * Update Guru data
- */
 export const updateGuruRepo = async (id: string, data: UpdateGuruInput) => {
   return prisma.guru.update({
     where: { id },
@@ -189,9 +172,6 @@ export const updateGuruRepo = async (id: string, data: UpdateGuruInput) => {
   });
 };
 
-/**
- * Delete Guru (cascade delete user via Prisma schema)
- */
 export const deleteGuruRepo = async (id: string) => {
   return prisma.guru.delete({
     where: { id },

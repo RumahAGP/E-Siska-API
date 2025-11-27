@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { createRuanganService, updateRuanganService, deleteRuanganService, getAllRuanganService } from "../service/ruangan.service";
+import {
+  createRuanganService,
+  updateRuanganService,
+  deleteRuanganService,
+  getAllRuanganService,
+} from "../service/ruangan.service";
 import logger from "../utils/logger";
 
 class RuanganController {

@@ -5,9 +5,6 @@ export interface InputNilaiItem {
   nilai: number;
 }
 
-/**
- * Menyimpan (Create/Update) nilai siswa untuk satu komponen tertentu
- */
 export const upsertNilaiRepo = async (
   guruId: string,
   mapelId: string,
@@ -26,7 +23,7 @@ export const upsertNilaiRepo = async (
         },
         update: {
           nilaiAngka: item.nilai,
-          guruId: guruId, // Update siapa guru yang terakhir mengubah
+          guruId: guruId,
         },
         create: {
           siswaId: item.siswaId,
@@ -41,23 +38,17 @@ export const upsertNilaiRepo = async (
 };
 
 export const getNilaiKelasRepo = async (kelasId: string, mapelId: string) => {
-  // 1. Ambil semua siswa di kelas ini (via PenempatanSiswa)
-  // Asumsi: Kita ambil tahun ajaran aktif (perlu logic tambahan di service untuk tentukan TA aktif)
-  // Untuk simplifikasi repo, kita terima list siswaId atau kita join dengan PenempatanSiswa
-  
-  // Query: Ambil siswa yang ada di kelas ini
   const students = await prisma.penempatanSiswa.findMany({
     where: { kelasId },
     include: { siswa: true },
-    orderBy: { siswa: { nama: 'asc' } }
+    orderBy: { siswa: { nama: "asc" } },
   });
 
-  // 2. Ambil nilai mereka untuk mapel ini
   const grades = await prisma.nilaiDetailSiswa.findMany({
     where: {
       mapelId,
-      siswaId: { in: students.map(s => s.siswaId) }
-    }
+      siswaId: { in: students.map((s) => s.siswaId) },
+    },
   });
 
   return { students, grades };
@@ -70,12 +61,12 @@ export const getNilaiBySiswaIdRepo = async (siswaId: string) => {
       mapel: true,
       komponen: true,
       guru: {
-        select: { nama: true }
-      }
+        select: { nama: true },
+      },
     },
     orderBy: {
-      mapel: { namaMapel: 'asc' }
-    }
+      mapel: { namaMapel: "asc" },
+    },
   });
 };
 
@@ -94,52 +85,53 @@ export const getAllNilaiRepo = async (filters?: {
         select: {
           id: true,
           nama: true,
-          nis: true
-        }
+          nis: true,
+        },
       },
       mapel: {
         select: {
           id: true,
-          namaMapel: true
-        }
+          namaMapel: true,
+        },
       },
       komponen: {
         select: {
           id: true,
-          namaKomponen: true
-        }
+          namaKomponen: true,
+        },
       },
       guru: {
         select: {
           id: true,
-          nama: true
-        }
-      }
+          nama: true,
+        },
+      },
     },
-    orderBy: [
-      { siswa: { nama: 'asc' } },
-      { mapel: { namaMapel: 'asc' } }
-    ]
+    orderBy: [{ siswa: { nama: "asc" } }, { mapel: { namaMapel: "asc" } }],
   });
 };
 
-export const updateNilaiRepo = async (id: string, nilai: number, guruId: string) => {
+export const updateNilaiRepo = async (
+  id: string,
+  nilai: number,
+  guruId: string
+) => {
   return await prisma.nilaiDetailSiswa.update({
     where: { id },
     data: {
       nilaiAngka: nilai,
-      guruId: guruId
+      guruId: guruId,
     },
     include: {
       siswa: true,
       mapel: true,
-      komponen: true
-    }
+      komponen: true,
+    },
   });
 };
 
 export const deleteNilaiRepo = async (id: string) => {
   return await prisma.nilaiDetailSiswa.delete({
-    where: { id }
+    where: { id },
   });
 };

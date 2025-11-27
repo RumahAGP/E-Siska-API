@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import JadwalController from '../controllers/jadwal.controller';
-import { createJadwalValidation } from '../middleware/validation/jadwal.validation';
-import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import JadwalController from "../controllers/jadwal.controller";
+import { createJadwalValidation } from "../middleware/validation/jadwal.validation";
+import { authMiddleware, adminGuard } from "../middleware/auth.middleware";
 
 class JadwalRouter {
   private route: Router;
@@ -14,41 +14,28 @@ class JadwalRouter {
   }
 
   private initializeRoute(): void {
-    // Create jadwal - Admin only
     this.route.post(
-      '/',
+      "/",
       authMiddleware,
       adminGuard,
       createJadwalValidation,
       this.jadwalController.create
     );
 
-    // List all jadwal - All authenticated users can read
-    this.route.get(
-      '/',
-      authMiddleware,
-      this.jadwalController.getAll
-    );
+    this.route.get("/", authMiddleware, this.jadwalController.getAll);
 
-    // Get jadwal by ID - All authenticated users can read
-    this.route.get(
-      '/:id',
-      authMiddleware,
-      this.jadwalController.getById
-    );
+    this.route.get("/:id", authMiddleware, this.jadwalController.getById);
 
-    // Update jadwal - Admin only
     this.route.put(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       createJadwalValidation,
       this.jadwalController.update
     );
 
-    // Delete jadwal - Admin only
     this.route.delete(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       this.jadwalController.delete

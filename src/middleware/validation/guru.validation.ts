@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 
-// Handler ini bisa dibuat reusable di file terpisah nanti
 const validationHandler = (req: Request, res: Response, next: NextFunction) => {
   try {
     const errorValidation = validationResult(req);
@@ -23,9 +22,6 @@ export const createGuruValidation = [
     .withMessage("Password default wajib diisi")
     .isLength({ min: 6 })
     .withMessage("Password default minimal 6 karakter"),
-  body("email")
-    .optional()
-    .isEmail()
-    .withMessage("Format email tidak valid"),
+  body("email").optional().isEmail().withMessage("Format email tidak valid"),
   validationHandler,
 ];

@@ -1,8 +1,8 @@
-import { Router } from 'express';
-import DokumenController from '../controllers/dokumen.controller';
-import { createDokumenValidation } from '../middleware/validation/dokumen.validation';
-import { uploaderMemory } from '../middleware/uploader';
-import { authMiddleware, adminGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import DokumenController from "../controllers/dokumen.controller";
+import { createDokumenValidation } from "../middleware/validation/dokumen.validation";
+import { uploaderMemory } from "../middleware/uploader";
+import { authMiddleware, adminGuard } from "../middleware/auth.middleware";
 
 class DokumenRouter {
   private route: Router;
@@ -15,27 +15,24 @@ class DokumenRouter {
   }
 
   private initializeRoute(): void {
-    // Create dokumen - Admin only
     this.route.post(
-      '/',
+      "/",
       authMiddleware,
       adminGuard,
-      uploaderMemory().single('file'),
+      uploaderMemory().single("file"),
       createDokumenValidation,
       this.dokumenController.create
     );
 
-    // List all dokumen - Admin only
     this.route.get(
-      '/',
+      "/",
       authMiddleware,
       adminGuard,
       this.dokumenController.getAll
     );
 
-    // Delete dokumen - Admin only
     this.route.delete(
-      '/:id',
+      "/:id",
       authMiddleware,
       adminGuard,
       this.dokumenController.delete

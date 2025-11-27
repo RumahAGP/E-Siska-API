@@ -1,6 +1,12 @@
-import { Router } from 'express';
-import RaporController from '../controllers/rapor.controller';
-import { authMiddleware, guruGuard, waliKelasGuard, adminGuard, siswaGuard } from '../middleware/auth.middleware';
+import { Router } from "express";
+import RaporController from "../controllers/rapor.controller";
+import {
+  authMiddleware,
+  guruGuard,
+  waliKelasGuard,
+  adminGuard,
+  siswaGuard,
+} from "../middleware/auth.middleware";
 
 class RaporRouter {
   private route: Router;
@@ -13,49 +19,43 @@ class RaporRouter {
   }
 
   private initializeRoute(): void {
-    // Update rapor data - Wali Kelas only
     this.route.put(
-      '/siswa/:siswaId',
+      "/siswa/:siswaId",
       authMiddleware,
       waliKelasGuard,
       this.raporController.updateDataRapor
     );
 
-    // Generate rapor - Wali Kelas only
     this.route.post(
-      '/siswa/:siswaId/generate',
+      "/siswa/:siswaId/generate",
       authMiddleware,
       waliKelasGuard,
       this.raporController.generate
     );
 
-    // Finalize rapor - Wali Kelas only
     this.route.post(
-      '/siswa/:siswaId/finalize',
+      "/siswa/:siswaId/finalize",
       authMiddleware,
       waliKelasGuard,
       this.raporController.finalize
     );
 
-    // Definalize rapor - Wali Kelas only
     this.route.post(
-      '/siswa/:siswaId/definalize',
+      "/siswa/:siswaId/definalize",
       authMiddleware,
       waliKelasGuard,
       this.raporController.definalize
     );
 
-    // Override nilai rapor - Admin only
     this.route.post(
-      '/siswa/:siswaId/override',
+      "/siswa/:siswaId/override",
       authMiddleware,
       adminGuard,
       this.raporController.override
     );
 
-    // Get My Rapor - Siswa only
     this.route.get(
-      '/me',
+      "/me",
       authMiddleware,
       siswaGuard,
       this.raporController.getMyRapor

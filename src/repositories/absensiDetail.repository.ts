@@ -6,14 +6,10 @@ export interface AbsensiInputItem {
   status: AbsensiStatus;
 }
 
-/**
- * Menyimpan (Create/Update) detail absensi untuk satu sesi
- */
 export const upsertAbsensiDetailRepo = async (
   sesiId: string,
   dataSiswa: AbsensiInputItem[]
 ) => {
-  // Kita gunakan transaksi untuk memastikan semua tersimpan atau gagal sama sekali
   return prisma.$transaction(
     dataSiswa.map((item) =>
       prisma.absensiDetail.upsert({

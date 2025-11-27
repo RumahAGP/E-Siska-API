@@ -28,7 +28,7 @@ class JadwalController {
         success: true,
         message: "Jadwal berhasil dibuat",
         data: result,
-      }); 
+      });
     } catch (error: unknown) {
       if (error instanceof Error) {
         logger.error(`Error create jadwal: ${error.message}`);

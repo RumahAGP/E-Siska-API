@@ -1,5 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { createDokumenService, getAllDokumenService, deleteDokumenService } from "../service/dokumen.service";
+import {
+  createDokumenService,
+  getAllDokumenService,
+  deleteDokumenService,
+} from "../service/dokumen.service";
 import logger from "../utils/logger";
 import AppError from "../utils/AppError";
 
