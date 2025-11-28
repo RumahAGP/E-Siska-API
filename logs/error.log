@@ -40,3 +40,27 @@ C:\Dev 1\e-siska\e-siska-api\prisma\seed-admin.ts:14:45
 Can't reach database server at `aws-1-us-east-2.pooler.supabase.com:6543`
 
 Please make sure your database server is running at `aws-1-us-east-2.pooler.supabase.com:6543`.
+2025-11-28 16:59:50 [ERROR]: POST /auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-11-28 17:00:08 [ERROR]: POST /auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-11-28 17:00:47 [ERROR]: POST /auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-11-28 17:01:01 [ERROR]: POST /auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-11-28 17:01:04 [ERROR]: POST /auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-11-28 17:01:17 [ERROR]: POST /auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-11-28 17:01:55 [ERROR]: POST /auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-11-28 17:02:00 [ERROR]: POST /auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-11-28 17:02:36 [ERROR]: POST /auth/signin: Akun tidak ditemukan {"code":404,"message":"Akun tidak ditemukan","isSuccess":false}
+2025-11-28 17:04:18 [ERROR]: Error seeding admin: PrismaClientInitializationError: 
+Invalid `prisma.user.findFirst()` invocation in
+C:\Users\ANDIKA GALIH\Documents\SEMESTER 5\Kegiatan PKM\E-Siska-API\prisma\seed-admin.ts:9:45
+
+  6 try {
+  7   logger.info("Starting admin seed...");
+  8 
+→ 9   const existingAdmin = await prisma.user.findFirst(
+Can't reach database server at `aws-1-us-east-2.pooler.supabase.com:6543`
+
+Please make sure your database server is running at `aws-1-us-east-2.pooler.supabase.com:6543`.
+2025-11-28 17:05:35 [ERROR]: POST /auth/signin: Password salah {"code":400,"message":"Password salah","isSuccess":false}
+2025-11-28 17:13:52 [ERROR]: POST /kelas: undefined [{"type":"field","value":"","msg":"ID Tingkatan Kelas wajib diisi","path":"tingkatanId","location":"body"},{"type":"field","value":"","msg":"Format ID Tingkatan tidak valid","path":"tingkatanId","location":"body"},{"type":"field","value":"","msg":"Format ID Wali Kelas tidak valid","path":"waliKelasId","location":"body"}]
+2025-11-28 17:13:53 [ERROR]: POST /kelas: undefined [{"type":"field","value":"","msg":"ID Tingkatan Kelas wajib diisi","path":"tingkatanId","location":"body"},{"type":"field","value":"","msg":"Format ID Tingkatan tidak valid","path":"tingkatanId","location":"body"},{"type":"field","value":"","msg":"Format ID Wali Kelas tidak valid","path":"waliKelasId","location":"body"}]
+2025-11-28 17:13:53 [ERROR]: POST /kelas: undefined [{"type":"field","value":"","msg":"ID Tingkatan Kelas wajib diisi","path":"tingkatanId","location":"body"},{"type":"field","value":"","msg":"Format ID Tingkatan tidak valid","path":"tingkatanId","location":"body"},{"type":"field","value":"","msg":"Format ID Wali Kelas tidak valid","path":"waliKelasId","location":"body"}]
